@@ -1,0 +1,77 @@
+\documentclass{article}
+% \usepackage{natbib}
+
+%%% Begin imports
+% 
+% math
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+% 
+% theorems
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+% 
+% algorithm
+\usepackage{algorithm2e}
+% 
+% graphics
+\usepackage{float}
+\usepackage{graphicx}
+% \usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+% 
+% links
+\usepackage{hyperref}
+\usepackage{cleveref}
+%
+%%% End imports
+
+%%% Begin macros
+% symbols
+\def\RR{\mathbb{R}}
+%%% End macros
+
+%%% Set title
+\title{Kernel Principal Component Analysis}
+\author{Alex Beeny (\url{abeeny@siue.edu})}
+\date{Spring 2024}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\begin{abstract}
+    Principal component analysis (PCA) and kernel methods are tools often used in data science.
+    The underlying theory of these tools depend on the properties of a special type of Hilbert space called a reproducing kernel Hilbert space (RKHS).
+    This paper explores the essence of RKHSs using data science examples, in particular, PCA and kernel PCA.
+    When kernel methods are applied to PCA, we can analyze nonlinear data in a high-dimensional feature space with some nice properties.
+\end{abstract}
+\section{Introduction}
+\input{sections/010-introduction.tex}
+\section{Principal Component Analysis}
+\input{sections/020-pca.tex}
+% \section{Kernel Methods} % removed
+\section{Reproducing Kernel Hilbert Space}
+\input{sections/030-rkhs.tex}
+\section{Kernel PCA}
+\input{sections/040-kernel-pca.tex}
+\section{Conclusion}
+\input{sections/060-conclusion.tex}
+\appendix
+\section{Linear Algebra}
+\input{sections/070-linear-algebra.tex}
+\section{Riesz Representation Theorem}
+\input{sections/080-riesz-representation-theorem.tex}
+\section{Mercer's Theorem}
+\input{sections/090-mercers-theorem.tex}
+\section{Code}
+\input{sections/100-code.tex}
+
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{refs}
+\end{document}

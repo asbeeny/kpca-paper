@@ -1,0 +1,53 @@
+% \begin{itemize}
+%     \item linear and nonlinear data
+%     \item example
+%     \item distinction between features and attributes
+%     \item example
+%     \item feature maps (\href{https://cs229.stanford.edu/summer2020/cs229-notes3.pdf}{Ng, 2019})
+%     \item informal definition of feature space
+% \end{itemize}
+
+In linear regression, the equation of a line \(y = a_0 + a_1 x\) is used to model observations based on training data.
+Here, the input variable \(x\) is used to predict the response variable \(y\).
+The parameters \(a_0\) and \(a_1\) are chosen such that the residual error\footnote{The residual for a given observation \(\left(x^{(i)},y^{(i)}\right)\) is \(\left|y^{(i)} - \left(a_0 + a_1 x^{(i)}\right)\right|\).} is minimized.
+It seems natural to model data using polyomial equations in a similar way, that is, determine \(a_0, a_1, \dots, a_n\) such that
+\begin{equation}
+    \label{eqn:polynomial-regression}
+    y = a_0 + a_1 x + a_2 x^2 + \dots + a_n x^n
+\end{equation}
+minimizes the residual error.
+% See \Cref{fig:linear-nonlinear}.
+% \begin{figure}
+%     \centering
+%     \input{figs/fig-linear-nonlinear.tex}
+%     \caption{Linear regression (left) and cubic polynomial regression (right).}
+%     \label{fig:linear-nonlinear}
+% \end{figure}
+
+In multiple linear regression, the equation of a hyperplane
+\begin{equation}
+    \label{eqn:multiple-linear-regression}
+    y = a_0 + a_1 x_1 + a_2 x_2 + \dots + a_n x_n
+\end{equation}
+is used to predict \(y\) using inputs \(x_1, x_2, \dots x_n\).
+It follows that these observations are points in \(n + 1\) dimensions.
+
+\begin{example}
+    % 
+    Suppose we have a set of points \(\left\{\left(x^{(i)}, y^{(i)}\right)\right\}_{i=1}^{k}\) in \(\RR^2\).
+    \begin{figure}
+        \centering
+        \input{figs/fig-feature-space.tex}
+        \caption{Plotting \(y\) against \(x\) (left) and the derived feature \(z = \phi(x)\) (middle). The 3D plot (right) graphs the output \(y\) against \(x\) and \(x^2\)}
+        \label{fig:feature-map}
+    \end{figure}
+    Using polynomial regression, we fit the model \(y \sim x + x^2\).
+    % See \Cref{fig:feature-map}.
+    We can derive a new variable from \(x\) to get \[z = \phi(x) = a_0 + a_1 x + a_2 x^2.\]
+    By transforming our original data, the quadradic relationship between \(x\) and \(y\) can be viewed as a linear relationship between \(z\) and \(y\).
+    This shows that polynomial regression is just a special case of multiple regression where each power of \(x\) is treated as a separate dimension.
+    See \Cref{fig:feature-map}
+
+    Here, we make the distinction between different kinds of input variables.
+    We say that \(x\) is an \textbf{attribute} and that \(z\) is a \textbf{feature}.
+\end{example}

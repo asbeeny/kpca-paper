@@ -1,0 +1,61 @@
+\begin{thebibliography}{10}
+
+\bibitem{bartlett2008notes}
+Peter Bartlett.
+\newblock
+  \href{https://people.eecs.berkeley.edu/~bartlett/courses/281b-sp08/}{CS 281B
+  / Stat 241B Statistical Learning Theory}.
+\newblock Lecture notes, Spring 2008.
+
+\bibitem{bartlett2014notes}
+Peter Bartlett.
+\newblock
+  \href{https://www.stat.berkeley.edu/~bartlett/courses/2014spring-cs281bstat241b/}{CS
+  281B / Stat 241B Statistical Learning Theory}.
+\newblock {Lecture notes}, Spring 2014.
+
+\bibitem{hofmann_2008}
+Thomas Hofmann, Bernhard Schölkopf, and Alexander~J. Smola.
+\newblock \href{https://arxiv.org/abs/math/0701907}{Kernel methods in machine
+  learning}.
+\newblock {\em The Annals of Statistics}, 36(3), jun 2008.
+
+\bibitem{horn1990matrix}
+R.A. Horn and C.R. Johnson.
+\newblock {\em Matrix Analysis}.
+\newblock Cambridge University Press, 1990.
+
+\bibitem{matlab2023pca}
+The~MathWorks Inc.
+\newblock Statistics and machine learning toolbox, 2022.
+
+\bibitem{mohri2012foundations}
+Mehryar Mohri, Afshin Rostamizadeh, and Ameet Talwalkar.
+\newblock {\em \href{https://cs.nyu.edu/~mohri/mlbook/}{Foundations of Machine
+  Learning}}.
+\newblock Adaptive Computation and Machine Learning series. MIT Press, 2012.
+
+\bibitem{rudin2023notes}
+Cynthia Rudin.
+\newblock \href{https://users.cs.duke.edu/~cynthia/teaching.html}{Intuition for
+  the Algorithms of Machine Learning}.
+\newblock Lecture notes, 2023.
+
+\bibitem{rudin1987real}
+Walter Rudin.
+\newblock {\em Real and Complex Analysis}.
+\newblock Higher Mathematics Series. McGraw-Hill Education, 1987.
+
+\bibitem{shalizi2021advanced}
+Cosma~Rohilla Shalizi.
+\newblock \href{https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/}{Advanced Data
+  Analysis from an Elementary Point of View}.
+\newblock Draft textbook, 2021.
+
+\bibitem{shawe2004kernel}
+John Shawe-Taylor and Nello Cristianini.
+\newblock {\em \href{https://doi.org/10.1017/CBO9780511809682}{Kernel Methods
+  for Pattern Analysis}}.
+\newblock Cambridge University Press, 2004.
+
+\end{thebibliography}

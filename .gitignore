@@ -1,0 +1,7 @@
+reading/*
+*.log
+*.aux
+*.out
+*.gz
+*.synctex.gz
+*.toc
