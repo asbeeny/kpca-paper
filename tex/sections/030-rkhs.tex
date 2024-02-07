@@ -1,0 +1,30 @@
+Recall that the PCA algorithm involves minimizing terms involving the dot product \(x^\top x\).
+We would like to replace this with a more general inner product.
+
+\begin{definition}
+    \cite[p. 10]{small1994hilbert}
+    Let \(X\) be a (real) vector space.
+    An \textbf{inner product} is a function \(\langle \cdot, \cdot \rangle : X \times X \to \RR\) which satisfies the following properties:
+    \begin{enumerate}
+        \item Symmetry. For all \(x,y \in X\),
+        \[\langle x,y \rangle = \langle y, x \rangle.\]
+        \item Linear in the first argument. For all \(x,y,z \in X\), \(\alpha, \beta \in \RR\),
+        \[\langle \alpha x + \beta y, z \rangle = \alpha \langle x, z \rangle + \beta \langle y, z \rangle.\]
+        \item Positive definite. For all \(x \in X\),
+        \[\langle x, x \rangle \geq 0\]
+        and \(\langle x, x \rangle = 0\) if and only if \(x = 0\).
+    \end{enumerate}
+    An inner product space is a vector space along with an inner product.
+\end{definition}
+
+The norm induced by an inner product is defined as
+\[\|x\| = \langle x, x \rangle^{1/2}\]
+and the metric induced by this norm is
+\[d(x,y) = \|x - y\| = \langle x-y, x-y \rangle^{1/2}.\]
+It follows that an inner product space is also a normed space and a metric space.
+So, the induced norm will have the following properties for all \(x,y \in X\) and \(\alpha \in \RR\):
+\begin{enumerate}
+    \item Triangle inequality. \(\|x + y \| \leq \|x\| + \|y\|\);
+    \item Scalar multiplication. \(\|\alpha x\| = |\alpha| \|x\|\);
+    \item Positivity. \(\|x\| \geq 0\) and \(\|x\| = 0\) if and only if \(x = 0\). 
+\end{enumerate}

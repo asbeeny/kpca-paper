@@ -1,10 +1,13 @@
-\begin{itemize}
-    \item describe the goal of PCA
-    \item PCA as a rotation and rescaling
-    \item show PCA minimizes projection residuals
-    \item PCA algorithm
-    \item PCA example (old)
-\end{itemize}
+Principal component analysis (PCA) is a coordinate transform that minimizes projection residuals along each of the major axes \(e_1, e_2, \dots, e_m\) of the transformed space.
+These axes are referred to as \textbf{principal components}.
+After the PCA transform is applied to a set of observations, the smallest projection error is along the first principal component.
+If we project down to two dimensions, the first two principal components have the smallest projection error.
+In general, projecting down to \(k \leq m\) dimensions is most accurate along \(e_1, e_2, \dots, e_k\).
+
+Conversely, projecting along \(e_2, \dots, e_m\) will result in the largest residual error in \(m-1\) dimensions.
+It follows that \(e_1\) must be the direction with the highest variance.
+Then \(e_2\) is the direction with the next highest variance, and so on.
+% In this way, we can picture PCA as the covariance ellipsoid for the original data.
 
 \begin{example}
     \def\Amat{\begin{bmatrix}
@@ -106,3 +109,45 @@
     Hence,
     \[E_3 = \sigma_3 + \sigma_4 = \sqrt{1.4579} + 0 = 1.2074.\]
 \end{example}
+
+\subsection{Ordinary least squares and PCA}
+\def\vb#1{\mathbf{#1}}
+Let \(X\) and \(Y\) be random variables corresponding to observation vectors \(\vb{x}\) and \(\vb{y}\).
+Suppose we want to fit a linear model such that \(Y \sim 1 + X\).
+
+In two dimensions, the model for ordinary least squares (OLS) regression reduces to
+\def\cov{\operatorname{cov}}
+\def\Var{\operatorname{var}}
+\begin{equation}
+    \label{eqn:ols-model}
+    y(x) = \frac{\cov(\vb{x},\vb{y})}{\Var(\vb{x})}(x - \overline{\vb{x}}) + \overline{\vb{y}},
+\end{equation}
+This model minimizes the sum of squared errors when used to predict \(\vb{y}\) values.
+If we model \(X\) as the target instead, OLS would yield a different formula.
+In contrast, PCA can be used to create the regression model\footnote{I think this model would be considered total least squares (TLS) regression since it uses all variables (input and output). Principal component regression (PCR) creates the regression equation using only the input variables.}
+\begin{equation}
+    \label{eqn:pca-model}
+    y(x) = \frac{\lambda_{\max} - \Var({\vb{x}})}{\cov(\vb{x},\vb{y})}(x - \overline{\vb{x}}) + \overline{\vb{y}},
+\end{equation}
+where \(\lambda_{\max}\) is the largest eigenvector of the covariance matrix
+\[\begin{bmatrix}
+    \cov(\vb{x}, \vb{x}) & \cov(\vb{x}, \vb{y}) \\
+    \cov(\vb{y}, \vb{x}) & \cov(\vb{y}, \vb{y})
+\end{bmatrix} = \begin{bmatrix}
+    \Var(\vb{x}) & \cov(\vb{x}, \vb{y}) \\
+    \cov(\vb{x}, \vb{y}) & \Var(\vb{y})
+\end{bmatrix}.\]
+In particular,
+\[\lambda_{\max} = \frac{1}{2}\left(\Var(\vb{x}) + \Var(\vb{y}) + \sqrt{(\Var(\vb{x}) - \Var(\vb{y}))^2 + 4\cov(\vb{x},\vb{y})^2}\right).\]
+The PCA model minimizes orthogonal projection residuals, that is, the line given by \eqref{eqn:pca-model} results in the shortest total distance to the set of points \(\{(x^{(i)},y^{(i)})\}\).
+So, whether \(X\) or \(Y\) is treated as the target variable, the regression line is the same.
+See \Cref{fig:ols-pca}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.4\linewidth]{figs/fig-least-squares.png}
+    \hfill
+    \includegraphics[width=.4\linewidth]{figs/fig-orthogonal-regression.png}
+    \caption{Ordinary least squares (left) minimizes the sum of squared errors while total least squares, i.e., the PCA model (right) minimizes the orthogonal projections.}
+    \label{fig:ols-pca}
+\end{figure}
