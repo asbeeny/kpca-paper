@@ -10,6 +10,8 @@ Current project paper is here: ([tex/main.pdf](tex/main.pdf)).
 
 ## TODO:
 
+- [ ] Cynthia Rudin proofs 1-7 [mit-notes](https://ocw.mit.edu/courses/15-097-prediction-machine-learning-and-statistics-spring-2012/c80897854282a1fb65c3c99488f6ae50_MIT15_097S12_lec13.pdf#page=18)
+
 ### 1 Introduction
 - [ ] clean up example
 - [ ] show the idea of feature maps
