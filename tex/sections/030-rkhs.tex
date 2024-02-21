@@ -61,7 +61,7 @@ So, the induced norm will have the following properties for all \(x,y \in X\) an
 \end{definition}
 
 \begin{definition}[feature map]
-    \cite{rudin2023notes}
+    \cite{rudin2020notes}
     Let \(H\) be a Hilbert space of functions \(f : X \to \RR\).
     A feature map is a function \(\Phi : X \to H\).
 \end{definition}
@@ -87,39 +87,154 @@ If instead we know \(k\) is a kernel, then we need to show that there is a uniqu
 \end{itemize}
 
 \begin{theorem}
-    \cite{rudin2023notes,shawe2004kernel}
+    \cite{rudin2020notes,shawe2004kernel}
     Suppose \(k_1\) and \(k_2\) are kernels over \(X \times X\).
     The following functions kernels.
     \begin{enumerate}
         \item \(k(x,y) = a_1 k_1(x,y) + a_2 k_2(x,y)\) for all \(a_1, a_2 \geq 0\).
         \item \(k(x,y) = k_1(x,y) k_2(x,y)\).
+        \item \(k(x,y) = a_0 + a_1 k_1(x,y) + a_2 k_1(x,y)^2 + \cdots + a_n k_1(x,y)^n\) for all \(n \in \NN\) and \(a_0, \dots, a_n \geq 0\).
         \item \(k(x,y) = k_1(h(x),h(y))\) for all \(h : X \to X\).
         \item \(k(x,y) = g(x)g(y)\) for all \(g : X \to \RR\).
-        \item \(k(x,y) = a_0 + a_1 k_1(x,y) + a_2 k_1(x,y)^2 + \cdots + a_n k_1(x,y)^n\) for all \(n \in \NN\) and \(a_0, \dots, a_n \geq 0\).
         \item \(k(x,y) = \exp(k_1(x,y))\).
     \end{enumerate}
 \end{theorem}
 
 \begin{proof}
-    Let \(x_1, \dots, x_n \in X\).
+    Let \(x_1, \dots, x_n \in X\) and \(c_1, \dots, c_n \in \RR\).
+    % Then for all \(i,j = 1,2,\dots,n\), we have
+    % \[[K_1]_{ij} = k_1(x_i,x_j), \quad [K_2]_{ij} = k_2(x_i,x_j).\]
     \begin{enumerate}
-        \item Let \(a_1, a_2 \geq 0\).
-        Define the matrices \(K_1\) and \(K_2\) by
+        \item \label{itm:kernel-linear-combo}
+        Let \(k = a_1k_1 + a_2k_2\) for \(a_1, a_2 \geq 0\).
+        Since \(k_1\) and \(k_2\) are symmetric,
+        \[
+            k(x,y)
+            = a_1k_1(x,y) + a_2k_2(x,y)
+            = a_1k_1(y,x) + a_2k_2(y,x)
+            = k(y,x),
+        \]
+        for all \(x,y \in X\).
+        So, \(k\) is symmetric.
+
+        Since \(k_1\) and \(k_2\) are positive semi-definite and \(a_1, a_2 \geq 0\),
         \begin{align*}
-            [K_1]_{ij} &= k_1(x_i,x_j),&
-            [K_2]_{ij} &= k_2(x_i,x_j),
+            \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k(x_i,x_j)
+            &= \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j (a_1 k_1(x_i,x_j) + a_2 k_2(x_i,x_j))\\
+            &= a_1 \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k_1(x_i,x_j)
+            + a_2 \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k_2(x_i,x_j)\\
+            &\geq 0.
         \end{align*}
-        for \(i,j = 1,\dots,n\).
-        Let \(K = a_1 K_1 + a_2 K_2\).
-        Since \(K_1\) and \(K_2\) are symmetric, so is \(K\).
-        Since \(K_1\) and \(K_2\) are positive semi-definite and \(a_1, a_2 \geq 0\),
-        \[w^\top K w = w^\top (a_1 K_1 + a_2 K_2) w = a_1 (w^\top K_1 w) + a_2 (w^\top K_2 w) \geq 0,\]
-        for any \(w \in \RR^n\).
-        It follows that \(K\) is symmetric positive semi-definite.
-        Since \(K\) is the Gram matrix for \(k\), \(k\) is a kernel.
-        \item 
-        \item 
-        \item 
+        So, \(k\) is positive semi-definite.
+        \item \label{itm:kernel-product}
+        Let \(k = k_1 k_2\).
+        % Since \(k_1\) and \(k_2\) are symmetric,
+        % \[k(x,y) = k_1(x,y)k_2(x,y) = k_1(y,x)k_2(y,x) = k(y,x),\]
+        % for all \(x,y \in X\).
+        % So, \(k\) is symmetric.
+
+        Define \(K\) so that \([K]_{ij} = k(x_i,x_j) = k_1(x_i, x_j) k_2(x_i, x_j)\).
+        Let \(K_1\) and \(K_2\) be the Gram matrices for \(k_1\) and \(k_2\), respectively.
+        Then \(K_1, K_2\) are symmetric positive semi-definite and we can write
+        \def\dsum{\displaystyle\sum}
+        \begin{align*}
+            K_1 &= V LV^\top \\
+            &= \begin{bmatrix}
+                v_{11} & \cdots & v_{1n}\\
+                \vdots & \ddots & \vdots\\
+                v_{n1} & \cdots & v_{nn}\\
+            \end{bmatrix}
+            \begin{bmatrix}
+                \lambda_{1} & \cdots & 0\\
+                \vdots & \ddots & \vdots\\
+                0 & \cdots & \lambda_{n}\\
+            \end{bmatrix}
+            \begin{bmatrix}
+                v_{11} & \cdots & v_{n1}\\
+                \vdots & \ddots & \vdots\\
+                v_{1n} & \cdots & v_{nn}\\
+            \end{bmatrix}\\
+            % &= \begin{bmatrix}
+            %     v_{11} & \cdots & v_{1n}\\
+            %     \vdots & \ddots & \vdots\\
+            %     v_{n1} & \cdots & v_{nn}\\
+            % \end{bmatrix}
+            % \begin{bmatrix}
+            %     \lambda_{1} v_{11} & \cdots & \lambda_{1} v_{n1}\\
+            %     \vdots & \ddots & \vdots\\
+            %     \lambda_{n} v_{1n} & \cdots & \lambda_{n} v_{nn}\\
+            % \end{bmatrix}\\
+            &= \begin{bmatrix}
+                \dsum_{j=1}^{n} \lambda_{j} v_{1j} v_{1j} & \cdots & \dsum_{j=1}^{n} \lambda_{j} v_{nj} v_{1j} \\
+                \vdots & \ddots & \vdots\\
+                \dsum_{j=1}^{n} \lambda_{j} v_{1j} v_{nj} & \cdots & \dsum_{j=1}^{n} \lambda_{j} v_{nj} v_{nj}\\
+            \end{bmatrix}\\
+            &= \sum_{j=1}^{n} \lambda_{j}
+            \begin{bmatrix}
+                v_{1j} v_{1j} & \cdots & v_{nj} v_{1j} \\
+                \vdots & \ddots & \vdots\\
+                v_{1j} v_{nj} & \cdots & v_{nj} v_{nj}\\
+            \end{bmatrix}
+            % &= \sum_{j=1}^{n} \lambda_{j} \begin{bmatrix}
+            %     v_{1j} \\ \vdots \\ v_{nj}
+            % \end{bmatrix}
+            % \begin{bmatrix}
+            %     v_{1j} & \cdots & v_{nj}
+            % \end{bmatrix}
+            \intertext{and similarly}
+            K_2 &= UMU^\top = \sum_{j=1}^{n} \mu_{j}
+            \begin{bmatrix}
+                u_{1j} u_{1j} & \cdots & u_{nj} u_{1j} \\
+                \vdots & \ddots & \vdots\\
+                u_{1j} u_{nj} & \cdots & u_{nj} u_{nj}\\
+            \end{bmatrix}.
+        \end{align*}
+        \def\w{\mathbf{w}_{ij}}
+        Let \(\w = \begin{bmatrix}
+            v_{1i} u_{1j} & \cdots & v_{ni} u_{nj}
+        \end{bmatrix}^\top\).
+        Then
+        \begin{align*}
+            K &= K_1 \circ K_2\\
+            &= \sum_{i=1}^{n} \lambda_{i}
+            \begin{bmatrix}
+                v_{1i} v_{1i} & \cdots & v_{ni} v_{1i} \\
+                \vdots & \ddots & \vdots\\
+                v_{1i} v_{ni} & \cdots & v_{ni} v_{ni}\\
+            \end{bmatrix} \circ
+            \sum_{j=1}^{n} \mu_{j}
+            \begin{bmatrix}
+                u_{1j} u_{1j} & \cdots & u_{nj} u_{1j} \\
+                \vdots & \ddots & \vdots\\
+                u_{1j} u_{nj} & \cdots & u_{nj} u_{nj}\\
+            \end{bmatrix}\\
+            &= \sum_{i=1}^{n} \sum_{j=1}^{n} \lambda_{i} \mu_{j}
+            \begin{bmatrix}
+                v_{1i} u_{1j} v_{1i} u_{1j} & \cdots & v_{1i} u_{1j} v_{ni} u_{nj} \\
+                \vdots & \ddots & \vdots\\
+                v_{ni} u_{nj} v_{1i} u_{1j} & \cdots & v_{ni} u_{nj} v_{ni}  u_{nj}
+            \end{bmatrix}\\
+            &= \sum_{i=1}^{n} \sum_{j=1}^{n} \lambda_{i} \mu_{j}
+            \begin{bmatrix}
+                v_{1i} u_{1j} \\ \vdots \\ v_{ni} u_{nj}
+            \end{bmatrix}
+            \begin{bmatrix}
+                v_{1i} u_{1j} & \cdots & v_{ni} u_{nj}
+            \end{bmatrix}\\
+            &= \sum_{i=1}^{n} \sum_{j=1}^{n} \lambda_{i} \mu_{j}
+            \w \w^\top.
+        \end{align*}
+        Each \(\w \w^\top\) is a symmetric positive semi-definite matrix.
+        Since \(K_1, K_2\) are positive semi-definite, we have \(\lambda_i, \mu_i > 0\).
+        Then \(K\) is symmetric positive semi-definite.
+        \item By \ref{itm:kernel-product}, \(k_1, k_1^2, \dots, k_1^n\) are kernels.
+        By \ref{itm:kernel-linear-combo}, \(a_0 + a_1 k_1 + a_2 k_1^2 + \dots + a_n k_1^n\) is a kernel.
+        \item Since \(h(x_i) \in X\) for all \(i = 1,2,\dots, n\), we have
+        \[
+            \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k(x_i,x_j)
+            = \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k_1(h(x_i), h(x_j))
+            \geq 0
+        \]
         \item 
         \item 
     \end{enumerate}

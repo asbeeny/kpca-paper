@@ -1,0 +1,73 @@
+% \begin{theorem}[Properties of symmetric matrices]
+%     \label{thm:properties-of-symmetric-matrices}
+%     If \(A\) and \(B\) are symmetric, then the following properties hold:
+%     \begin{enumerate}
+%         \item \(A\) is normal, i.e., \(AA^\top = A^\top A\).
+%         \item \(A\) is diagonalizable with real eigenvalues and orthogonal eigenvectors.
+%         \item \(A^{-1}\) is symmetric.
+%         \item \(A + B\) is symmetric.
+%         \item The Hadamard product \(A \circ B\) is symmetric, where \([A \circ B]_{ij} = [A]_{ij} [B]_{ij}\).
+%         \item \(ABA\) is symmetric.
+%     \end{enumerate}
+% \end{theorem}
+
+\begin{lemma}
+    Symmetric matrices have orthogonal eigenvectors and real eigenvalues.
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+
+\begin{lemma}
+    Positive semi-definite matrices have nonnegative eigenvalues.
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+
+% \begin{lemma}
+%     \label{lem:spsd-decomposition}
+%     If \(A\) is symmetric positive semi-definite, then we can write
+%     \[A = V^{\top} V.\]
+% \end{lemma}
+% \begin{proof}
+%     \def\diag{\operatorname{diag}}
+%     Since \(A\) is symmetric, it can be diagonalized by \(A = Q^{\top}DQ\), where \(Q\) is orthogonal and \(D = \diag(\lambda_1, \lambda_2, \dots, \lambda_n)\).
+%     Since \(A\) is positive semi-definite, \(\lambda_1, \lambda_2, \dots, \lambda_n\) are nonnegative so that \(D^{1/2} = \diag\left(\sqrt{\lambda_1}, \sqrt{\lambda_2}, \dots, \sqrt{\lambda_n}\right)\).
+%     Let \(V = D^{1/2} Q\).
+%     Then
+%     \[A = Q^{\top}DQ = Q^{\top} D^{1/2} D^{1/2} Q = \left(D^{1/2} Q\right)^{\top} \left(D^{1/2} Q\right) = V^{\top} V.\]
+% \end{proof}
+
+\begin{lemma}
+    Let \(A\) be an \(m \times n\) matrix.
+    Then \(A^\top A\) is symmetric positive semi-definite.
+\end{lemma}
+
+\begin{proof}
+    First, \((A^\top A)^\top = A^\top (A^\top)^\top = A^\top A\).
+    So \(A^\top A\) is symmetric.
+\end{proof}
+\def\cov{\operatorname{cov}}
+\begin{definition}
+    Let \(A\) be an \(m \times n\) matrix whose columns represent random variables and rows represent observations.
+    Then the covariance matrix of \(A\) is given by
+    \[\cov(A) = \frac{A^\top A}{m-1}.\]
+\end{definition}
+
+% \subsection{Schur product theorem}
+
+% Let \(A, B \in \RR^{n \times n}\) where \([A]_{ij} = a_{ij}\) and \([B]_{ij} = b_{ij}\) for all \(i,j = 1,2,\dots,n\).
+
+% \begin{lemma}
+%     Let \(A\) be positive semi-definite with eigenvalues \(\lambda_\)
+% \end{lemma}
+
+% \begin{theorem}[Schur product theorem]
+%     Let \(A\) and \(B\) be positive semi-definite matrices and let \(C = A \circ B\) be the Hadamard product of \(A\) and \(B\) given by \([C]_{ij} = [A]_{ij} [B]_{ij}\).
+%     Then \(C\) is positive semi-definite.
+% \end{theorem}
+
+% \begin{proof}
+    
+% \end{proof}

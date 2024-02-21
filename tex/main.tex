@@ -10,6 +10,7 @@
 % theorems
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
@@ -22,9 +23,6 @@
 \usepackage{graphicx}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
-%
-% datetime
-% \usepackage[useregional=text]{datetime2}
 % 
 % links
 \usepackage{hyperref}
@@ -36,11 +34,14 @@
 % symbols
 \def\RR{\mathbb{R}}
 \def\NN{\mathbb{N}}
+
+\DeclareMathOperator{\row}{row}
+\DeclareMathOperator{\col}{col}
 %%% End macros
 
 %%% Set title
 \title{Kernel Principal Component Analysis}
-\author{Alex Beeny (\url{abeeny@siue.edu})}
+\author{Alex Beeny \url{abeeny@siue.edu}}
 \date{Draft: \today}
 
 \setcounter{tocdepth}{1}
@@ -58,7 +59,6 @@
 \input{sections/010-introduction.tex}
 \section{Principal Component Analysis}
 \input{sections/020-pca.tex}
-% \section{Kernel Methods} % removed
 \section{Reproducing Kernel Hilbert Space}
 \input{sections/030-rkhs.tex}
 \section{Kernel PCA}
