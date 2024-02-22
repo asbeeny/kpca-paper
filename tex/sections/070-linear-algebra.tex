@@ -48,10 +48,17 @@
     First, \((A^\top A)^\top = A^\top (A^\top)^\top = A^\top A\).
     So \(A^\top A\) is symmetric.
 \end{proof}
-\def\cov{\operatorname{cov}}
 \begin{definition}
-    Let \(A\) be an \(m \times n\) matrix whose columns represent random variables and rows represent observations.
+    \def\a{\mathbf{a}}
+    Let \(A\) be an \(m \times n\) matrix whose columns \(\a_1, \a_2,\dots,\a_n \in \RR^m\) represent random variables and rows represent observations.
     Then the covariance matrix of \(A\) is given by
+    \[\cov(A) = \begin{bmatrix}
+        \cov(\a_1, \a_1) & \cov(\a_1, \a_2) & \cdots & \cov(\a_1, \a_n)\\
+        \cov(\a_2, \a_1) & \cov(\a_2, \a_2) & \cdots & \cov(\a_2, \a_n)\\
+        \vdots & \vdots & \ddots & \vdots\\
+        \cov(\a_n, \a_1) & \cov(\a_n, \a_2) & \cdots & \cov(\a_n, \a_n)\\
+    \end{bmatrix}.\]
+    If \(A\) is centered, i.e., the columns all have mean zero, then we can write
     \[\cov(A) = \frac{A^\top A}{m-1}.\]
 \end{definition}
 

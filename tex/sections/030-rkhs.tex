@@ -102,8 +102,6 @@ If instead we know \(k\) is a kernel, then we need to show that there is a uniqu
 
 \begin{proof}
     Let \(x_1, \dots, x_n \in X\) and \(c_1, \dots, c_n \in \RR\).
-    % Then for all \(i,j = 1,2,\dots,n\), we have
-    % \[[K_1]_{ij} = k_1(x_i,x_j), \quad [K_2]_{ij} = k_2(x_i,x_j).\]
     \begin{enumerate}
         \item \label{itm:kernel-linear-combo}
         Let \(k = a_1k_1 + a_2k_2\) for \(a_1, a_2 \geq 0\).
@@ -128,14 +126,9 @@ If instead we know \(k\) is a kernel, then we need to show that there is a uniqu
         So, \(k\) is positive semi-definite.
         \item \label{itm:kernel-product}
         Let \(k = k_1 k_2\).
-        % Since \(k_1\) and \(k_2\) are symmetric,
-        % \[k(x,y) = k_1(x,y)k_2(x,y) = k_1(y,x)k_2(y,x) = k(y,x),\]
-        % for all \(x,y \in X\).
-        % So, \(k\) is symmetric.
-
         Define \(K\) so that \([K]_{ij} = k(x_i,x_j) = k_1(x_i, x_j) k_2(x_i, x_j)\).
         Let \(K_1\) and \(K_2\) be the Gram matrices for \(k_1\) and \(k_2\), respectively.
-        Then \(K_1, K_2\) are symmetric positive semi-definite and we can write
+        Then \(K_1, K_2\) have orthonormal eigenvectors and nonnegative eigenvalues such that
         \def\dsum{\displaystyle\sum}
         \begin{align*}
             K_1 &= V LV^\top \\
@@ -154,16 +147,6 @@ If instead we know \(k\) is a kernel, then we need to show that there is a uniqu
                 \vdots & \ddots & \vdots\\
                 v_{1n} & \cdots & v_{nn}\\
             \end{bmatrix}\\
-            % &= \begin{bmatrix}
-            %     v_{11} & \cdots & v_{1n}\\
-            %     \vdots & \ddots & \vdots\\
-            %     v_{n1} & \cdots & v_{nn}\\
-            % \end{bmatrix}
-            % \begin{bmatrix}
-            %     \lambda_{1} v_{11} & \cdots & \lambda_{1} v_{n1}\\
-            %     \vdots & \ddots & \vdots\\
-            %     \lambda_{n} v_{1n} & \cdots & \lambda_{n} v_{nn}\\
-            % \end{bmatrix}\\
             &= \begin{bmatrix}
                 \dsum_{j=1}^{n} \lambda_{j} v_{1j} v_{1j} & \cdots & \dsum_{j=1}^{n} \lambda_{j} v_{nj} v_{1j} \\
                 \vdots & \ddots & \vdots\\
@@ -175,13 +158,7 @@ If instead we know \(k\) is a kernel, then we need to show that there is a uniqu
                 \vdots & \ddots & \vdots\\
                 v_{1j} v_{nj} & \cdots & v_{nj} v_{nj}\\
             \end{bmatrix}
-            % &= \sum_{j=1}^{n} \lambda_{j} \begin{bmatrix}
-            %     v_{1j} \\ \vdots \\ v_{nj}
-            % \end{bmatrix}
-            % \begin{bmatrix}
-            %     v_{1j} & \cdots & v_{nj}
-            % \end{bmatrix}
-            \intertext{and similarly}
+            \intertext{and}
             K_2 &= UMU^\top = \sum_{j=1}^{n} \mu_{j}
             \begin{bmatrix}
                 u_{1j} u_{1j} & \cdots & u_{nj} u_{1j} \\
@@ -189,10 +166,13 @@ If instead we know \(k\) is a kernel, then we need to show that there is a uniqu
                 u_{1j} u_{nj} & \cdots & u_{nj} u_{nj}\\
             \end{bmatrix}.
         \end{align*}
-        \def\w{\mathbf{w}_{ij}}
-        Let \(\w = \begin{bmatrix}
-            v_{1i} u_{1j} & \cdots & v_{ni} u_{nj}
-        \end{bmatrix}^\top\).
+        \def\v{\mathbf{v}}
+        \def\u{\mathbf{u}}
+        Let \(\v_i = \begin{bmatrix}
+            v_{1i} & \cdots & v_{ni}
+        \end{bmatrix}^\top\) and \(\u_j = \begin{bmatrix}
+            u_{1j} & \cdots & u_{nj}
+        \end{bmatrix}\), for all \(i,j = 1, 2, \dots, n\).
         Then
         \begin{align*}
             K &= K_1 \circ K_2\\
@@ -222,21 +202,43 @@ If instead we know \(k\) is a kernel, then we need to show that there is a uniqu
                 v_{1i} u_{1j} & \cdots & v_{ni} u_{nj}
             \end{bmatrix}\\
             &= \sum_{i=1}^{n} \sum_{j=1}^{n} \lambda_{i} \mu_{j}
-            \w \w^\top.
+            (\v_i \circ \u_j) (\v_i \circ \u_j)^\top.
         \end{align*}
-        Each \(\w \w^\top\) is a symmetric positive semi-definite matrix.
+        Each \((\v_i \circ \u_j) (\v_i \circ \u_j)^\top\) is a symmetric positive semi-definite matrix.
         Since \(K_1, K_2\) are positive semi-definite, we have \(\lambda_i, \mu_i > 0\).
         Then \(K\) is symmetric positive semi-definite.
-        \item By \ref{itm:kernel-product}, \(k_1, k_1^2, \dots, k_1^n\) are kernels.
-        By \ref{itm:kernel-linear-combo}, \(a_0 + a_1 k_1 + a_2 k_1^2 + \dots + a_n k_1^n\) is a kernel.
-        \item Since \(h(x_i) \in X\) for all \(i = 1,2,\dots, n\), we have
-        \[
+        \item By part \ref{itm:kernel-product}, \(k_1, k_1^2, \dots, k_1^n\) are kernels.
+        By part \ref{itm:kernel-linear-combo}, \(a_0 + a_1 k_1 + a_2 k_1^2 + \dots + a_n k_1^n\) is a kernel.
+        \item Since \(y_i = h(x_i) \in X\) for all \(i = 1,2,\dots, n\), we have
+        \begin{align*}
             \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k(x_i,x_j)
-            = \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k_1(h(x_i), h(x_j))
-            \geq 0
-        \]
-        \item 
-        \item 
+            &= \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k_1(h(x_i), h(x_j))\\
+            &= \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k_1(y_i, y_j)\\
+            &\geq 0.
+        \end{align*}
+        \item Let \(g : X \to \RR\) and let \(c_i g(x_i) = y_i \in \RR\).
+        If \(k(x,y) = g(x)g(y)\), then
+        \begin{align*}
+            \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k(x_i,x_j)
+            &= \sum_{i=1}^{n} \sum_{j=1}^{n} c_i g(x_i) c_j g(x_j)\\
+            &= \sum_{i=1}^{n} \sum_{j=1}^{n} y_i y_j\\
+            % &= \sum_{\ell=1}^{n} \left(y_\ell^2 + \sum_{i=\ell+1}^{n} y_i y_\ell + \sum_{j=\ell+1}^{n} y_\ell y_j\right)\\
+            % &= \sum_{i=1}^{n} \left(y_i^2 + 2\sum_{j=i+1}^{n} y_i y_j\right)\\
+            &= \left(\sum_{i=1}^{n} y_i\right)^2\\
+            &\geq 0.
+        \end{align*}
+        \item Let \(K_1\) be the Gram matrix for \(k_1\).
+        If \(K_1 v = \lambda v\), then \(K_1^m = \lambda^m v\) for all \(m \in \NN\).
+        So,
+        \begin{align*}
+            (\exp K_1) v
+            = \sum_{m=0}^{\infty} \frac{K_1^m v}{m!}
+            = \sum_{m=0}^{\infty} \frac{\lambda^m v}{m!}
+            = e^\lambda v.
+        \end{align*}
+        Then \(K = \exp K_1\) has eigenvalues \(e^\lambda\).
+        Since \(K_1\) is positive semi-definite, it has real eigenvalues so that \(e^\lambda > 0\).
+        It follows that \(K\) is positive definite.
     \end{enumerate}
 \end{proof}
 
