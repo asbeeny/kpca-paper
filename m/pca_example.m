@@ -11,6 +11,7 @@ plot(X, Y, '.')
 axis([0 10 0 10])
 axis square
 
+%% PCA
 [coeff,score,latent,~,explained,mu] = pca([X Y]);
 
 X0 = X - mu(1);

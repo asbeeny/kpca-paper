@@ -1,14 +1,18 @@
-Recall that the PCA algorithm involves minimizing terms involving the dot product \(x^\top x\).
-We would like to apply a feature map to our variables and replace this dot product with an inner product in the feature space.
-However, since the dimension of the feature space will typically be much larger than the dimension of the original space, optimization using this inner product will be expensive.
-This problem is solved by the so-called \textit{kernel trick} which allows us to circumvent the computational complexity issue caused by high-dimensional spaces.
-In order to justify the kernel trick, we need to establish some theory of reproducing kernel Hilbert spaces.
+% Recall that the PCA algorithm involves minimizing terms involving the dot product \(x^\top x\).
+% We would like to apply a feature map to our variables and replace this dot product with an inner product in the feature space.
+% However, since the dimension of the feature space will typically be much larger than the dimension of the original space, optimization using this inner product will be expensive.
+% This problem is solved by the so-called \textit{kernel trick} which allows us to circumvent the computational complexity issue caused by high-dimensional spaces.
+% In order to justify the kernel trick, we need to establish some theory of reproducing kernel Hilbert spaces.
 
-First, we recall the definition of an inner product.
+% First, we recall the definition of an inner product.
+
+In this section, our goal is to establish properties of Hilbert spaces and kernel functions that can be used to modify the PCA algorithm.
+To begin, we will briefly mention definitions and results from analysis \cite{kreyszig1991introductory}, \cite{rudin1987real} and matrix theory \cite{horn2013matrix}.
+
 \begin{definition}
-    \cite[p. 10]{small1994hilbert}
+    \cite{small1994hilbert} % page 10
     Let \(X\) be a (real) vector space.
-    An \textbf{inner product} is a function \(\langle \cdot, \cdot \rangle : X \times X \to \RR\) which satisfies the following properties:
+    An \textit{inner product} is a function \(\langle \cdot, \cdot \rangle : X \times X \to \RR\) which satisfies the following properties:
     \begin{enumerate}
         \item Symmetry. For all \(x,y \in X\),
         \[\langle x,y \rangle = \langle y, x \rangle.\]
@@ -18,7 +22,7 @@ First, we recall the definition of an inner product.
         \[\langle x, x \rangle \geq 0\]
         and \(\langle x, x \rangle = 0\) if and only if \(x = 0\).
     \end{enumerate}
-    An inner product space is a vector space along with an inner product.
+    An \textit{inner product space} is a vector space along with an inner product.
 \end{definition}
 
 Since real inner products are symmetric and linear in the first argument,
@@ -44,13 +48,85 @@ So, the induced norm will have the following properties for all \(x,y \in X\) an
 
 \begin{definition}[Hilbert space]
     A Hilbert space is a complete inner product space.
-    Let \(H\) be a Hilbert space.
-    Then we denote the inner product as \(\langle \cdot, \cdot \rangle_H\).
+    For a Hilbert space \(H\), we sometimes denote the inner product as \(\langle \cdot, \cdot \rangle_H\) to avoid ambiguity.
 \end{definition}
+
+Two Hilbert spaces \(H\) and \(L\) (over the same field) are said to be \textit{isomorphic} if there is a bijection \(T : H \to L\) such that
+\begin{equation}
+    \label{eqn:hilbert-space-isomorphism}
+    \langle x, y \rangle_H = \langle Tx, Ty \rangle_L,
+\end{equation}
+for every \(x, y \in H\).
+In \cite{kreyszig1991introductory}, Kreyszig shows that two Hilbert spaces are isomorphic if and only if they have the same dimension.
+If \(V\) is an inner product space that is not complete, then it can be extended to a Hilbert space by completion.
+The completion of an inner product space is denoted as \(\overline{V}\) and is unique up to isomorphism.
+
+A Hilbert space is said to be \textit{separable} if it contains a dense countable subset.
+It can be shown \cite{kreyszig1991introductory} that a Hilbert space is separable if and only if it has a countable orthonormal basis.
+The following example demonstrates a useful property of separable Hilbert spaces.
+
+\begin{example}
+    \cite{rudin1987real} % p 84--85
+    The space of square-summable (real) sequences is defined as
+    \begin{equation}
+        \label{eqn:l2-space}
+        \ell^2(A) = \left\{
+            x : A \to \RR \;\middle\vert\; \sum_{a \in A} x_a^2 < \infty
+        \right\}.
+    \end{equation}
+    Given the inner product
+    \begin{equation}
+        \label{eqn:l2-inner-product}
+        \langle x, y \rangle = \sum_{a \in A} x_a y_a,
+    \end{equation}
+    \(\ell^2(A)\) is a Hilbert space.
+    Moreover, \(\ell^2(A)\) is separable if and only if \(A\) is countable.
+    It follows that the sequence space \(\ell^2 = \ell^2(\NN)\) is the separable Hilbert space of square-summable sequences.
+    Due to the Riesz-Fischer theorem, every infinite-dimensional Hilbert space is isomorphic to \(\ell^2\).
+\end{example}
+
+\begin{definition}[Gram matrix]
+    \cite{horn2013matrix}
+    Let \(x_1, x_2, \dots, x_n\) be vectors in an inner product space \(X\).
+    The matrix \(G \in \RR^{n \times n}\) is called a \textit{Gram matrix} if \([G]_{ij} = \langle x_i, x_j \rangle\).
+\end{definition}
+
+\begin{example}
+    \def\v{\mathbf{v}}
+    Consider the vectors in \(\RR^3\):
+    \begin{align*}
+        \v_1 &=
+        \begin{bmatrix}
+            v_{11} \\ v_{21} \\ v_{31}
+        \end{bmatrix},&
+        \v_2 &=
+        \begin{bmatrix}
+            v_{12} \\ v_{22} \\ v_{32}
+        \end{bmatrix},&
+        \v_3 &=
+        \begin{bmatrix}
+            v_{13} \\ v_{23} \\ v_{33}
+        \end{bmatrix},&
+        \v_4 &=
+        \begin{bmatrix}
+            v_{14} \\ v_{24} \\ v_{34}
+        \end{bmatrix}.
+    \end{align*}
+    The Gram matrix for these vectors is
+    \begin{align*}
+        G = \begin{bmatrix}
+            \v_1^\top \v_1 & \v_1^\top \v_2 & \v_1^\top \v_3 & \v_1^\top \v_4\\[3pt]
+            \v_2^\top \v_1 & \v_2^\top \v_2 & \v_2^\top \v_3 & \v_2^\top \v_4\\[3pt]
+            \v_3^\top \v_1 & \v_3^\top \v_2 & \v_3^\top \v_3 & \v_3^\top \v_4\\[3pt]
+            \v_4^\top \v_1 & \v_4^\top \v_2 & \v_4^\top \v_3 & \v_4^\top \v_4\\
+        \end{bmatrix}.
+    \end{align*}
+    If \(V\) is a matrix whose columns are \(\v_1\), \(\v_2\), \(\v_3\), \(\v_4\), then we can write \(G = V^\top V\).
+\end{example}
 
 \begin{definition}[kernel]
     Let \(X\) be a nonempty set and \(k : X \times X \to \RR\).
-    Then \(k\) is a (positive semi-definite) \textbf{kernel} if
+    Then \(k\) is a (positive semi-definite) \textit{kernel} if
     \begin{enumerate}
         \item \(k\) is symmetric: for all \(x,y \in X\),
         \[k(x,y) = k(y,x);\]
@@ -62,8 +138,8 @@ So, the induced norm will have the following properties for all \(x,y \in X\) an
 
 \begin{definition}[feature map]
     \cite{rudin2020notes}
-    Let \(H\) be a Hilbert space of functions \(f : X \to \RR\).
-    A feature map is a function \(\Phi : X \to H\).
+    Let \(F\) be a Hilbert space of functions \(f : X \to \RR\).
+    A feature map is a function \(\Phi : X \to F\).
 \end{definition}
 
 Our goal is to have kernels written as inner products of feature maps:
@@ -202,8 +278,9 @@ If instead we know \(k\) is a kernel, then we need to show that there is a uniqu
                 v_{1i} u_{1j} & \cdots & v_{ni} u_{nj}
             \end{bmatrix}\\
             &= \sum_{i=1}^{n} \sum_{j=1}^{n} \lambda_{i} \mu_{j}
-            (\v_i \circ \u_j) (\v_i \circ \u_j)^\top.
+            (\v_i \circ \u_j) (\v_i \circ \u_j)^\top,
         \end{align*}
+        where \(\circ\) is the Hadamard product.
         Each \((\v_i \circ \u_j) (\v_i \circ \u_j)^\top\) is a symmetric positive semi-definite matrix.
         Since \(K_1, K_2\) are positive semi-definite, we have \(\lambda_i, \mu_i > 0\).
         Then \(K\) is symmetric positive semi-definite.
