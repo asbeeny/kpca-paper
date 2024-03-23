@@ -14,9 +14,10 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
 % 
 % algorithm
-\usepackage{algorithm2e}
+\usepackage[boxruled]{algorithm2e}
 % 
 % graphics
 \usepackage{float}
@@ -32,10 +33,14 @@
 
 %%% Begin macros
 % symbols
+\def\FF{\mathbb{F}}
 \def\RR{\mathbb{R}}
 \def\CC{\mathbb{C}}
 \def\NN{\mathbb{N}}
 
+\DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\rowmean}{row\,mean}
+\DeclareMathOperator{\colmean}{col\,mean}
 \DeclareMathOperator{\row}{row}
 \DeclareMathOperator{\col}{col}
 \DeclareMathOperator{\cov}{cov}
@@ -47,7 +52,7 @@
 \author{Alex Beeny \url{abeeny@siue.edu}}
 \date{Draft: \today}
 
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{2}
 
 \begin{document}
 \maketitle
@@ -59,23 +64,32 @@
     When kernel methods are applied to PCA, we can analyze nonlinear data in a high-dimensional feature space with some nice properties.
 \end{abstract}
 \section{Introduction}
+\label{sec:introduction}
 \input{sections/010-introduction.tex}
 \section{Principal Component Analysis}
+\label{sec:principal-component-analysis}
 \input{sections/020-pca.tex}
 \section{Reproducing Kernel Hilbert Space}
+\label{sec:reproducing-kernel-hilbert-space}
 \input{sections/030-rkhs.tex}
 \section{Kernel PCA}
+\label{sec:kernel-pca}
 \input{sections/040-kernel-pca.tex}
 \section{Conclusion}
+\label{sec:conclusion}
 \input{sections/060-conclusion.tex}
 \appendix
 \section{Linear Algebra}
+\label{sec:linear-algebra}
 \input{sections/070-linear-algebra.tex}
 \section{Riesz Representation Theorem}
+\label{sec:riesz-representation-theorem}
 \input{sections/080-riesz-representation-theorem.tex}
 \section{Mercer's Theorem}
+\label{sec:mercers-theorem}
 \input{sections/090-mercers-theorem.tex}
 \section{Code}
+\label{sec:code}
 \input{sections/100-code.tex}
 
 \nocite{*}

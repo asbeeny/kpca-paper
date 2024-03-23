@@ -1,13 +1,61 @@
-Principal component analysis (PCA) is a coordinate transform that minimizes projection residuals along each of the major axes \(e_1, e_2, \dots, e_m\) of the transformed space.
-These axes are referred to as \textbf{principal components}.
+% # To do
+% - show eigendecomposition of the covariance matrix minimizes the projection residuals
+% - minimizing projection residuals maximizes variance
+% - SVD
+% - PCA algorithm
+% - Fix notation in PCA example
+
+% rewrite this paragraph to focus on minimizing projection residuals
+Principal component analysis (PCA) is a coordinate transform that minimizes projection residuals along each of the major axes \(v_1, v_2, \dots, v_d\) of the transformed space.
+These axes are referred to as \textit{principal components}.
 After the PCA transform is applied to a set of observations, the smallest projection error is along the first principal component.
 If we project down to two dimensions, the first two principal components have the smallest projection error.
-In general, projecting down to \(k \leq m\) dimensions is most accurate along \(e_1, e_2, \dots, e_k\).
+In general, projecting down to \(p \leq d\) dimensions is most accurate along \(v_1, v_2, \dots, v_p\).
 
-Conversely, projecting along \(e_2, \dots, e_m\) will result in the largest residual error in \(m-1\) dimensions.
-It follows that \(e_1\) must be the direction with the highest variance.
-Then \(e_2\) is the direction with the next highest variance, and so on.
-% In this way, we can picture PCA as the covariance ellipsoid for the original data.
+Conversely, projecting along \(v_2, \dots, v_d\) will result in the largest residual error in \(d-1\) dimensions.
+It follows that \(v_1\) must be the direction with the highest variance.
+Then \(v_2\) is the direction with the next highest variance, and so on.
+
+\subsection{Minimizing projection residuals}
+
+% derive the first principal component by minimizing the projection residual
+% derive the next principal component orthogonal to the first one that minimizes the projection residual
+
+
+
+% lead into the algorithm
+
+\begin{algorithm}
+    \everymath{\displaystyle}
+    \caption{Principal component analysis}
+    \label{alg:principal-component-analysis}
+    \KwIn{Data matrix \(A \in \RR^{n \times d}\) and number of components \(p \leq d\)}
+    \KwOut{Coefficient matrix \(V_p \in \RR^{d \times p}\) and transformed data \(\tilde{A} \in \RR^{n \times p}\)}
+
+    \tcp{Center the data}
+    \(A_0 \gets A - \colmean(A)\)\;
+
+    \tcp{Compute \(d \times d\) covariance matrix}
+    \(C \gets \frac{1}{n-1} A_0^\top A\)\;
+
+    \tcp{Diagonalize covariance matrix \(CV = VD\)}
+    \([V, D] \gets \operatorname{eig}(C)\)
+    where \\[4pt]
+    \(V = \begin{bmatrix}
+        v_1, & v_2, & \dots, & v_d
+    \end{bmatrix}\)
+    such that \(v_1, v_2, \dots, v_d \in \RR^d\) and \\[4pt]
+    \(D = \operatorname{diag}(\lambda_1, \lambda_2, \dots, \lambda_d)\)
+    such that \(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d\)\;
+
+    \tcp{Reduce dimension}
+    \(V_p \gets \begin{bmatrix}
+        v_1, & v_2, & \dots, & v_p
+    \end{bmatrix}\)\;
+
+    \tcp{Transform data}
+    \(\tilde{A} \gets A_0 V_p\)\;
+\end{algorithm}
 
 \begin{example}
     \def\Amat{\begin{bmatrix}
@@ -133,19 +181,21 @@ By minimizing \(RSS\), the magnitude of the residuals will be as small as possib
 Therefore, this method is known as least squares regression.
 Differentiate \eqref{eqn:residual-sum-of-squares} with respect to \(\vb{w}\) and set equal to zero so that
 \begin{equation}
-    2 X^\top \vb{y} - 2 X\top X \vb{w} = 0.
+    2 X^\top \vb{y} - 2 X^\top X \vb{w} = 0.
 \end{equation}
-This leads to the normal equation \(X^\top X \vb{w} = X\top \vb{y}\).
+This leads to the normal equation \(X^\top X \vb{w} = X^\top \vb{y}\).
 Thus,
 \begin{equation}
     \vb{w} = (X^\top X)^{-1} X^\top \vb{y}
 \end{equation}
 gives the optimal linear model which minimizes residual error.
 
-In two dimensions, the linear regression model reduces to
+\begin{example}
+    In two dimensions, let \(\vb{x} = (x_1, \dots, x_m)\) and \(\vb{y} = (y_1, \dots, y_m)\).
+    Then the least squares regression model is given by
 \begin{equation}
     \label{eqn:ols-model}
-    f(x) = \frac{\cov(\vb{x}_1,\vb{y})}{\Var(\vb{x}_1)}(x - \overline{\vb{x}}_1) + \overline{\vb{y}},
+    f(x) = \frac{\cov(\vb{x},\vb{y})}{\Var(\vb{x})}(x - \overline{\vb{x}}) + \overline{\vb{y}},
 \end{equation}
 Since \(\vb{x}\) is treated as an input variable and \(\vb{y}\) is treated as an output, this is a type of supervised learning.
 In contrast, PCA is an unsupervised learning technique.
@@ -172,9 +222,10 @@ See \Cref{fig:ols-pca}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=.4\linewidth]{figs/fig-least-squares.png}
+    \includegraphics[width=.49\linewidth]{figs/fig-least-squares.pdf}
     \hfill
-    \includegraphics[width=.4\linewidth]{figs/fig-orthogonal-regression.png}
+    \includegraphics[width=.49\linewidth]{figs/fig-pca-fit.pdf}
     \caption{Least squares regression model \(f(x)\) (left) minimizes the sum of squared errors while total least squares, i.e., the PCA model \(g(x)\) (right) minimizes the orthogonal projections.}
     \label{fig:ols-pca}
 \end{figure}
+\end{example}

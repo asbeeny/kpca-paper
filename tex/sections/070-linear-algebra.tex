@@ -1,82 +1,147 @@
-% \begin{theorem}[Properties of symmetric matrices]
-%     \label{thm:properties-of-symmetric-matrices}
-%     If \(A\) and \(B\) are symmetric, then the following properties hold:
-%     \begin{enumerate}
-%         \item \(A\) is normal, i.e., \(AA^\top = A^\top A\).
-%         \item \(A\) is diagonalizable with real eigenvalues and orthogonal eigenvectors.
-%         \item \(A^{-1}\) is symmetric.
-%         \item \(A + B\) is symmetric.
-%         \item The Hadamard product \(A \circ B\) is symmetric, where \([A \circ B]_{ij} = [A]_{ij} [B]_{ij}\).
-%         \item \(ABA\) is symmetric.
-%     \end{enumerate}
-% \end{theorem}
+A number of matrix definitions and results are presented without proof.
+Unless otherwise specified, let \(A\) be an \(n \times d\) matrix over the real numbers.
 
-\begin{lemma}
-    Symmetric matrices have orthogonal eigenvectors and real eigenvalues.
-\end{lemma}
-\begin{proof}
-    
-\end{proof}
+\begin{enumerate}
+    \item \(A\) is \textit{normal} if it is square and \(AA^\top = A^\top A\).
+    \item Symmetric matrices are normal.
+    \item Symmetric matrices have orthogonal eigenvectors and real eigenvectors.
+    \item Positive semi-definite matrices have nonnegative eigenvalues.
+    \item Positive definite matrices have positive eigenvalues.
+    \item \(A^\top A\) and \(AA^\top\) are symmetric positive semi-definite.
+\end{enumerate}
 
-\begin{lemma}
-    Positive semi-definite matrices have nonnegative eigenvalues.
-\end{lemma}
-\begin{proof}
-    
-\end{proof}
+\subsection{Matrix operations and notation}
+\label{subsec:matrix-operations}
 
-% \begin{lemma}
-%     \label{lem:spsd-decomposition}
-%     If \(A\) is symmetric positive semi-definite, then we can write
-%     \[A = V^{\top} V.\]
-% \end{lemma}
-% \begin{proof}
-%     \def\diag{\operatorname{diag}}
-%     Since \(A\) is symmetric, it can be diagonalized by \(A = Q^{\top}DQ\), where \(Q\) is orthogonal and \(D = \diag(\lambda_1, \lambda_2, \dots, \lambda_n)\).
-%     Since \(A\) is positive semi-definite, \(\lambda_1, \lambda_2, \dots, \lambda_n\) are nonnegative so that \(D^{1/2} = \diag\left(\sqrt{\lambda_1}, \sqrt{\lambda_2}, \dots, \sqrt{\lambda_n}\right)\).
-%     Let \(V = D^{1/2} Q\).
-%     Then
-%     \[A = Q^{\top}DQ = Q^{\top} D^{1/2} D^{1/2} Q = \left(D^{1/2} Q\right)^{\top} \left(D^{1/2} Q\right) = V^{\top} V.\]
-% \end{proof}
+Let \(A\) be an \(n \times d\) matrix.
+We write \([A]_{ij}\) to indicate the matrix entry in the \(i\)-th row and the \(j\)-th column.
 
-\begin{lemma}
-    Let \(A\) be an \(m \times n\) matrix.
-    Then \(A^\top A\) is symmetric positive semi-definite.
-\end{lemma}
+\begin{definition}
+    Define the \textit{entry-wise mean} of \(A\) as
+    \begin{equation}
+        \label{eqn:matrix-mean}
+        \mean(A) = \frac{1}{nd} \sum_{i=1}^{n} \sum_{j=1}^{d} [A]_{ij}.
+    \end{equation}
+    Define the \textit{column-wise mean} of \(A\) as a \(1 \times d\) row vector whose \(j\)-th entry is the mean of column \(j\) given by the formula
+    \begin{equation}
+        \label{eqn:column-mean}
+        \begin{aligned}
+            \colmean(A)
+            &= \begin{bmatrix}
+                \rule[-.5em]{0em}{1em}
+                \frac{1}{n} \sum_{i=1}^{n} [A]_{i1}, &
+                \frac{1}{n} \sum_{i=1}^{n} [A]_{i2}, &
+                \dots, &
+                \frac{1}{n} \sum_{i=1}^{n} [A]_{id}
+            \end{bmatrix}\\
+            &= \frac{1}{n} \sum_{i=1}^{n} \begin{bmatrix}
+                \rule[-.5em]{0em}{1em}
+                [A]_{i1}, &
+                [A]_{i2}, &
+                \dots, &
+                [A]_{id}
+            \end{bmatrix}.
+        \end{aligned}
+    \end{equation}
+    Define the \textit{row-wise mean} of \(A\) as an \(n \times 1\) column vector whose \(i\)-th entry is the mean of row \(i\) given by the formula
+    \begin{equation}
+        \label{eqn:row-mean}
+        \rowmean(A) = \begin{bmatrix}
+            \rule{0em}{1.5em}
+            \frac{1}{d} \sum_{j=1}^{d} [A]_{1j} \\
+            \rule{0em}{2em}
+            \frac{1}{d} \sum_{j=1}^{d} [A]_{2j} \\
+            \vdots \\
+            \rule[-.7em]{0em}{2em}
+            \frac{1}{d} \sum_{j=1}^{d} [A]_{nj}
+        \end{bmatrix}
+        = \frac{1}{d} \sum_{j=1}^{d} \begin{bmatrix}
+            [A]_{1j}\\
+            [A]_{2j}\\
+            \vdots \\
+            [A]_{nj}\\
+        \end{bmatrix}.
+    \end{equation}
+\end{definition}
 
-\begin{proof}
-    First, \((A^\top A)^\top = A^\top (A^\top)^\top = A^\top A\).
-    So \(A^\top A\) is symmetric.
-\end{proof}
+\def\repmat#1#2{\textstyle\left[#1\right]_{#2}}
+Let \([a]_{p \times q}\) denote the \(p \times q\) repeated matrix whose entries are all \(a\).
+Then \Cref{eqn:matrix-mean,eqn:column-mean,eqn:row-mean} can be written as
+\begin{align}
+    \mean(A) &= \repmat{\frac{1}{n}}{1 \times n} \cdot A \cdot \repmat{\frac{1}{d}}{d \times 1}\\
+    \colmean(A) &= \repmat{\frac{1}{n}}{1 \times d} \cdot A \\
+    \rowmean(A) &= A \cdot \repmat{\frac{1}{d}}{d \times 1}.
+\end{align}
+
 \begin{definition}
     \def\a{\mathbf{a}}
-    Let \(A\) be an \(m \times n\) matrix whose columns \(\a_1, \a_2,\dots,\a_n \in \RR^m\) represent random variables and rows represent observations.
-    Then the covariance matrix of \(A\) is given by
-    \[\cov(A) = \begin{bmatrix}
-        \cov(\a_1, \a_1) & \cov(\a_1, \a_2) & \cdots & \cov(\a_1, \a_n)\\
-        \cov(\a_2, \a_1) & \cov(\a_2, \a_2) & \cdots & \cov(\a_2, \a_n)\\
-        \vdots & \vdots & \ddots & \vdots\\
-        \cov(\a_n, \a_1) & \cov(\a_n, \a_2) & \cdots & \cov(\a_n, \a_n)\\
-    \end{bmatrix}.\]
+    Let \(A\) be an \(n \times d\) matrix whose columns \(\a_1, \a_2,\dots,\a_d \in \RR^n\) represent variables and rows represent observations.
+    Then the \textit{covariance matrix} of \(A\) is given by
+    \begin{equation}
+        \label{eqn:covariance-matrix}
+        \cov(A) = \begin{bmatrix}
+            \cov(\a_1, \a_1) & \cov(\a_1, \a_2) & \cdots & \cov(\a_1, \a_d)\\
+            \cov(\a_2, \a_1) & \cov(\a_2, \a_2) & \cdots & \cov(\a_2, \a_d)\\
+            \vdots & \vdots & \ddots & \vdots\\
+            \cov(\a_d, \a_1) & \cov(\a_d, \a_2) & \cdots & \cov(\a_d, \a_d)\\
+        \end{bmatrix}.
+    \end{equation}
     If \(A\) is centered, i.e., the columns all have mean zero, then we can write
-    \[\cov(A) = \frac{A^\top A}{m-1}.\]
+    \begin{equation}
+        \label{eqn:centered-covariance-matrix}
+        \cov(A) = \frac{1}{n-1}A^\top A.
+    \end{equation}
     % Here, \(1/(m-1)\) is due to Bessel's correction.
     % https://en.wikipedia.org/wiki/Bessel%27s_correction
 \end{definition}
 
-% \subsection{Schur product theorem}
+\subsection{Broadcasting}
+\label{subsec:broadcasting}
 
-% Let \(A, B \in \RR^{n \times n}\) where \([A]_{ij} = a_{ij}\) and \([B]_{ij} = b_{ij}\) for all \(i,j = 1,2,\dots,n\).
+\def\b{\mathbf{b}}
+Consider the sum of two real matrices \(A + B\).
+By definition, \(A\) and \(B\) must both have size \(n \times d\).
+This means we cannot add a \(2 \times 3\) matrix \(A\) and a \(2 \times 1\) vector \(\b\).
+However, in many programming languages the sum \(A + \b\) would be handled using \textit{broadcasting} \cite{harris2020array}.
+In this case, \(\b\) is converted to a \(2 \times 3\) matrix \(\begin{bmatrix} \b & \b & \b \end{bmatrix}\) so that normal matrix addition applies.
+Generally, broadcasting a vector \(\b \in \RR^n\) to an \(n \times d\) matrix can be represented as the matrix product
+\begin{equation}
+    \label{eqn:vector-broadcasting}
+    \b \cdot [1]_{1 \times d}
+    = \begin{bmatrix}
+        b_1 \\ b_2 \\ \vdots \\ b_n
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+        1 & 1 & \cdots & 1
+    \end{bmatrix}
+    = \begin{bmatrix}
+        b_1 & b_1 & \cdots & b_1 \\
+        b_2 & b_2 & \cdots & b_2 \\
+        \vdots & \vdots & & \vdots \\
+        b_n & b_n & \cdots & b_n
+    \end{bmatrix},
+\end{equation}
+where the notation \([a]_{n \times d}\) represents an \(n \times d\) matrix whose entries are all \(a\).
+\begin{definition}
+    \label{def:broadcast-addition}
+    For an \(n \times d\) matrix \(A\), we can define addition by an \(n \times 1\) column vector \(\mathbf{c}\) as
+    \begin{equation}
+        \label{eqn:matrix-col-vector-addition}
+        A + \mathbf{c} := A + \mathbf{c} \cdot [1]_{1 \times d}.
+    \end{equation}
+    Similarly, addition by a \(1 \times d\) row vector \(\mathbf{r}\) can be defined as
+    \begin{equation}
+        \label{eqn:matrix-row-vector-addition}
+        A + \mathbf{r} := A + [1]_{n \times 1} \cdot \mathbf{r}
+    \end{equation}
+    and addition by a scalar \(a\) can be defined as
+    \begin{equation}
+        \label{eqn:matrix-scalar-addition}
+        A + a := A + a \cdot [1]_{n \times d}.
+    \end{equation}
+\end{definition}
 
-% \begin{lemma}
-%     Let \(A\) be positive semi-definite with eigenvalues \(\lambda_\)
-% \end{lemma}
-
-% \begin{theorem}[Schur product theorem]
-%     Let \(A\) and \(B\) be positive semi-definite matrices and let \(C = A \circ B\) be the Hadamard product of \(A\) and \(B\) given by \([C]_{ij} = [A]_{ij} [B]_{ij}\).
-%     Then \(C\) is positive semi-definite.
-% \end{theorem}
-
-% \begin{proof}
-    
-% \end{proof}
+The left hand sides of \Cref{eqn:matrix-col-vector-addition,eqn:matrix-row-vector-addition,eqn:matrix-scalar-addition} are more concise and intuitive than the right hand sides.
+Provided that the vector types are clearly defined and compatible, there should be no ambiguity when adding column vectors, row vectors, and scalars to matrices.
+Moreover, this method of broadcasting is consistent with scientific programming languages.

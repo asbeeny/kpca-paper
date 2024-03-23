@@ -7,7 +7,7 @@
 % First, we recall the definition of an inner product.
 
 In this section, our goal is to establish properties of Hilbert spaces and kernel functions that can be used to modify the PCA algorithm.
-To begin, we will briefly mention definitions and results from analysis \cite{kreyszig1991introductory}, \cite{rudin1987real} and matrix theory \cite{horn2013matrix}.
+To begin, we will briefly cite some definitions and results from analysis \cite{kreyszig1991introductory}, \cite{rudin1987real} and matrix theory \cite{horn2013matrix}.
 
 \begin{definition}
     \cite{small1994hilbert} % page 10
@@ -130,9 +130,11 @@ The following example demonstrates a useful property of separable Hilbert spaces
     \begin{enumerate}
         \item \(k\) is symmetric: for all \(x,y \in X\),
         \[k(x,y) = k(y,x);\]
-        \item \(k\) is positive semi-definite: for all \(n \in \NN\), if \(x_1, \dots, x_n \in X\) and \(c_1, \dots, c_n \in \RR\), then
+        \item \(k\) is positive semi-definite: if \(x_1, \dots, x_n \in X\) and \(c_1, \dots, c_n \in \RR\), then
         \[\sum_{i=1}^{n}\sum_{j=1}^{n} c_i c_j k(x_i, x_j) \geq 0.\]
-        Equivalently, the matrix \(K \in \RR^{n \times n}\) whose entries are \(K_{ij} = k(x_i, x_j)\) is positive semi-definite, that is, \(w^\top K w \geq 0\) for all \(w \in \RR^n\).
+        Equivalently, the matrix \(K \in \RR^{n \times n}\) whose entries are \([K]_{ij} = k(x_i, x_j)\) is positive semi-definite, that is, \(\mathbf{c}^\top K \mathbf{c} \geq 0\) for all \(\mathbf{c} \in \RR^n\).
+        We call \(K\) a \textit{kernel matrix}.
+        Note that since \(k\) is symmetric, so is \(K\).
     \end{enumerate}
 \end{definition}
 
@@ -143,24 +145,28 @@ The following example demonstrates a useful property of separable Hilbert spaces
 \end{definition}
 
 Our goal is to have kernels written as inner products of feature maps:
-\[k(x,y) = \langle \Phi(x), \Phi(y) \rangle_H.\]
+\[k(x,y) = \langle \Phi(x), \Phi(y) \rangle_{H_k}.\]
 If \(\Phi\) is a known feature map, then \(k\) would surely be symmetric and positive definite since inner products are.
 If instead we know \(k\) is a kernel, then we need to show that there is a unique Hilbert space with the desired inner product.
 
-\subsubsection*{To do:}
-\begin{itemize}
-    \item move kernel/Gram matrix to its own definition
-    \item Define linear functionals
-    \item Define dual space (maybe?)
-    \item Riesz representation theorem
-    \item Define evaluation functionals
-    \item Define RKHS (continuous evaluation functionals)
-    \item An RKHS defines a unique reproducing kernel (by Riesz representation theorem).
-    \item Mercer's theorem.
-    \item A kernel defines a feature map.
-    \item A kernel defines a unique RKHS (by Mercer/Moore-Aronszajn).
-    \item We finally get \(k(x,y) = \langle \Phi(x), \Phi(y) \rangle_H\).
-\end{itemize}
+\subsection{Constructing a reproducing kernel Hilbert space}
+
+% \subsubsection*{To do:}
+% \begin{itemize}
+%     \item move kernel/Gram matrix to its own definition
+%     \item Define linear functionals
+%     \item Define dual space (maybe?)
+%     \item Riesz representation theorem
+%     \item Define evaluation functionals
+%     \item Define RKHS (continuous evaluation functionals)
+%     \item An RKHS defines a unique reproducing kernel (by Riesz representation theorem).
+%     \item Mercer's theorem.
+%     \item A kernel defines a feature map.
+%     \item A kernel defines a unique RKHS (by Mercer/Moore-Aronszajn).
+%     \item We finally get \(k(x,y) = \langle \Phi(x), \Phi(y) \rangle_H\).
+% \end{itemize}
+
+\subsection{Constructing kernels}
 
 \begin{theorem}
     \cite{rudin2020notes,shawe2004kernel}
@@ -320,7 +326,12 @@ If instead we know \(k\) is a kernel, then we need to show that there is a uniqu
 \end{proof}
 
 \begin{theorem}[Gaussian kernel]
+    \label{thm:gaussian-kernel}
     The function \(k : \RR^n \times \RR^n \to \RR\) defined by
     \[k(x,y) = \exp\left(\dfrac{-\|x-y\|^2_2}{\sigma^2}\right),\]
     is a kernel.
 \end{theorem}
+
+\begin{proof}
+    
+\end{proof}
