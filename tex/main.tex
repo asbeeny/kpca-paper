@@ -38,12 +38,16 @@
 \def\CC{\mathbb{C}}
 \def\NN{\mathbb{N}}
 
+\def\MSE{\mathrm{MSE}}
+
+\DeclareMathOperator{\lspan}{span}
 \DeclareMathOperator{\mean}{mean}
 \DeclareMathOperator{\rowmean}{row\,mean}
 \DeclareMathOperator{\colmean}{col\,mean}
 \DeclareMathOperator{\row}{row}
 \DeclareMathOperator{\col}{col}
 \DeclareMathOperator{\cov}{cov}
+\DeclareMathOperator{\corr}{corr}
 \DeclareMathOperator{\Var}{var}
 %%% End macros
 
@@ -92,7 +96,7 @@
 \label{sec:code}
 \input{sections/100-code.tex}
 
-\nocite{*}
+% \nocite{*}
 \bibliographystyle{plain}
 \bibliography{refs}
 \end{document}

@@ -87,8 +87,10 @@ The following example demonstrates a useful property of separable Hilbert spaces
 
 \begin{definition}[Gram matrix]
     \cite{horn2013matrix}
-    Let \(x_1, x_2, \dots, x_n\) be vectors in an inner product space \(X\).
-    The matrix \(G \in \RR^{n \times n}\) is called a \textit{Gram matrix} if \([G]_{ij} = \langle x_i, x_j \rangle\).
+    Let \(x_1, x_2, \dots, x_n \in X\) for some inner product space \(X\) equipped with \(\langle \cdot, \cdot \rangle\).
+    We say \(G\) is a \textit{Gram matrix} (or \textit{Gramian}) for the set of vectors \(\{x_1, x_2, \dots, x_n\}\) with respect to \(\langle \cdot, \cdot \rangle\) if \(G = \begin{bmatrix}
+        \langle x_i, x_j \rangle
+    \end{bmatrix}_{ij}\).
 \end{definition}
 
 \begin{example}
@@ -124,32 +126,131 @@ The following example demonstrates a useful property of separable Hilbert spaces
     If \(V\) is a matrix whose columns are \(\v_1\), \(\v_2\), \(\v_3\), \(\v_4\), then we can write \(G = V^\top V\).
 \end{example}
 
-\begin{definition}[kernel]
-    Let \(X\) be a nonempty set and \(k : X \times X \to \RR\).
-    Then \(k\) is a (positive semi-definite) \textit{kernel} if
+\begin{theorem}
+    \cite{horn2013matrix}
+    \label{thm:gram-spsd}
+    A matrix \(G\) is a Gram matrix if and only if \(G\) is symmetric and positive semidefinite.
+\end{theorem}
+\begin{proof}
+    (\(\Rightarrow\))
+    Suppose \(G\) is the Gram matrix of \(x_1, x_2, \dots, x_n\) with respect to \(\langle \cdot, \cdot \rangle\).
+    Then \(G\) is symmetric because \(G_{ij} = \langle x_i, x_j \rangle = \langle x_j, x_i \rangle = G_{ji}\).
+    
+    Let \(c_1, c_2, \dots, c_n \in \RR\).
+    Then \(G\) is positive semidefinite because
+    \begin{align}
+        \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j \langle x_i, x_j \rangle
+        = \left\langle
+            \sum_{i=1}^{n} c_i x_i, \sum_{j=1}^{n} c_j x_j
+        \right\rangle
+        = \left\|
+            \sum_{i=1}^{n} c_i x_i
+        \right\|^2
+        \geq 0.
+    \end{align}
+
+    (\(\Leftarrow\))
+    Suppose \(G\) is symmetric and positive semidefinite.
+    Then \(G\) can be diagonalized as \(G = V^\top D V = (D^{1/2} V)^\top (D^{1/2} V)\).
+    Let \(w_i = \sqrt{\lambda_i} v_i\), for \(i = 1,2,\dots, n\), where \(\lambda_i\) and \(v_i\) are eigenvalues and eigenvectors of \(G\), respectively.
+    Then \([G]_{ij} = w_i^\top w_j\).
+    Hence \(G\) is a Gram matrix.
+\end{proof}
+
+\begin{theorem}
+    \cite{horn2013matrix}
+    A Gram matrix \(G\) of \(x_1, x_2, \dots, x_n\) is positive definite if and only if \(x_1, x_2, \dots, x_n\) are linearly independent.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    \label{def:symmetric-bilinear-form}
+    A \textit{symmetric bilinear form} is a map \(k : X \times X \to \RR\) over a vector space \(X\) such that, for all \(x,y,z \in X\), \(\alpha, \beta \in \RR\),
     \begin{enumerate}
-        \item \(k\) is symmetric: for all \(x,y \in X\),
-        \[k(x,y) = k(y,x);\]
-        \item \(k\) is positive semi-definite: if \(x_1, \dots, x_n \in X\) and \(c_1, \dots, c_n \in \RR\), then
-        \[\sum_{i=1}^{n}\sum_{j=1}^{n} c_i c_j k(x_i, x_j) \geq 0.\]
-        Equivalently, the matrix \(K \in \RR^{n \times n}\) whose entries are \([K]_{ij} = k(x_i, x_j)\) is positive semi-definite, that is, \(\mathbf{c}^\top K \mathbf{c} \geq 0\) for all \(\mathbf{c} \in \RR^n\).
-        We call \(K\) a \textit{kernel matrix}.
-        Note that since \(k\) is symmetric, so is \(K\).
+        \item \(k(x,y) = k(y,x)\) and
+        \item \(k(\alpha x + \beta y, z) = \alpha k(x,z) + \beta k(y,z)\).
     \end{enumerate}
 \end{definition}
 
-\begin{definition}[feature map]
-    \cite{rudin2020notes}
-    Let \(F\) be a Hilbert space of functions \(f : X \to \RR\).
-    A feature map is a function \(\Phi : X \to F\).
+This can be thought of as a generalization of an inner product which is symmetric and bilinear, but not necessarily positive definite.
+If \(U = \{u_1, u_2, \dots, u_n\}\) is a basis for \(X\), then we can define a matrix \(A = \begin{bmatrix}
+    k(u_i, u_j)
+\end{bmatrix}_{ij}\).
+Clearly, \(A\) is symmetric since \(k(u_i, u_j) = k(u_j, u_i)\).
+Let \(v = \sum_{i=1}^n \alpha_i u_i\) and \(w = \sum_{i=1}^n \beta_i u_i\) be vectors with respect to the basis \(U\) and let \(x = [\alpha_i]_{i=1}^n\) and \(y = [\beta_i]_{i=1}^n\).
+Then we can write
+\begin{equation}
+    \label{eqn:bilinear-form-representation}
+    k(v,w)
+    = k\left(\sum_{i=1}^n \alpha_i u_i, \sum_{j=1}^{n} \beta_j u_j\right)
+    = \sum_{i=1}^n \sum_{j=1}^{n} \alpha_i \beta_j k\left(u_i, u_j\right)
+    = x^\top A y.
+\end{equation}
+If \(A = I\), then \(v = x\), \(w = y\), and \(k(v,w) = v^\top w\) is simply the dot product.
+
+Using \Cref{eqn:bilinear-form-representation}, we say that \(k\) is positive definite whenever \(A\) is positive definite.
+By \Cref{thm:gram-spsd}, \(A\) is a Gram matrix.
+It follows that \(k\) is associated with some inner product space.
+
+If \(X\) is an infinite vector space, we cannot construct the basis matrix \(A\).
+In practice, we can use a subspace spanned by a subset of vectors \(x_1, x_2, \dots, x_n \in X\) to generate \(A\) for some symmetric bilinear map \(k\).
+
+\subsection{Kernel methods}
+
+The development of \textit{kernel functions} can be traced back to the beginning of the twentieth century when David Hilbert and James Mercer were studying integral equations \cite{hofmann2008kernel}.
+Hilbert proved some important results in \cite{hilbert1912grundzüge} about the eigenvalues of an integral operator whose kernel function is of \textit{definite} type.
+Expanding on Hilbert's work, Mercer provided the necessary conditions in \cite{mercer1909xvi} that allow a kernel function to be written in terms of the eigenvalues and eigenfunctions of the integral operator.
+This result became known as Mercer's theorem.
+See \Cref{sec:mercers-theorem}.
+As a corollary, a kernel function which satisfies Mercer's conditions can be written as an inner product.
+
+Hilbert spaces and Mercer's theorem led to a number of advances in functional analysis.
+In 1950, Nachman Aronszajn introduced \textit{reproducing kernels} and their associated Hilbert spaces \cite{aronszajn1950theory}.
+Later, the work of Mercer and Aronszajn inspired the application of kernels in machine learning.
+So-called kernel methods are ways to adapt a machine learning algorithm by replacing a dot product with a kernel function.
+In \Cref{sec:kernel-pca}, we will look at the kernel method applied to the PCA algorithm.
+For now, we will examine the mathematics behind kernel methods.
+
+Let \(X\) be a nonempty set and \(k : X \times X \to \RR\) be a kernel function.
+We want \(k\) to coincide with the inner product of some Hilbert space \(H\).
+% In practice, the dimension of \(H\) is arbitrarily large or even infinite.
+Then the elements of \(X\) should be associated with the elements of \(H\) via a feature map \(\Phi : X \to H\) so that
+\begin{equation}
+    \label{eqn:kernel-inner-product-1}
+    k(x,y) = \langle \Phi(x), \Phi(y) \rangle,
+\end{equation}
+for all \(x, y \in X\).
+We can think of the kernel \(k\) as a shortcut which allows us to bypass the potentially high-dimensional space \(H\).
+See \Cref{fig:kernel-map-diagram}.
+
+\begin{figure}
+    \centering
+    \includegraphics[]{figs/fig-kernel-map-diagram}
+    \caption{Kernel map diagram.}
+    \label{fig:kernel-map-diagram}
+\end{figure}
+
+
+Now, we want to restrict \(k\) so that it is a valid inner product.
+Since inner products are symmetric and positive definite, it follows that \(k\) should have these properties as well.
+Let \(S = \{x_1, x_2, \dots, x_n\} \subseteq X\) be a sample of points in \(X\).
+We say \(K\) is the \textit{kernel matrix} of \(S\) with respect to \(k\) if \([K]_{ij} = k(x_i, x_j)\) for all \(i,j = 1,2,\dots, n\).
+Then \(K\) should be equal to the Gram matrix of \(\Phi(S)\) with respect to \(\langle \cdot, \cdot \rangle\).
+By \Cref{thm:gram-spsd}, \(K\) will be symmetric and positive semidefinite.
+
+\begin{definition}[kernel]
+    Let \(X\) be a nonempty set and \(k : X \times X \to \RR\).
+    Then \(k\) is a (positive definite) \textit{kernel} if:
+    \begin{enumerate}
+        \item \(k\) is symmetric.
+        For all \(x,y \in X\), \(k(x,y) = k(y,x)\).
+        \item \(k\) is positive definite: if \(x_1, \dots, x_n \in X\) and \(c_1, \dots, c_n \in \RR\), then
+        \[\sum_{i=1}^{n}\sum_{j=1}^{n} c_i c_j k(x_i, x_j) \geq 0.\]
+        Equivalently, the kernel matrix \(K \in \RR^{n \times n}\) whose entries are \([K]_{ij} = k(x_i, x_j)\) is positive semidefinite, that is, \(\mathbf{c}^\top K \mathbf{c} \geq 0\) for all \(\mathbf{c} \in \RR^n\).
+    \end{enumerate}
 \end{definition}
-
-Our goal is to have kernels written as inner products of feature maps:
-\[k(x,y) = \langle \Phi(x), \Phi(y) \rangle_{H_k}.\]
-If \(\Phi\) is a known feature map, then \(k\) would surely be symmetric and positive definite since inner products are.
-If instead we know \(k\) is a kernel, then we need to show that there is a unique Hilbert space with the desired inner product.
-
-\subsection{Constructing a reproducing kernel Hilbert space}
 
 % \subsubsection*{To do:}
 % \begin{itemize}
@@ -197,7 +298,7 @@ If instead we know \(k\) is a kernel, then we need to show that there is a uniqu
         for all \(x,y \in X\).
         So, \(k\) is symmetric.
 
-        Since \(k_1\) and \(k_2\) are positive semi-definite and \(a_1, a_2 \geq 0\),
+        Since \(k_1\) and \(k_2\) are positive semidefinite and \(a_1, a_2 \geq 0\),
         \begin{align*}
             \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k(x_i,x_j)
             &= \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j (a_1 k_1(x_i,x_j) + a_2 k_2(x_i,x_j))\\
@@ -205,7 +306,7 @@ If instead we know \(k\) is a kernel, then we need to show that there is a uniqu
             + a_2 \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k_2(x_i,x_j)\\
             &\geq 0.
         \end{align*}
-        So, \(k\) is positive semi-definite.
+        So, \(k\) is positive semidefinite.
         \item \label{itm:kernel-product}
         Let \(k = k_1 k_2\).
         Define \(K\) so that \([K]_{ij} = k(x_i,x_j) = k_1(x_i, x_j) k_2(x_i, x_j)\).
@@ -287,9 +388,9 @@ If instead we know \(k\) is a kernel, then we need to show that there is a uniqu
             (\v_i \circ \u_j) (\v_i \circ \u_j)^\top,
         \end{align*}
         where \(\circ\) is the Hadamard product.
-        Each \((\v_i \circ \u_j) (\v_i \circ \u_j)^\top\) is a symmetric positive semi-definite matrix.
-        Since \(K_1, K_2\) are positive semi-definite, we have \(\lambda_i, \mu_i > 0\).
-        Then \(K\) is symmetric positive semi-definite.
+        Each \((\v_i \circ \u_j) (\v_i \circ \u_j)^\top\) is a symmetric positive semidefinite matrix.
+        Since \(K_1, K_2\) are positive semidefinite, we have \(\lambda_i, \mu_i > 0\).
+        Then \(K\) is symmetric positive semidefinite.
         \item By part \ref{itm:kernel-product}, \(k_1, k_1^2, \dots, k_1^n\) are kernels.
         By part \ref{itm:kernel-linear-combo}, \(a_0 + a_1 k_1 + a_2 k_1^2 + \dots + a_n k_1^n\) is a kernel.
         \item Since \(y_i = h(x_i) \in X\) for all \(i = 1,2,\dots, n\), we have
@@ -320,7 +421,7 @@ If instead we know \(k\) is a kernel, then we need to show that there is a uniqu
             = e^\lambda v.
         \end{align*}
         Then \(K = \exp K_1\) has eigenvalues \(e^\lambda\).
-        Since \(K_1\) is positive semi-definite, it has real eigenvalues so that \(e^\lambda > 0\).
+        Since \(K_1\) is positive semidefinite, it has real eigenvalues so that \(e^\lambda > 0\).
         It follows that \(K\) is positive definite.
     \end{enumerate}
 \end{proof}
