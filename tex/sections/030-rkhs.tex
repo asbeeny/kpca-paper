@@ -129,13 +129,12 @@ The following example demonstrates a useful property of separable Hilbert spaces
 \begin{theorem}
     \cite{horn2013matrix}
     \label{thm:gram-spsd}
-    A matrix \(G\) is a Gram matrix if and only if \(G\) is symmetric and positive semidefinite.
+    A matrix \(G\) is a Gram matrix if and only if \(G\) is positive semidefinite.
 \end{theorem}
 \begin{proof}
     (\(\Rightarrow\))
     Suppose \(G\) is the Gram matrix of \(x_1, x_2, \dots, x_n\) with respect to \(\langle \cdot, \cdot \rangle\).
-    Then \(G\) is symmetric because \(G_{ij} = \langle x_i, x_j \rangle = \langle x_j, x_i \rangle = G_{ji}\).
-    
+    % Then \(G\) is symmetric because \(G_{ij} = \langle x_i, x_j \rangle = \langle x_j, x_i \rangle = G_{ji}\).
     Let \(c_1, c_2, \dots, c_n \in \RR\).
     Then \(G\) is positive semidefinite because
     \begin{align}
@@ -150,11 +149,11 @@ The following example demonstrates a useful property of separable Hilbert spaces
     \end{align}
 
     (\(\Leftarrow\))
-    Suppose \(G\) is symmetric and positive semidefinite.
-    Then \(G\) can be diagonalized as \(G = V^\top D V = (D^{1/2} V)^\top (D^{1/2} V)\).
-    Let \(w_i = \sqrt{\lambda_i} v_i\), for \(i = 1,2,\dots, n\), where \(\lambda_i\) and \(v_i\) are eigenvalues and eigenvectors of \(G\), respectively.
-    Then \([G]_{ij} = w_i^\top w_j\).
-    Hence \(G\) is a Gram matrix.
+    Suppose \(G\) is positive semidefinite.
+    Then \(G\) can be factored as \(G = B^\top B\).
+    Let \(b_1, b_2, \dots, b_n\), be the columns of \(B\).
+    Then \(G = [b_i^\top b_j]_{ij}\).
+    Hence \(G\) is the Gram matrix of \(b_1, b_2, \dots, b_n\) with respect to the dot product.
 \end{proof}
 
 \begin{theorem}
@@ -175,27 +174,33 @@ The following example demonstrates a useful property of separable Hilbert spaces
 \end{definition}
 
 This can be thought of as a generalization of an inner product which is symmetric and bilinear, but not necessarily positive definite.
-If \(U = \{u_1, u_2, \dots, u_n\}\) is a basis for \(X\), then we can define a matrix \(A = \begin{bmatrix}
+If \(U = \{u_1, u_2, \dots, u_n\}\) is a basis for \(X\), then we can define a matrix \(K = \begin{bmatrix}
     k(u_i, u_j)
 \end{bmatrix}_{ij}\).
-Clearly, \(A\) is symmetric since \(k(u_i, u_j) = k(u_j, u_i)\).
-Let \(v = \sum_{i=1}^n \alpha_i u_i\) and \(w = \sum_{i=1}^n \beta_i u_i\) be vectors with respect to the basis \(U\) and let \(x = [\alpha_i]_{i=1}^n\) and \(y = [\beta_i]_{i=1}^n\).
-Then we can write
+Clearly, \(K\) is symmetric since \(k(u_i, u_j) = k(u_j, u_i)\).
+Let \(v = \sum_{i=1}^n \alpha_i u_i\) and \(w = \sum_{i=1}^n \beta_i u_i\) be vectors with respect to \(U\) and let \(x = [\alpha_i]_{i=1}^n\) and \(y = [\beta_i]_{i=1}^n\).
+Then
 \begin{equation}
     \label{eqn:bilinear-form-representation}
     k(v,w)
     = k\left(\sum_{i=1}^n \alpha_i u_i, \sum_{j=1}^{n} \beta_j u_j\right)
     = \sum_{i=1}^n \sum_{j=1}^{n} \alpha_i \beta_j k\left(u_i, u_j\right)
-    = x^\top A y.
+    = x^\top K y.
 \end{equation}
 If \(A = I\), then \(v = x\), \(w = y\), and \(k(v,w) = v^\top w\) is simply the dot product.
+Otherwise, if \(K\) is positive semidefinite, then \(K = B^\top B\) implies
+\begin{equation}
+    \label{eqn:bilinear-form-dot-product}
+    k(v,w) = x^\top B^\top B y = (Bx)^\top (By)
+\end{equation}
+In this case, \(k(v,w)\) is just the dot product after the transformation under \(B\).
+Notice that if \(U\) is merely a subset of \(X\), then \(v\) and \(w\) no longer have unique representations, but \Cref{eqn:bilinear-form-representation,eqn:bilinear-form-dot-product} are still valid for all \(v, w \in \lspan U\).
 
-Using \Cref{eqn:bilinear-form-representation}, we say that \(k\) is positive definite whenever \(A\) is positive definite.
-By \Cref{thm:gram-spsd}, \(A\) is a Gram matrix.
-It follows that \(k\) is associated with some inner product space.
+We say that \(k\) is \textit{positive semidefinite} if \(K = [k(u_i, u_j)]_{ij}\) is a positive semidefinite matrix for any finite subset \(U = \{u_1, u_2,\dots, u_n\} \subseteq X\).
+Then \(K\) is a Gram matrix with respect to some set of transformed vectors related to \(U\) and some inner product related to \(k\).
+In the next subsection, we will show that \(k\) still corresponds to some inner product even if \(k\) is not bilinear.
 
-If \(X\) is an infinite vector space, we cannot construct the basis matrix \(A\).
-In practice, we can use a subspace spanned by a subset of vectors \(x_1, x_2, \dots, x_n \in X\) to generate \(A\) for some symmetric bilinear map \(k\).
+As a final remark, we note that the preceding argument can be extended to the complex case (see Hermitian forms) and in the infinite-dimensional setting with positive semidefinite operators.
 
 \subsection{Kernel methods}
 
@@ -204,25 +209,91 @@ Hilbert proved some important results in \cite{hilbert1912grundzüge} about the 
 Expanding on Hilbert's work, Mercer provided the necessary conditions in \cite{mercer1909xvi} that allow a kernel function to be written in terms of the eigenvalues and eigenfunctions of the integral operator.
 This result became known as Mercer's theorem.
 See \Cref{sec:mercers-theorem}.
-As a corollary, a kernel function which satisfies Mercer's conditions can be written as an inner product.
+A simplified version of Mercer's theorem states that a kernel function can be written as an inner product in a higher-dimensional space.
 
-Hilbert spaces and Mercer's theorem led to a number of advances in functional analysis.
-In 1950, Nachman Aronszajn introduced \textit{reproducing kernels} and their associated Hilbert spaces \cite{aronszajn1950theory}.
+Hilbert space theory and Mercer's theorem led to a number of advances in functional analysis over the next few decades.
+Notably, in 1950, Nachman Aronszajn introduced reproducing kernel Hilbert spaces in \cite{aronszajn1950theory}.
+This work expanded on Mercer's theorem and shows that a kernel generates a Hilbert space whose inner product agrees with the kernel.
+
 Later, the work of Mercer and Aronszajn inspired the application of kernels in machine learning.
-So-called kernel methods are ways to adapt a machine learning algorithm by replacing a dot product with a kernel function.
+A \textit{kernel method} is an adaptation of a machine learning algorithm that replaces a dot product with a kernel function.
+The earliest research involving kernel methods was in 1964 by Mark Aizerman et al. \cite{aizerman1964theoretical}.
+In the 1990s, Bernhard Sch\"olkopf et al. used Aizerman's technique to develop kernel PCA and suggested the kernel trick could work in other cases too.
 In \Cref{sec:kernel-pca}, we will look at the kernel method applied to the PCA algorithm.
 For now, we will examine the mathematics behind kernel methods.
 
-Let \(X\) be a nonempty set and \(k : X \times X \to \RR\) be a kernel function.
-We want \(k\) to coincide with the inner product of some Hilbert space \(H\).
-% In practice, the dimension of \(H\) is arbitrarily large or even infinite.
-Then the elements of \(X\) should be associated with the elements of \(H\) via a feature map \(\Phi : X \to H\) so that
+\begin{definition}[kernel]
+    \label{def:kernel}
+    \cite{rudin2020notes}
+    Let \(k : X \times X \to \RR\) be defined on a nonempty set \(X\).
+    Similar to the Gram matrix, define a \textit{kernel matrix} for a set of vectors \(\{x_1, x_2, \dots, x_n\} \subseteq X\) with respect to \(k(\cdot, \cdot)\) as \(K = [k(x_i,x_j)]_{ij}\).
+    Then \(k\) is a \textit{kernel function} (or just \textit{kernel}) if it is
+    \begin{enumerate}
+        \item symmetric: \(k(x,y) = k(y,x)\) for all \(x,y \in X\) and
+        \item Any kernel matrix generated by \(k\) is positive semidefinite.
+    \end{enumerate}
+\end{definition}
+
+We can easily show some properties that kernels have in common with inner products.
+
+\begin{lemma}
+    \label{lem:properties-of-kernels}
+    If \(k : X \times X \to \mathbb{R}\) is a kernel, then
+    \begin{enumerate}
+        \item positive semidefinite: \(k(x,x) \geq 0\) for all \(x \in X\) and
+        \item Cauchy-Schwarz inequality: \(k(x,y)^2 \leq k(x,x) k(y,y)\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Let \(x,y \in X\).
+    \begin{enumerate}
+        \item The \(1 \times 1\) kernel matrix \([k(x,x)]\) is positive semidefinite.
+        So, \(k(x,x) \geq 0\).
+        \item The \(2 \times 2\) kernel matrix
+        \begin{equation}
+            K = \begin{bmatrix}
+                k(x,x) & k(x,y) \\ k(y,x) & k(y,y)
+            \end{bmatrix}
+        \end{equation}
+        is positive semidefinite.
+        Let \(v = \begin{bmatrix}
+            k(y,y) \\ -k(x,y)
+        \end{bmatrix}\).
+        Then
+        \begin{equation}
+            \begin{aligned}
+                v^\top K v
+                &= k(y,y) \left[
+                    k(y,y) k(x,x) - k(x,y)^2
+                \right]\\
+                &\qquad - k(x,y) \left[
+                    k(y,y) k(y,x) - k(x,y) k(y,y)
+                \right]\\
+                &= k(y,y) \left[
+                    k(y,y) k(x,x) - k(x,y)^2
+                \right]
+            \end{aligned}
+        \end{equation}
+        implies \(k(x,y)^2 \leq k(x,x) k(y,y)\).
+        \qedhere
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}[feature map]
+    \cite{hofmann2008kernel}
+    Let \(X\) be a nonempty set and let \(H\) be a Hilbert space of real-valued functions on \(X\).
+    We define a \textit{feature map} to be the function \(\Phi : X \to H\).
+    In this context, \(H\) is referred to as the \textit{feature space}.
+\end{definition}
+
+Starting with a kernel \(k : X \times X \to \RR\), we want to construct a feature map \(\Phi : X \to H\) and inner product \(\langle \cdot, \cdot \rangle\) which satisfies
 \begin{equation}
     \label{eqn:kernel-inner-product-1}
     k(x,y) = \langle \Phi(x), \Phi(y) \rangle,
 \end{equation}
 for all \(x, y \in X\).
-We can think of the kernel \(k\) as a shortcut which allows us to bypass the potentially high-dimensional space \(H\).
+We can think of the kernel \(k\) as a shortcut which allows us to avoid computing an inner product in the high-dimensional space \(H\).
 See \Cref{fig:kernel-map-diagram}.
 
 \begin{figure}
@@ -232,25 +303,64 @@ See \Cref{fig:kernel-map-diagram}.
     \label{fig:kernel-map-diagram}
 \end{figure}
 
+Consider the feature map \(\Phi(x) = k(\cdot, x)\), for all \(x \in X\).
+Taking the linear span of \(\Phi(X)\) gives us
+\begin{equation}
+    \lspan\{\Phi(x) : x \in X\}
+    = \left\{
+        f = \sum_{i=1}^{n} \alpha_i k( \cdot, x_i)
+        \;\middle|\;
+        n \in \NN, x_i \in X, \alpha_i \in \RR
+    \right\},
+\end{equation}
+which forms a vector space.
+Let \(f,g \in \lspan \Phi(X)\) such that
+\begin{equation}
+    \label{eqn:function-linear-combo}
+    f = \sum_{i=1}^{n} \alpha_i k(\cdot, x_i)
+    \quad\text{and}\quad
+    g = \sum_{j=1}^{m} \beta_j k(\cdot, y_j).
+\end{equation}
+and define
+\begin{equation}
+    \label{eqn:pre-hilbert-inner-product}
+    \langle f, g \rangle 
+    = \sum_{i=1}^{n} \sum_{j=1}^{m} \alpha_i \beta_j k(x_i, y_j).
+\end{equation}
 
-Now, we want to restrict \(k\) so that it is a valid inner product.
-Since inner products are symmetric and positive definite, it follows that \(k\) should have these properties as well.
-Let \(S = \{x_1, x_2, \dots, x_n\} \subseteq X\) be a sample of points in \(X\).
-We say \(K\) is the \textit{kernel matrix} of \(S\) with respect to \(k\) if \([K]_{ij} = k(x_i, x_j)\) for all \(i,j = 1,2,\dots, n\).
-Then \(K\) should be equal to the Gram matrix of \(\Phi(S)\) with respect to \(\langle \cdot, \cdot \rangle\).
-By \Cref{thm:gram-spsd}, \(K\) will be symmetric and positive semidefinite.
+Before we can prove that \Cref{eqn:pre-hilbert-inner-product} is an inner product, we need to show that \(k\) has the \textit{reproducing property}.
+Let \(x \in X\).
+Then by \Cref{eqn:function-linear-combo},
+\begin{equation}
+    \langle f, k(\cdot, x) \rangle = \sum_{i=1}^{n} \alpha k(x_i, x) = f(x).
+\end{equation}
 
-\begin{definition}[kernel]
-    Let \(X\) be a nonempty set and \(k : X \times X \to \RR\).
-    Then \(k\) is a (positive definite) \textit{kernel} if:
-    \begin{enumerate}
-        \item \(k\) is symmetric.
-        For all \(x,y \in X\), \(k(x,y) = k(y,x)\).
-        \item \(k\) is positive definite: if \(x_1, \dots, x_n \in X\) and \(c_1, \dots, c_n \in \RR\), then
-        \[\sum_{i=1}^{n}\sum_{j=1}^{n} c_i c_j k(x_i, x_j) \geq 0.\]
-        Equivalently, the kernel matrix \(K \in \RR^{n \times n}\) whose entries are \([K]_{ij} = k(x_i, x_j)\) is positive semidefinite, that is, \(\mathbf{c}^\top K \mathbf{c} \geq 0\) for all \(\mathbf{c} \in \RR^n\).
-    \end{enumerate}
-\end{definition}
+\begin{enumerate}
+    \item Since \(k\) is symmetric, we have
+    \begin{equation}
+        \langle f, g \rangle
+        = \sum_{i=1}^{n} \sum_{j=1}^{m} \alpha_i \beta_j k(x_i, y_j)
+        = \sum_{j=1}^{m}\sum_{i=1}^{n}  \alpha_i \beta_j k(y_j, x_i)
+        = \langle g, f \rangle.
+    \end{equation}
+    \item Using \Cref{eqn:function-linear-combo,eqn:pre-hilbert-inner-product}, we can write
+    \begin{equation}
+        \langle f, g \rangle
+        = \sum_{i=1}^{n} \sum_{j=1}^{m} \alpha_i \beta_j k(x_i, y_j)
+        = \sum_{j=1}^{m} \beta_j \sum_{i=1}^{n} \alpha_i k(x_i, y_j)
+        = \sum_{j=1}^{m} \beta_j f(y_j).
+    \end{equation}
+    Then
+    \begin{equation}
+        \begin{aligned}[t]
+            \langle f_1 + f_2, g \rangle
+            &= \sum_{j=1}^{m} \beta_j \left[f_1(y_j) + f_2(y_j)\right]\\
+            &= \sum_{j=1}^{m} \beta_j f_1(y_j) + \sum_{j=1}^{m} \beta_j f_2(y_j)\\
+            &= \langle f_2, g \rangle + \langle f_1, g \rangle.
+        \end{aligned}
+    \end{equation}
+    \item 
+\end{enumerate}
 
 % \subsubsection*{To do:}
 % \begin{itemize}

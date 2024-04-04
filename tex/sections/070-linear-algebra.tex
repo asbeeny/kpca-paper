@@ -1,14 +1,27 @@
 A number of matrix definitions and results are presented without proof.
-Unless otherwise specified, let \(A\) be an \(n \times d\) matrix over the real numbers.
+These can be found in \cite{horn2013matrix}.
+
 
 \begin{enumerate}
-    \item \(A\) is \textit{normal} if it is square and \(AA^\top = A^\top A\).
+    \item A square matrix \(A\) is \textit{normal} if \(AA^\top = A^\top A\).
     \item Symmetric matrices are normal.
     \item Symmetric matrices have orthogonal eigenvectors and real eigenvectors.
-    \item Positive semi-definite matrices have nonnegative eigenvalues.
+    \item Positive semidefinite matrices have nonnegative eigenvalues.
+    \item \(A\) is positive semidefinite if and only if there exists a matrix \(B\) such that \(A = B^\top B\). We say \(B\) is the \textit{square root} of \(A\) and write \(A^{1/2} = B\).
     \item Positive definite matrices have positive eigenvalues.
     \item \(A^\top A\) and \(AA^\top\) are symmetric positive semi-definite.
 \end{enumerate}
+
+\begin{lemma}
+    \label{lem:spsd-factorization}
+    Let \(A\) be a positive semidefinite matrix.
+    Then \(A\) has the factorization \(A = B^\top B\).
+    We call \(\)
+\end{lemma}
+\begin{proof}
+    Since \(A\) is symmetric, it is diagonalizable and we can write \(A = V^\top D V\).
+    Since \(A\) is positive semidefinite, 
+\end{proof}
 
 \subsection{Matrix operations and notation}
 \label{subsec:matrix-operations}
