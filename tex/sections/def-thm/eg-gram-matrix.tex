@@ -1,0 +1,35 @@
+TODO: Clean up gram matrix example.
+
+% begin macros
+\def\v{\mathbf{v}}
+% end macros
+% 
+Consider the vectors in \(\RR^3\):
+\begin{align*}
+    \v_1 &=
+    \begin{bmatrix}
+        v_{11} \\ v_{21} \\ v_{31}
+    \end{bmatrix},&
+    \v_2 &=
+    \begin{bmatrix}
+        v_{12} \\ v_{22} \\ v_{32}
+    \end{bmatrix},&
+    \v_3 &=
+    \begin{bmatrix}
+        v_{13} \\ v_{23} \\ v_{33}
+    \end{bmatrix},&
+    \v_4 &=
+    \begin{bmatrix}
+        v_{14} \\ v_{24} \\ v_{34}
+    \end{bmatrix}.
+\end{align*}
+The Gram matrix for these vectors is
+\begin{align*}
+    G = \begin{bmatrix}
+        \v_1^\top \v_1 & \v_1^\top \v_2 & \v_1^\top \v_3 & \v_1^\top \v_4\\[3pt]
+        \v_2^\top \v_1 & \v_2^\top \v_2 & \v_2^\top \v_3 & \v_2^\top \v_4\\[3pt]
+        \v_3^\top \v_1 & \v_3^\top \v_2 & \v_3^\top \v_3 & \v_3^\top \v_4\\[3pt]
+        \v_4^\top \v_1 & \v_4^\top \v_2 & \v_4^\top \v_3 & \v_4^\top \v_4\\
+    \end{bmatrix}.
+\end{align*}
+If \(V\) is a matrix whose columns are \(\v_1\), \(\v_2\), \(\v_3\), \(\v_4\), then we can write \(G = V^\top V\).

@@ -1,0 +1,28 @@
+The \textit{Euclidean inner product} (or \textit{dot product}) is the function \(\langle \cdot, \cdot \rangle : \RR^n \times \RR^n \to \RR\) such that
+\begin{equation}
+    \langle x, y \rangle = \sum_{i=1}^{n} x_i y_i = x^\top y,
+\end{equation}
+for all \(x = [x_i], y = [y_i] \in \RR^n\).
+Sometimes we write \(x \dotprod y\) to mean the Euclidean inner product.
+This induces the \textit{Euclidean norm}
+\begin{equation}
+    \|x\| = \sqrt{\sum_{i=1}^{n} x_i^2}
+\end{equation}
+
+% Checking that this is an inner product:
+% \begin{enumerate}
+%     \item \(\begin{aligned}[t]
+%         \langle x, y \rangle = \sum_{i=1}^{n} x_i y_i = \langle y, x \rangle
+%     \end{aligned}\);
+%     \item \(\begin{aligned}[t]
+%         \langle \alpha x + \beta y, z \rangle
+%         &= \sum_{i=1}^{n} (\alpha x_i + \beta y_i) z_i\\
+%         &= \alpha \sum_{i=1}^{n} x_i z_i + \beta \sum_{i=1}^{n} y_i z_i
+%         = \alpha \langle x, z \rangle
+%         + \beta \langle y, z \rangle;
+%     \end{aligned}\)
+%     \item Let \(x \neq 0\).
+%     Then there is some nonzero \(x_a \in \{x_1, x_2, \dots, x_n\}\) such that
+%     \(\langle x, x \rangle = \sum_{i=1}^{n} x_i^2 \geq x_a^2 > 0\).
+%     Also, \(\langle 0, 0 \rangle = 0\).
+% \end{enumerate}

@@ -4,23 +4,23 @@ The work of Sch\"olkopf, Smola, and M\"uller \cite{scholkopf1997kernel,scholkopf
 In kernel PCA, the inner product of the input space is replaced with the inner product of a feature space.
 As such, the principal components of kernel PCA are nonlinear transformations of input variables, or features.
 
-Using results from the previous section, a kernel function \(k\) defines a unique reproducing kernel Hilbert space \(H_k\) and feature map \(\Phi : X \to H_k\) such that
+Using results from the previous section, a kernel function \(k\) defines a unique reproducing kernel Hilbert space \(H_k\) and feature map \(\Phi : \X \to \H_k\) such that
 \begin{equation}
     \label{eqn:kernel-inner-product}
     k(x,y) = \langle \Phi(x), \Phi(y) \rangle,
 \end{equation}
-for all \(x, y \in H_k\).
+for all \(x, y \in \H_k\).
 
 \subsection{Covariance matrix and kernel matrix}
 In PCA, we diagonalize \(X^\top X\).
 
 \subsection{Centering in the feature space}
 \label{sec:centering-in-the-feature-space}
-Let \(\Phi : X \to H_k\) be a feature map determined by a kernel \(k\).
-Since \(\Phi\) may be nonlinear, the image \(\Phi(x)\) of a centered vector \(x \in X\) is not guaranteed to be centered.
+Let \(\Phi : \X \to \H_k\) be a feature map determined by a kernel \(k\).
+Since \(\Phi\) may be nonlinear, the image \(\Phi(x)\) of a centered vector \(x \in \X\) is not guaranteed to be centered.
 For an effective PCA algorithm, it is necessary to compute the kernel matrix of centered vectors in the feature space. \cite{scholkopf1998nonlinear}
 
-Given \(x_1, \dots, x_n \in X\), the points
+Given \(x_1, \dots, x_n \in \X\), the points
 \begin{equation}
     \label{eqn:centered-features}
     \Phi_0(x_i) = \Phi(x_i) - \frac{1}{n} \sum_{i=1}^{n} \Phi(x_i), \quad \text{for \(i = 1,\dots,m\)}
@@ -76,7 +76,7 @@ See notes in \Cref{subsec:matrix-operations,subsec:broadcasting}.
 %     \end{bmatrix},&
 %     \mu &= \frac{1}{n^2} \sum_{p=1}^{n} \sum_{q=1}^{n} [K]_{pq}.
 % \end{align*}
-% Then \Cref{eqn:centered-kernel-matrix} becomes
+% Then \cref{eqn:centered-kernel-matrix} becomes
 % \begin{equation}
 %     \label{eqn:centered-kernel-computation}
 %     K_0 = K - \c - \r + \mu,

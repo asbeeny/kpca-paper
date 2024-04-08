@@ -1,0 +1,21 @@
+(\(\Rightarrow\))
+Suppose \(G\) is the Gram matrix of \(x_1, x_2, \dots, x_n\) with respect to \(\langle \cdot, \cdot \rangle\).
+Let \(c_1, c_2, \dots, c_n \in \RR\).
+Then \(G\) is positive semidefinite because
+\begin{align}
+    \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j \langle x_i, x_j \rangle
+    = \left\langle
+        \sum_{i=1}^{n} c_i x_i, \sum_{j=1}^{n} c_j x_j
+    \right\rangle
+    = \left\|
+        \sum_{i=1}^{n} c_i x_i
+    \right\|^2
+    \geq 0.
+\end{align}
+
+(\(\Leftarrow\))
+Suppose \(G\) is positive semidefinite.
+Then \(G\) can be factored as \(G = B^\top B\).
+Let \(b_1, b_2, \dots, b_n\), be the columns of \(B\).
+Then \(G = [b_i^\top b_j]_{ij}\).
+Hence \(G\) is the Gram matrix of \(b_1, b_2, \dots, b_n\) with respect to the dot product.

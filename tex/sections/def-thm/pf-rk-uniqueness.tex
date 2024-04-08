@@ -1,0 +1,18 @@
+Let \(\H\) be an RKHS of functions \(\X \to \RR\) for some set \(\X \neq \emptyset\).
+Suppose \(k\) and \(\ell\) reproducing kernels for \(\H\).
+Denote \(k_x = k(x,\cdot)\) and \(\ell_x = \ell(x, \cdot)\), for all \(x \in \X\).
+By the reproducing property,
+\begin{align}
+    \|k_x - \ell_x\|^2
+    &= \ipt{k_x - \ell_x, k_x - \ell_x}\\
+    \notag
+    &= \ipt{k_x - \ell_x, k_x} - \ipt{k_x - \ell_x, \ell_x}\\
+    \notag
+    &= k_x(x) - \ell_x(x) - k_x(x) + \ell_x(x)\\
+    \notag
+    &= 0.
+\end{align}
+It follows that \(k_x - \ell_x\) is the zero function.
+Hence, \(k(x,\cdot) = \ell(x,\cdot)\) for all \(x \in \X\).
+By symmetry, \(k(\cdot, x) = \ell(\cdot, x)\).
+Therefore, \(k = \ell\).

@@ -1,0 +1,141 @@
+
+Let \(x_1, \dots, x_n \in \X\) and \(c_1, \dots, c_n \in \RR\).
+\begin{enumerate}
+    \item \label{itm:kernel-linear-combo}
+    Let \(k = a_1k_1 + a_2k_2\) for \(a_1, a_2 \geq 0\).
+    Since \(k_1\) and \(k_2\) are symmetric,
+    \[
+        k(x,y)
+        = a_1k_1(x,y) + a_2k_2(x,y)
+        = a_1k_1(y,x) + a_2k_2(y,x)
+        = k(y,x),
+    \]
+    for all \(x,y \in \X\).
+    So, \(k\) is symmetric.
+
+    Since \(k_1\) and \(k_2\) are positive semidefinite and \(a_1, a_2 \geq 0\),
+    \begin{align*}
+        \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k(x_i,x_j)
+        &= \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j (a_1 k_1(x_i,x_j) + a_2 k_2(x_i,x_j))\\
+        &= a_1 \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k_1(x_i,x_j)
+        + a_2 \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k_2(x_i,x_j)\\
+        &\geq 0.
+    \end{align*}
+    So, \(k\) is positive semidefinite.
+    \item \label{itm:kernel-product}
+    Let \(k = k_1 k_2\).
+    Define \(K\) so that \([K]_{ij} = k(x_i,x_j) = k_1(x_i, x_j) k_2(x_i, x_j)\).
+    Let \(K_1\) and \(K_2\) be the Gram matrices for \(k_1\) and \(k_2\), respectively.
+    Then \(K_1, K_2\) have orthonormal eigenvectors and nonnegative eigenvalues such that
+    \def\dsum{\displaystyle\sum}
+    \begin{align*}
+        K_1 &= V LV^\top \\
+        &= \begin{bmatrix}
+            v_{11} & \cdots & v_{1n}\\
+            \vdots & \ddots & \vdots\\
+            v_{n1} & \cdots & v_{nn}\\
+        \end{bmatrix}
+        \begin{bmatrix}
+            \lambda_{1} & \cdots & 0\\
+            \vdots & \ddots & \vdots\\
+            0 & \cdots & \lambda_{n}\\
+        \end{bmatrix}
+        \begin{bmatrix}
+            v_{11} & \cdots & v_{n1}\\
+            \vdots & \ddots & \vdots\\
+            v_{1n} & \cdots & v_{nn}\\
+        \end{bmatrix}\\
+        &= \begin{bmatrix}
+            \dsum_{j=1}^{n} \lambda_{j} v_{1j} v_{1j} & \cdots & \dsum_{j=1}^{n} \lambda_{j} v_{nj} v_{1j} \\
+            \vdots & \ddots & \vdots\\
+            \dsum_{j=1}^{n} \lambda_{j} v_{1j} v_{nj} & \cdots & \dsum_{j=1}^{n} \lambda_{j} v_{nj} v_{nj}\\
+        \end{bmatrix}\\
+        &= \sum_{j=1}^{n} \lambda_{j}
+        \begin{bmatrix}
+            v_{1j} v_{1j} & \cdots & v_{nj} v_{1j} \\
+            \vdots & \ddots & \vdots\\
+            v_{1j} v_{nj} & \cdots & v_{nj} v_{nj}\\
+        \end{bmatrix}
+        \intertext{and}
+        K_2 &= UMU^\top = \sum_{j=1}^{n} \mu_{j}
+        \begin{bmatrix}
+            u_{1j} u_{1j} & \cdots & u_{nj} u_{1j} \\
+            \vdots & \ddots & \vdots\\
+            u_{1j} u_{nj} & \cdots & u_{nj} u_{nj}\\
+        \end{bmatrix}.
+    \end{align*}
+    \def\v{\mathbf{v}}
+    \def\u{\mathbf{u}}
+    Let \(\v_i = \begin{bmatrix}
+        v_{1i} & \cdots & v_{ni}
+    \end{bmatrix}^\top\) and \(\u_j = \begin{bmatrix}
+        u_{1j} & \cdots & u_{nj}
+    \end{bmatrix}\), for all \(i,j = 1, 2, \dots, n\).
+    Then
+    \begin{align*}
+        K &= K_1 \circ K_2\\
+        &= \sum_{i=1}^{n} \lambda_{i}
+        \begin{bmatrix}
+            v_{1i} v_{1i} & \cdots & v_{ni} v_{1i} \\
+            \vdots & \ddots & \vdots\\
+            v_{1i} v_{ni} & \cdots & v_{ni} v_{ni}\\
+        \end{bmatrix} \circ
+        \sum_{j=1}^{n} \mu_{j}
+        \begin{bmatrix}
+            u_{1j} u_{1j} & \cdots & u_{nj} u_{1j} \\
+            \vdots & \ddots & \vdots\\
+            u_{1j} u_{nj} & \cdots & u_{nj} u_{nj}\\
+        \end{bmatrix}\\
+        &= \sum_{i=1}^{n} \sum_{j=1}^{n} \lambda_{i} \mu_{j}
+        \begin{bmatrix}
+            v_{1i} u_{1j} v_{1i} u_{1j} & \cdots & v_{1i} u_{1j} v_{ni} u_{nj} \\
+            \vdots & \ddots & \vdots\\
+            v_{ni} u_{nj} v_{1i} u_{1j} & \cdots & v_{ni} u_{nj} v_{ni}  u_{nj}
+        \end{bmatrix}\\
+        &= \sum_{i=1}^{n} \sum_{j=1}^{n} \lambda_{i} \mu_{j}
+        \begin{bmatrix}
+            v_{1i} u_{1j} \\ \vdots \\ v_{ni} u_{nj}
+        \end{bmatrix}
+        \begin{bmatrix}
+            v_{1i} u_{1j} & \cdots & v_{ni} u_{nj}
+        \end{bmatrix}\\
+        &= \sum_{i=1}^{n} \sum_{j=1}^{n} \lambda_{i} \mu_{j}
+        (\v_i \circ \u_j) (\v_i \circ \u_j)^\top,
+    \end{align*}
+    where \(\circ\) is the Hadamard product.
+    Each \((\v_i \circ \u_j) (\v_i \circ \u_j)^\top\) is a symmetric positive semidefinite matrix.
+    Since \(K_1, K_2\) are positive semidefinite, we have \(\lambda_i, \mu_i > 0\).
+    Then \(K\) is symmetric positive semidefinite.
+    \item By part \ref{itm:kernel-product}, \(k_1, k_1^2, \dots, k_1^n\) are kernels.
+    By part \ref{itm:kernel-linear-combo}, \(a_0 + a_1 k_1 + a_2 k_1^2 + \dots + a_n k_1^n\) is a kernel.
+    \item Since \(y_i = h(x_i) \in \X\) for all \(i = 1,2,\dots, n\), we have
+    \begin{align*}
+        \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k(x_i,x_j)
+        &= \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k_1(h(x_i), h(x_j))\\
+        &= \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k_1(y_i, y_j)\\
+        &\geq 0.
+    \end{align*}
+    \item Let \(g : \X \to \RR\) and let \(c_i g(x_i) = y_i \in \RR\).
+    If \(k(x,y) = g(x)g(y)\), then
+    \begin{align*}
+        \sum_{i=1}^{n} \sum_{j=1}^{n} c_i c_j k(x_i,x_j)
+        &= \sum_{i=1}^{n} \sum_{j=1}^{n} c_i g(x_i) c_j g(x_j)\\
+        &= \sum_{i=1}^{n} \sum_{j=1}^{n} y_i y_j\\
+        % &= \sum_{\ell=1}^{n} \left(y_\ell^2 + \sum_{i=\ell+1}^{n} y_i y_\ell + \sum_{j=\ell+1}^{n} y_\ell y_j\right)\\
+        % &= \sum_{i=1}^{n} \left(y_i^2 + 2\sum_{j=i+1}^{n} y_i y_j\right)\\
+        &= \left(\sum_{i=1}^{n} y_i\right)^2\\
+        &\geq 0.
+    \end{align*}
+    \item Let \(K_1\) be the Gram matrix for \(k_1\).
+    If \(K_1 v = \lambda v\), then \(K_1^m = \lambda^m v\) for all \(m \in \NN\).
+    So,
+    \begin{align*}
+        (\exp K_1) v
+        = \sum_{m=0}^{\infty} \frac{K_1^m v}{m!}
+        = \sum_{m=0}^{\infty} \frac{\lambda^m v}{m!}
+        = e^\lambda v.
+    \end{align*}
+    Then \(K = \exp K_1\) has eigenvalues \(e^\lambda\).
+    Since \(K_1\) is positive semidefinite, it has real eigenvalues so that \(e^\lambda > 0\).
+    It follows that \(K\) is positive definite.
+\end{enumerate}

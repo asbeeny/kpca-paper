@@ -79,7 +79,7 @@ We write \([A]_{ij}\) to indicate the matrix entry in the \(i\)-th row and the \
 
 \def\repmat#1#2{\textstyle\left[#1\right]_{#2}}
 Let \([a]_{p \times q}\) denote the \(p \times q\) repeated matrix whose entries are all \(a\).
-Then \Cref{eqn:matrix-mean,eqn:column-mean,eqn:row-mean} can be written as
+Then \cref{eqn:matrix-mean,eqn:column-mean,eqn:row-mean} can be written as
 \begin{align}
     \mean(A) &= \repmat{\frac{1}{n}}{1 \times n} \cdot A \cdot \repmat{\frac{1}{d}}{d \times 1}\\
     \colmean(A) &= \repmat{\frac{1}{n}}{1 \times d} \cdot A \\
@@ -155,6 +155,6 @@ where the notation \([a]_{n \times d}\) represents an \(n \times d\) matrix whos
     \end{equation}
 \end{definition}
 
-The left hand sides of \Cref{eqn:matrix-col-vector-addition,eqn:matrix-row-vector-addition,eqn:matrix-scalar-addition} are more concise and intuitive than the right hand sides.
+The left hand sides of \cref{eqn:matrix-col-vector-addition,eqn:matrix-row-vector-addition,eqn:matrix-scalar-addition} are more concise and intuitive than the right hand sides.
 Provided that the vector types are clearly defined and compatible, there should be no ambiguity when adding column vectors, row vectors, and scalars to matrices.
 Moreover, this method of broadcasting is consistent with scientific programming languages.

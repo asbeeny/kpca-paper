@@ -9,12 +9,6 @@
 % 
 % theorems
 \usepackage{amsthm}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
-\newtheorem{remark}[theorem]{Remark}
 % 
 % algorithm
 \usepackage[boxruled]{algorithm2e}
@@ -25,11 +19,24 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 % 
-% links
+% links and cross-referencing
+% these have to be loaded as late as possible, cleveref last
 \usepackage{hyperref}
-\usepackage{cleveref}
+\usepackage[noabbrev]{cleveref}
+\crefname{enumi}{part}{parts}
+\Crefname{enumi}{Part}{Parts}
 %
 %%% End imports
+
+%%% Begin environments
+% these have to be loaded after cleveref
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+%%% End environments
 
 %%% Begin macros
 % symbols
@@ -37,9 +44,17 @@
 \def\RR{\mathbb{R}}
 \def\CC{\mathbb{C}}
 \def\NN{\mathbb{N}}
-
+\def\QQ{\mathbb{Q}}
+\def\hilbert#1{\mathcal{#1}} % define the look of Hilbert spaces
+\def\X{\hilbert{X}}
+\def\H{\hilbert{H}}
+\def\dotprod{\boldsymbol{\cdot}}
 \def\MSE{\mathrm{MSE}}
 
+% commands
+\def\ipt#1{\left\langle #1 \right\rangle}
+
+% operators
 \DeclareMathOperator{\lspan}{span}
 \DeclareMathOperator{\mean}{mean}
 \DeclareMathOperator{\rowmean}{row\,mean}
@@ -56,7 +71,7 @@
 \author{Alex Beeny \url{abeeny@siue.edu}}
 \date{Draft: \today}
 
-\setcounter{tocdepth}{2}
+\setcounter{tocdepth}{1}
 
 \begin{document}
 \maketitle

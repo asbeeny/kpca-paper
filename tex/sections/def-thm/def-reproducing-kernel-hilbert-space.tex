@@ -1,0 +1,8 @@
+Let \(\H\) be a Hilbert space of functions \(\X \to \RR\) on some nonempty set \(\X\).
+Then \(\H\) is a \textit{reproducing kernel Hilbert space} (RKHS) if there exists a function \(k : \X \times \X \to \RR\) such that for all \(f \in \H\) and \(x \in \X\),
+\begin{enumerate}
+    \item \(f(x) = \ipt{f, k(x,\cdot)}\) and
+    \hfill (reproducing property)
+    \item \(\H = \overline{\lspan\{k(x,\cdot) \mid x \in \X\}}\).
+    \hfill (spanning property)
+\end{enumerate}

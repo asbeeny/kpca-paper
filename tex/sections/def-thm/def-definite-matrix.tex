@@ -1,0 +1,29 @@
+Let \(A\) be an \(n \times n\) matrix over the real numbers having the form
+\begin{equation}
+    A = \begin{bmatrix}
+        a_{11} & a_{12} & \cdots & a_{1n}\\
+        a_{21} & a_{22} & \cdots & a_{2n}\\
+        \vdots & \vdots & \ddots & \vdots\\
+        a_{n1} & a_{n2} & \cdots & a_{nn}\\
+    \end{bmatrix} = [a_{ij}].
+\end{equation}
+The \textit{transpose} of \(A\) is \(A^\top = [a_{ji}]\).
+We say that \(A\) is \textit{symmetric} whenever \(A = A^\top\).
+A symmetric matrix \(A\) is
+\begin{enumerate}
+    \item \label{part:positive-definite-matrix}
+    \textit{positive definite} if \(x^\top A x > 0\), for all nonzero \(x \in \RR^n\), or
+    \item \label{part:positive-semidefinite-matrix}
+    \textit{positive semidefinite} if \(x^\top A x \geq 0\), for all \(x \in \RR^n\).
+\end{enumerate} 
+% \begin{align}
+%     x^\top A x &> 0, \quad \text{for all nonzero \(x \in \RR^n\)}
+%     \intertext{and is \textit{positive semidefinite} if}
+%     x^\top A x &\geq 0, \quad \text{for all \(x \in \RR^n\)}.
+% \end{align}
+Negative (semi)definite matrices can be defined in a similar fashion.
+A matrix is \textit{definite} if it is either positive semidefinite or negative semidefinite.
+Otherwise, \(A\) is an \textit{indefinite matrix}.
+
+Be aware that some authors use the terms positive definite (\(>\)) and nonnegative definite (\(\geq\)).
+Other authors use the modifier \textit{strict} as in strict positive definite (\(>\)) and positive definite (\(\geq\)).

@@ -1,0 +1,23 @@
+Consider a Hilbert space \(\RR^n\) with the dot product.
+Note that the vectors in \(\RR^n\) are actually just sequences \(\NN \to \RR\) with some vector operations.
+It is straightforward to show that the reproducing kernel is the Kroenecker delta \(k(i,j) = \delta_{ij}\) for all \(i,j \in \{1,2,\dots,n\}\).
+This generates the standard basis \(\{e_i\}_{i=1}^n\), where \(e_i = k(i,\cdot)\).
+So, \(\RR^n\) is an RKHS.
+
+We can replace \(\NN\) with any other index set with cardinality \(n\), say \(I_n = \{\frac{0}{n}, \frac{1}{n}, \frac{2}{n}, \dots, \frac{n-1}{n-1}\}\).
+Then an indexed family \(f_n : I_n \to \RR\) has a vector representation in \(\RR^n\).
+Letting \(n\) tend to infinity, we have \(I_\infty = \QQ \cap [0,1]\).
+By completion, this is the space of functions \(\{f \mid f : [0,1] \to \RR\}\).
+In one sense, \(f_n \in \RR^n\) is a point in \(n\)-dimensional space and, in another sense, \(f_n : I_n \to \RR\) is the discretization of a function \(f : [0,1] \to \RR\).
+This way, real-valued functions on \([0,1]\) can be interpreted as infinite-dimensional vectors.
+
+Now consider the Hilbert space \(L^2({[0,1]}) = \{f \mid \int_{[0,1]} f^2 < \infty\}\) with inner product \(\ipt{f,g} = \int_{[0,1]} fg\).
+Then for all \(x \in {[0,1]}\),
+\def\dd{\operatorname{d}}
+\begin{equation}
+    f(x) = \int_{[0,1]} \delta(x-t) f(t) \dd{t},
+\end{equation}
+where \(\delta\) is the Dirac delta function.
+If \(L^2({[0,1]})\) is an RKHS, then by \Cref{thm:rk-uniqueness}, \(k(x,t) = \delta(x-t)\) is the unique reproducing kernel.
+But \(\int_\X \delta^2 = \infty\) implies \(\delta \notin L^2({[0,1]})\).
+Therefore, \(L^2({[0,1]})\) is not an RKHS.

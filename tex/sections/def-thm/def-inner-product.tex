@@ -1,0 +1,36 @@
+% begin macros
+\def\innerprod{\ipt{\cdot, \cdot}}
+\def\qand{\quad\text{and}\quad}
+% end macros
+% 
+Let \(\innerprod : \X \times \X \to \RR\) be a function defined on the vector space \(\X\).
+Then \(\innerprod\) is an \textit{inner product} if the following properties hold for all \(x, y, z \in \X\) and \(\alpha, \beta \in \RR\):
+\begin{enumerate}
+    \item %Symmetry:
+    \(\ipt{x,y} = \ipt{y,x}\);
+    \hfill (symmetry)
+    \item %Bilinearity:
+    \(\ipt{\alpha x + \beta y, z} = \alpha \ipt{x, z} + \beta \ipt{y, z}\);
+    \hfill (bilinear)
+    \item %Positive definiteness:
+    \(\ipt{x,x} \geq 0\) and \(\ipt{x,x} = 0\) if and only if \(x = 0\).
+    \hfill (positive definite)
+\end{enumerate}
+Note that linearity in the first argument with symmetry implies that the inner product is bilinear (linear in both arguments).
+Since inner products are positive definite, they induce a norm \(\| \cdot \| : \X \to \RR\) and metric \(d : \X \times \X \to \RR\) such that
+\begin{equation}
+    \|x\| = \sqrt{\langle x, x \rangle}
+    \qand
+    d(x,y) = \|x - y\|.
+\end{equation}
+An \textit{inner product space}, \textit{normed space}, and \textit{metric space} are vector spaces along with an inner product, norm, and metric, respectively.
+It follows that an inner product space is also a normed space and a metric space.
+Then the induced norm has the following properties for all \(x, y \in \X\) and \(\alpha \in \RR\):
+\begin{enumerate}
+    \item \(\|\alpha x\| = |\alpha| \|x\|\);
+    \item \(\|x\| \geq 0\) and \(\|x\| = 0\) if and only if \(x = 0\);
+    \item \(\|x + y \| \leq \|x\| + \|y\|\);
+    \hfill (triangle inequality)
+    \item \(\langle x, y \rangle^2 \leq \|x\| \|y\|\).
+    \hfill (Cauchy-Schwarz inequality)
+\end{enumerate}

@@ -1,0 +1,30 @@
+% Existence
+For existence, we summarize the construction provided in \Cref{sub:kernels}.
+\begin{enumerate}
+    \item \(k\) defines a feature map \(\Phi : \X \to \RR^\X\) such that \(\Phi(x) = k(x, \cdot)\) for all \(x \in \X\).
+    \item The linear span of \(\Phi(\X)\) is a feature space.
+    \item \(\Phi\) defines an inner product \(\iptHo{\cdot, \cdot} : \Ho \times \Ho \to \RR\) in \cref{eqn:pre-hilbert-inner-product}.
+    \item Completing the feature space yields a Hilbert space \(\H\) with inner product \(\ipt{\cdot, \cdot} : \H \times \H \to \RR\).
+    \item \(k\) has the reproducing property \(\ipt{f, k(x,\cdot)} = f(x)\) shown by \cref{eqn:reproducing-property}.
+\end{enumerate}
+\def\L{\hilbert{L}}
+\def\Hp{\H^{\perp}}
+% Uniqueness
+For uniqueness, suppose \(k\) is a reproducing kernel for Hilbert spaces \(\H\) and \(\L\).
+
+TODO: Show that WLOG \(\H \subseteq \L\).
+
+Now let \(f \in \L\).
+Then we can write \(\L = \H \oplus \Hp\) as the orthogonal decomposition of \(\L\).
+There exist \(g \in \H\) and \(g^\perp \in \Hp\) such that \(f = g + g^\perp\).
+Let \(x \in \X\).
+Then \(k(x,\cdot) \in \H\) implies \(\ipt{g^\perp,k(x,\cdot)}_{\L} = 0\)
+Thus
+\begin{equation}
+    f(x)
+    = \ipt{g,k(x,\cdot)}_{\L} + \ipt{g^\perp,k(x,\cdot)}_{\L}
+    = \ipt{g,k(x,\cdot)}_{\L}
+    = \ipt{g,k(x,\cdot)}_{\H}
+    = g(x).
+\end{equation}
+Thus \(f = g \in \H\) implies \(\L \subseteq \H\).

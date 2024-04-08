@@ -1,0 +1,17 @@
+The development of \textit{kernel functions} can be traced back to the beginning of the twentieth century when David Hilbert and James Mercer were studying integral equations \cite{hofmann2008kernel}.
+Hilbert proved some important results in \cite{hilbert1912grundzüge} about the eigenvalues of an integral operator whose kernel function is of \textit{definite} type.
+Expanding on Hilbert's work, Mercer provided the necessary conditions in \cite{mercer1909xvi} that allow a kernel function to be written in terms of the eigenvalues and eigenfunctions of the integral operator.
+This result became known as Mercer's theorem.
+See \Cref{sec:mercers-theorem}.
+A simplified version of Mercer's theorem states that a kernel function can be written as an inner product in a higher-dimensional space.
+
+Hilbert space theory and Mercer's theorem led to a number of advances in functional analysis over the next few decades.
+Notably, in 1950, Nachman Aronszajn introduced reproducing kernel Hilbert spaces in \cite{aronszajn1950theory}.
+This work expanded on Mercer's theorem and shows that a kernel generates a Hilbert space whose inner product agrees with the kernel.
+
+Later, the work of Mercer and Aronszajn inspired the application of kernels in machine learning.
+A \textit{kernel method} is an adaptation of a machine learning algorithm that replaces a dot product with a kernel function.
+The earliest research involving kernel methods was in 1964 by Mark Aizerman et al. \cite{aizerman1964theoretical}.
+In the 1990s, Bernhard Sch\"olkopf et al. used Aizerman's technique to develop kernel PCA and suggested the kernel trick could work in other cases too.
+In \Cref{sec:kernel-pca}, we will look at the kernel method applied to the PCA algorithm.
+For now, we will examine the mathematics behind kernel methods.

@@ -1,0 +1,13 @@
+Starting with any nonempty set and a kernel, we built a highly structured RKHS.
+The two properties that made this possible are symmetry and positive semidefiniteness.
+Let us summarize the steps involved.
+\begin{enumerate}
+    \item Let \(\X \neq \emptyset\) and \(k : \X \times \X \to \RR\) be a kernel.
+    Assume \(x,y \in \X\).
+    \item \(k\) defines a feature map \(\Phi : \X \to \RR^\X\) such that \(\Phi(x) = k(x, \cdot)\).
+    \item The linear span of \(\Phi(\X)\) is a feature space.
+    \item \(\Phi\) determines an inner product.
+    \item Completing the feature space yields a Hilbert space \(\H\) with inner product \(\ipt{\cdot, \cdot} : \H \times \H \to \RR\).
+    \item The kernel has the reproducing property \(\ipt{f, k(x,\cdot)} = f(x)\) so that \(\H\) is an RKHS.
+    \item The kernel is an inner product of features \(k(x,y) = \ipt{\Phi(x),\Phi(y)}\).
+\end{enumerate}
