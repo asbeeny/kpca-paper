@@ -1,0 +1,17 @@
+% TODO: Intro example
+Suppose we have a set of points \(\left\{\left(x^{(i)}, y^{(i)}\right)\right\}_{i=1}^{k}\) in \(\RR^2\).
+\begin{figure}
+    \centering
+    \input{figs/fig-feature-space.tex}
+    \caption{Plotting \(y\) against \(x\) (left) and the derived feature \(z = \phi(x)\) (middle). The 3D plot (right) graphs the output \(y\) against \(x\) and \(x^2\)}
+    \label{fig:feature-map}
+\end{figure}
+Using polynomial regression, we fit the model \(y \sim 1 + x + x^2\).
+% See \Cref{fig:feature-map}.
+We can derive a new variable from \(x\) to get \[z = \phi(x) = a_0 + a_1 x + a_2 x^2.\]
+By transforming our original data, the quadradic relationship between \(x\) and \(y\) can be viewed as a linear relationship between \(z\) and \(y\).
+This shows that polynomial regression is just a special case of multiple regression where each power of \(x\) is treated as a separate dimension.
+See \Cref{fig:feature-map}
+
+Here, we make the distinction between different kinds of input variables.
+We say that \(x\) is an \textbf{attribute} and that \(z\) is a \textbf{feature}.

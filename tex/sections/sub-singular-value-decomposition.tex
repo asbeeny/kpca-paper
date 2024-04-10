@@ -1,0 +1,68 @@
+% TODO: SVD
+The singular value decomposition (SVD) of a rectangular matrix generalizes the idea of diagonalization for square matrices.
+Moreover, this provides a connection between the matrices \(A^\top A\) and \(AA^\top\).
+
+\begin{theorem}[Singular value decomposition]
+    \label{thm:svd}
+    \cite{horn2013matrix}
+    Let \(A \in \RR^{n \times d}\).
+    Then there exist orthogonal matrices \(U \in \RR^{n \times n}\) and \(V \in \RR^{d \times d}\) and a diagonal matrix \(S \in \RR^{n \times d}\) such that \(A = USV^\top\).
+    We say the columns of \(U = \begin{bmatrix}
+        u_1 & u_2 & \cdots & u_n
+    \end{bmatrix}\) and \(V = \begin{bmatrix}
+        v_1 & v_2 & \cdots & v_d
+    \end{bmatrix}\) are the left and right singular vectors of \(A\), respectively
+    The diagonal entries of \(S\) are the called the singular values \(\sigma_1, \sigma_2, \dots, \sigma_r\), where \(r = \rank A \leq \min\{n,d\}\).
+    Then we can write
+    \begin{equation}
+        \label{eqn:svd}
+        A = USV^\top = \sum_{i=1}^{r} \sigma_i u_i v_i^\top.
+    \end{equation}
+\end{theorem}
+
+The SVD of a matrix \(A\) can be found by diagonalizing \(A^\top A\) and \(AA^\top\).
+If \(A = USV^\top\), then
+\begin{align*}
+    A^\top A &= (USV^\top)^\top (USV^\top) = V S U^\top U S V^\top = V S^2 V^\top\\
+    AA^\top  &= (USV^\top) (USV^\top)^\top = U S V^\top V S U^\top = U S^2 U^\top.
+\end{align*}
+
+So, \(\{v_j\}_{j=1}^d\) are the eigenvectors of \(A^\top A\), \(\{u_j\}_{j=1}^n\) are the eigenvectors of \(AA^\top\), and \(\{\sigma_j^2\}_{j=1}^r\) are the eigenvalues of both \(A^\top A\) and \(AA^\top\).
+Notice that the SVD of \(A\) will give us the projection matrix \(V\) in \cref{eqn:diagonalize-covariance}, provided that \(A\) is centered.
+In this way, we see that PCA is really just a special case of the SVD.
+
+\begin{theorem}[Frobenius norm]
+    \label{def:frobenius}
+    \cite{mohri2012foundations,horn2013matrix}
+    The \textit{Frobenius norm} (or \textit{Hilbert-Schmidt norm}) of a matrix \(A = [a_{ij}] \in \RR^{n \times d}\) is given by
+    \begin{equation}
+        \label{eqn:frobenius}
+        \|A\|_F = \sqrt{\tr(A^\top A)} = \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{d} a_{ij}^2}.
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    Let \(A = [a_{ij}] \in \RR^{n \times d}\).
+    Then \(A^\top A = \left[\sum_{k=1}^{n} a_{k i} a_{k j}\right]_{ij}\).
+    It follows that \(\|A\|_F^2 = \tr(A^\top A) = \sum_{i=1}^{n} \sum_{j=1}^{d} a_{ij}^2\).
+    Clearly, \(\|A\|_F > 0\) whenever \(A\) is not the zero matrix and \(\|A\|_F = 0\) whenever \(A\) is the zero matrix.
+
+    For the triangle inequality, consider another matrix \(B = [b_{ij}] \in \RR^{d \times m}\).
+    Then
+    \begin{align*}
+        \|AB\|_F
+        &= \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{m} \sum_{k=1}^{d} (a_{ik} b_{kj})^2}\\
+        &\leq \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{m}
+        \left(\sum_{k=1}^{d} a_{ik}^2\right) \left(\sum_{k=1}^{d} b_{kj}^2\right)}\\
+        &= \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{d} a_{ij}^2}
+        \sqrt{\sum_{i=1}^{d} \sum_{j=1}^{m} b_{ij}^2}\\
+        &= \|A\|_F \|B\|_F.
+    \end{align*}
+    Thus, \(\|\cdot\|_F\) is a matrix norm.
+\end{proof}
+
+Combining \cref{eqn:svd,eqn:frobenius}, we have
+\begin{equation}
+    \label{eqn:frobenius-singular-values}
+    \|A\|_F = \sqrt{\sum_{i=1}^{r} \sigma_i^2} = \sqrt{\sum_{i=1}^{r} \lambda_i^2},
+\end{equation}
+where \(\{\sigma_i\}_{i=1}^r\) are the singular values of \(A\) and \(\{\lambda_i\}_{i=1}^r\) are the eigenvalues of \(A^\top A\) or \(AA^\top\).

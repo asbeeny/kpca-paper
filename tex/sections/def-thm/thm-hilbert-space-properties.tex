@@ -1,0 +1,15 @@
+\def\L{\hilbert{L}}
+\def\iptH#1{\ipt{#1}_{\H}}
+\def\iptL#1{\ipt{#1}_{\L}}
+Then the following properties hold for Hilbert spaces.
+\begin{enumerate}
+    \item A Hilbert space is separable if and only if it has a countable orthonormal basis.
+    % Kreyszig, Theorem 3.6.4, page 171
+    \item Two Hilbert spaces are isomorphic if and only if they have the same dimension.
+    % Kreyszig, Theorem 3.6.5, page 173
+    \item Any inner product \(\H\) space can be extended to a Hilbert space by completion and is unique up to isomorphism.
+    We denote the completion as \(\overline{\H}\).
+    \item A Hilbert space \(\H\) can be decomposed into orthogonal subspaces \(M\) and \(M^\perp\) such that whenever \(f \in M\) and \(g \in M^\perp\), then \(\ipt{f, g} = 0\)
+    \cite{bachman1966functional}.
+    We denote the \emph{orthogonal decomposition} of a Hilbert space as the direct sum \(\H = M \oplus M^\perp\).
+\end{enumerate}

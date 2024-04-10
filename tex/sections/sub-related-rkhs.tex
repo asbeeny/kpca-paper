@@ -1,0 +1,41 @@
+\input{sections/intro-related-rkhs.tex}
+
+\subsubsection{Positive semidefinite kernels.}
+
+\begin{theorem}[Moore-Aronszajn theorem]
+    \label{thm:moore-aronszajn}
+    \cite{aronszajn1950theory}
+    \input{sections/def-thm/thm-moore-aronszajn.tex}
+\end{theorem}
+\begin{proof}
+    \input{sections/def-thm/pf-moore-aronszajn.tex}
+\end{proof}
+
+\begin{theorem}
+    \label{thm:rk-uniqueness}
+    \cite{aronszajn1950theory}
+    \input{sections/def-thm/thm-rk-uniqueness.tex}
+\end{theorem}
+\begin{proof}
+    \input{sections/def-thm/pf-rk-uniqueness.tex}
+\end{proof}
+
+\subsubsection{Continuous linear functionals.}
+
+In the reverse direction, suppose we have a Hilbert space and we want to know if it is an RKHS.
+
+\begin{example}
+    \label{eg:r4-rkhs}
+    \input{sections/def-thm/eg-r4-rkhs.tex}
+\end{example}
+
+The Kroenecker delta and Dirac delta in the example reproduce functions in the Hilbert space with the inner product.
+
+\begin{definition}[Evaluation functional]
+    Let \(\X\) be a nonempty set and \(\H\) be a Hilbert space of functions \(\X \to \RR\).
+    Then for all \(x \in \X\), let \(\delta_x : \H \to \RR\) such that \(\delta_x(f) = f(x)\), for each \(f \in \H\).
+\end{definition}
+
+\subsubsection{Mercer's theorem}
+\label{sub:mercers-theorem}
+\input{sections/par-mercers-theorem.tex}

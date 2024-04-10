@@ -1,0 +1,36 @@
+\input{sections/intro-kernel-methods.tex}
+
+\begin{definition}[Kernel]
+    \label{def:kernel}
+    \cite{rudin2020notes}
+    \input{sections/def-thm/def-kernel.tex}
+\end{definition}
+
+We can easily show some properties that kernels have in common with inner products.
+
+\begin{lemma}
+    \label{lem:properties-of-kernels}
+    \cite{rudin2020notes}
+    \input{sections/def-thm/lem-properties-of-kernels.tex}
+\end{lemma}
+\begin{proof}
+    \input{sections/def-thm/pf-properties-of-kernels.tex}
+\end{proof}
+
+\begin{definition}[Feature map]
+    \label{def:feature-map}
+    \cite{hofmann2008kernel}
+    \input{sections/def-thm/def-feature-map.tex}
+\end{definition}
+
+\input{sections/par-constructing-an-rkhs.tex}
+
+\begin{definition}[Reproducing kernel Hilbert space]
+    \label{def:reproducing-kernel-hilbert-space}
+    \cite{hofmann2008kernel}
+    \input{sections/def-thm/def-reproducing-kernel-hilbert-space.tex}
+\end{definition}
+
+Fix \(y \in \X\) and treat \(k(x,y)\) as a univariate function of \(x \in \X\).
+By the reproducing property, \(k(x,y) = \ipt{k(x,\cdot),k(y,\cdot)}\).
+Define \(\Phi(x) = k(x,\cdot)\) to give the desired result in \cref{eqn:kernel-inner-product-1}.

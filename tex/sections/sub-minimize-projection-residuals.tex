@@ -1,0 +1,38 @@
+Let \(a_1, a_2, \dots, a_n\) be points in \(\RR^d\).
+Assume that these points have zero mean, that is, \(\frac{1}{n}\sum_{i=1}^{n} a_i\) is the zero vector in \(\RR^d\).
+Let \(A\) be the \(n \times d\) matrix whose rows are given by \(a_1, a_2, \dots, a_n\).
+Then the covariance matrix from \cref{eqn:covariance-matrix-pca} is given by \(C = \frac{1}{n-1} A^\top A\).
+% \begin{align}
+%     \notag
+%     \|a_i - b_i\|^2
+%     &= \left\langle a_i - b_i, a_i - b_i\right\rangle
+%     \notag \\
+%     &= \left\langle a_i, a_i \right\rangle
+%     - 2\left\langle a_i, b_i \right\rangle
+%     + \left\langle b_i, b_i \right\rangle
+%     \notag \\
+%     &= \left\| a_i \right\|^2
+%     - 2\left\langle a_i, b_i \right\rangle
+%     + \left\| b_i \right\|^2
+%     \notag \\
+%     &= \left\| a_i \right\|^2
+%     - 2\left\langle a_i, \sum_{j=1}^{p} \langle a_i, v_j \rangle v_j \right\rangle
+%     + \left\| \sum_{j=1}^{p} \langle a_i, v_j \rangle v_j \right\|^2
+%     \notag \\
+%     &= \left\| a_i \right\|^2
+%     - 2\sum_{j=1}^{p} \langle a_i, v_j \rangle \left\langle a_i,  v_j \right\rangle
+%     + \sum_{j=1}^{p} \langle a_i, v_j \rangle^2 \left\|  v_j \right\|^2 
+%     \notag \\
+%     &= \left\| a_i \right\|^2
+%     - 2\sum_{j=1}^{p} \langle a_i, v_j \rangle^2
+%     + \sum_{j=1}^{p} \langle a_i, v_j \rangle^2
+%     \notag \\
+%     \label{eqn:projection-residuals}
+%     &= \left\| a_i \right\|^2
+%     - \sum_{j=1}^{p} \langle a_i, v_j \rangle^2
+% \end{align}
+
+% TODO: Minimize projection residuals
+
+% derive the first principal component by minimizing the projection residual
+% derive the next principal component orthogonal to the first one that minimizes the projection residual

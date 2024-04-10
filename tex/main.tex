@@ -10,8 +10,9 @@
 % theorems
 \usepackage{amsthm}
 % 
-% algorithm
+% algorithm / code listing
 \usepackage[boxruled]{algorithm2e}
+\usepackage{listings}
 % 
 % graphics
 \usepackage{float}
@@ -51,19 +52,29 @@
 \def\dotprod{\boldsymbol{\cdot}}
 \def\MSE{\mathrm{MSE}}
 
+% listing style
+\lstset{
+    basicstyle=\ttfamily\small,
+    commentstyle=\itshape\color{gray},
+    numbers=left,
+    numberstyle=\tiny
+}
+
 % commands
 \def\ipt#1{\left\langle #1 \right\rangle}
 
 % operators
 \DeclareMathOperator{\lspan}{span}
 \DeclareMathOperator{\mean}{mean}
+\DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\rowmean}{row\,mean}
 \DeclareMathOperator{\colmean}{col\,mean}
 \DeclareMathOperator{\row}{row}
 \DeclareMathOperator{\col}{col}
 \DeclareMathOperator{\cov}{cov}
 \DeclareMathOperator{\corr}{corr}
-\DeclareMathOperator{\Var}{var}
+\DeclareMathOperator{\Var}{var} 
+\DeclareMathOperator{\tr}{tr} 
 %%% End macros
 
 %%% Set title
@@ -101,12 +112,12 @@
 \section{Linear Algebra}
 \label{sec:linear-algebra}
 \input{sections/070-linear-algebra.tex}
-\section{Riesz Representation Theorem}
-\label{sec:riesz-representation-theorem}
-\input{sections/080-riesz-representation-theorem.tex}
-\section{Mercer's Theorem}
-\label{sec:mercers-theorem}
-\input{sections/090-mercers-theorem.tex}
+% \section{Riesz Representation Theorem}
+% \label{sec:riesz-representation-theorem}
+% \input{sections/080-riesz-representation-theorem.tex}
+% \section{Mercer's Theorem}
+% \label{sec:mercers-theorem}
+% \input{sections/090-mercers-theorem.tex}
 \section{Code}
 \label{sec:code}
 \input{sections/100-code.tex}

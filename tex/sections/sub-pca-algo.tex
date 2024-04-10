@@ -1,0 +1,11 @@
+Let \(A\) be a data matrix whose \(n\) rows correspond to observations and \(d\) columns correspond to variables.
+The following algorithm demonstrates a simple method for computing the PCA of \(A\):
+\begin{enumerate}
+    \item Compute the centered matrix \(A_0 = A - \colmean(A)\).
+    \item Compute the covariance matrix \(C = \frac{1}{n-1} A_0^\top A_0\).
+    \item Diagonalize the covariance matrix such that \(C = V D V^\top\).
+    \item Order the eigenvalues and eigenvectors so that \(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d\).
+    We call the ordered eigenvalues the \textit{principal components}.
+    \item Choose the dimension of the subspace \(p \leq d\).
+    \item Construct the \(d \times p\) projection matrix \(V_p\) using the first \(p\) principal components \(v_1, v_2, \dots, v_p\).
+\end{enumerate}

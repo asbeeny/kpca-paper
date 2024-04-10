@@ -1,1 +1,15 @@
-% todo: write mercer's theorem
+Let \(k : \X \times \X \to \RR\) be a continuous bounded kernel on a compact set \(\X\).
+Define the Hilbert-Schmidt integral operator \(T_k : L^2(\X) \to L^2(\X)\) as
+\begin{equation}
+    (T_k f)(x) = \int_{\X} k(x, t) f(t) \dd t.
+\end{equation}
+% Then \emph{Mercer's condition} is satisfied
+% \begin{equation}
+%     \iint k(x,t) f(x) f(t) \dd x \dd t \geq 0
+% \end{equation}
+Then there exists an orthonormal basis \(\{\psi_{i}\}_{i=1}^\infty\) of eigenfunctions of \(T_k\) and corresponding eigenvalues \((\lambda_i)_{i=1}^\infty\) with \(\lambda_i \geq 0\), for all \(i \in \NN\).
+Moreover, for all \(x,y \in \X\),
+\begin{equation}
+    k(x,y) = \sum_{i=1}^{\infty} \lambda_i \psi_i(x) \psi_i(y),
+\end{equation}
+where convergence is uniform.

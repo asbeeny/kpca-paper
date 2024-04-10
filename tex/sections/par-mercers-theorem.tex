@@ -1,8 +1,10 @@
+\def\dd{\;\mathrm{d}}
+\def\dx{\dd{x}}
+\def\dy{\dd{y}}
+\def\dt{\dd{t}}
 Mercer's theorem provides a result similar to Aronszajn's, but without the context of an RKHS.
-Rather, the focus is the decomposition of a kernel into a uniformly convergent series of eigenvalues and eigenfunctions.
-This allows us to write a power series representation for the feature map.
+Rather, the focus is the decomposition of an integral operator.
 
-% todo: remove mercer's theorem and riesz representation from appendix
 \begin{theorem}[Mercer's theorem]
     \label{thm:mercers}
     \cite{mercer1909xvi}
@@ -11,3 +13,4 @@ This allows us to write a power series representation for the feature map.
 \begin{proof}
     \input{sections/def-thm/pf-mercers.tex}
 \end{proof}
+

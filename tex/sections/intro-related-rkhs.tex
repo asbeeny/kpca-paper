@@ -1,5 +1,5 @@
 In the previous section, we showed that a (symmetric positive semidefinite) kernel defines an RKHS.
-Presently, we will look at three alternative definitions for RKHS stated as equivalence theorems.
+Presently, we will look at three alternative methods for constructing an RKHS.
 \begin{enumerate}
     \item \textbf{Positive semidefinite kernels.}
     Due to Aronszajn \cite{aronszajn1950theory}, a reproducing kernel will generate a unique RKHS.
@@ -7,9 +7,8 @@ Presently, we will look at three alternative definitions for RKHS stated as equi
     See \Cref{thm:moore-aronszajn,thm:rk-uniqueness}.
     \item \textbf{Continuous linear functionals.}
     By the Riesz representation theorem, if every evaluation functional is continuous, then every function in the Hilbert space can be reproduced at every point.
-    In this way, a kernel can be defined.
+    In this way, a reproducing kernel can be defined.
     \item \textbf{Feature maps.}
-    A feature map together with an inner product can be used to define evaluation functionals.
-    Demonstrating that these are continuous will satisfy the hypotheses of the Riesz representation theorem.
+    A explicit feature map with an inner product can be used to define a kernel as in \cref{eqn:kernel-inner-product-1}.
+    Alternatively, by Mercer's theorem \ref{thm:mercers}, a kernel has a series expansion which allows us to define a feature map in terms of eigenvalues and eigenfunctions.
 \end{enumerate}
-

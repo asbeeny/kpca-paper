@@ -1,0 +1,22 @@
+\begin{theorem}
+    \label{thm:constructing-kernels}
+    \cite{rudin2020notes,shawe2004kernel}
+    \input{sections/def-thm/thm-constructing-kernels.tex}
+\end{theorem}
+\begin{proof}
+    \input{sections/def-thm/pf-constructing-kernels.tex}
+\end{proof}
+
+\begin{theorem}[Gaussian kernel]
+    \label{thm:gaussian-kernel}
+    The function \(k : \RR^n \times \RR^n \to \RR\) defined by
+    \begin{equation}
+        \label{eqn:gaussian-kernel}
+        k(x,y) = \exp\left(\frac{-\|x-y\|^2_2}{\sigma^2}\right),
+    \end{equation}
+    is a kernel.
+\end{theorem}
+
+\begin{proof}
+    \input{sections/def-thm/pf-gaussian-kernel.tex}
+\end{proof}

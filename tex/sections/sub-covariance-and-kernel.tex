@@ -1,0 +1,10 @@
+% TODO: Add covariance and kernel discussion
+Consider a centered data matrix \(A = [a_{ij}]^{n \times d}\) whose columns represent input variables.
+In the linear case, PCA decomposes the covariance matrix \(C = \frac{1}{n-1}A^\top A\) into a basis of eigenvectors \(\{v_i\}_{i=1}^d\) with descending eigenvalues \(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d\).
+
+Using results from the previous section, a kernel function \(k : \X \times \X \to \RR\) defines a unique reproducing kernel Hilbert space \(\H\) and feature map \(\Phi : \X \to \H\) such that
+% \begin{equation}
+%     \label{eqn:kernel-inner-product}
+    \(k(x,y) = \ipt{\Phi(x), \Phi(y)},\)
+% \end{equation}
+for all \(x, y \in \H_k\).

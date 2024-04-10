@@ -1,0 +1,69 @@
+The correlation between two random variables \(x\) and \(y\) is defined as
+\begin{equation}
+    \corr(x,y) = \frac{E[(x-\mu_x)(y-\mu_y)]}{\sigma_x \sigma_y},
+\end{equation}
+where \(\mu_x\), \(\mu_y\) and \(\sigma_x\), \(\sigma_y\) are the respective means and standard deviations of \(x\) and \(y\).
+% If \(\mu_x = \mu_y = 0\), then we say \(x\) and \(y\) are \textit{centered}.
+We say \(x\) and \(y\) are uncorrelated when \(\corr(x,y) = 0\).
+This happens if and only if
+\begin{equation}
+    \label{eqn:covariance-formula}
+    E[(x-\mu_x)(y-\mu_y)] = \cov(x,y) = 0.
+\end{equation}
+The covariance matrix for a multivariate random variable \(x = [x_1, x_2, \dots, x_d]\) (as a row vector) has \(\cov(x_i, x_j)\) in the \(i\)-th row and \(j\)-th column.
+Then
+\begin{equation}
+    \label{eqn:covariance-matrix-formula}
+    E[(x-\mu_x)^\top (x-\mu_x)] =
+    \begin{bmatrix}
+        \cov(x_1, x_1) & \cov(x_1, x_2) & \cdots & \cov(x_1, x_d) \\
+        \cov(x_2, x_1) & \cov(x_2, x_2) & \cdots & \cov(x_2, x_d) \\
+        \vdots         & \vdots         & \ddots & \vdots         \\
+        \cov(x_d, x_1) & \cov(x_d, x_2) & \cdots & \cov(x_d, x_d) \\
+    \end{bmatrix}.
+\end{equation}
+% If each \(x_i\) is centered, then left hand side of \cref{eqn:covariance-matrix-formula} becomes \(E(x^\top x)\).
+If \(x_1, x_2, \dots, x_d\) are pairwise uncorrelated, then \(\cov(x_i, x_j) = 0\) for all \(i \neq j\).
+Hence, uncorrelated variables have a diagonal covariance matrix.
+
+Now, let \(a_1, a_2, \dots, a_n \in \RR^{1 \times d}\) represent \(n\) observations in \(d\) variables.
+These observations can be considered points in \(d\)-dimensional space whose centroid is \(\mu_a = \frac{1}{n} \sum_{i=1}^{n} a_i\).
+We want to determine a PCA transform which sends these points in the input space to points in the feature space.
+Moreover, the basis vectors of the feature space shall be uncorrelated.
+Accordingly, let \(V \in \RR^{d \times d}\) be the change of basis matrix and let
+\begin{equation}
+    \label{eqn:transformed-points}
+    b_i = (a_i - \mu_a) V, \quad \text{for \(i = 1, 2, \dots, n\)}
+\end{equation}
+be observations with respect to the feature coordinates.
+Then
+\begin{equation}
+    \mu_b
+    = \frac{1}{n} \sum_{i=1}^{n} b_i
+    = \frac{1}{n} \sum_{i=1}^{n} (a_i - \mu_a) V
+    = 0.
+\end{equation}
+Using \cref{eqn:covariance-matrix-formula}, we can compute the sample covariance matrices as 
+\begin{equation}
+    \label{eqn:covariance-matrix-pca}
+    C = \frac{1}{n-1} \sum_{i=1}^{n} (a_i - \mu_a)^\top (a_i - \mu_a),
+    \qquad
+    D = \frac{1}{n-1} \sum_{i=1}^{n} b_i^\top b_i.
+\end{equation}
+Since \(D\) is the covariance matrix of uncorrelated features, by the argument above, it is diagonal.
+If we restrict \(V\) to be orthogonal, then
+\begin{equation}
+    \label{eqn:diagonalize-covariance}
+    b_i^\top b_i = V^\top (a_i - \mu_a)^\top (a_i - \mu_a) V
+    \implies
+    D = V^\top C V
+    \implies
+    C = V D V^\top.
+\end{equation}
+Hence, \(V\) must be a matrix of orthonormal eigenvectors \(v_1, v_2, \dots, v_d\) corresponding to eigenvalues \(\lambda_1, \lambda_2, \dots, \lambda_d\) on the diagonal of \(D\).
+When the eigenvalues and eigenvectors are ordered such that
+\begin{equation}
+    \lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d,
+\end{equation}
+we call \(v_1, v_2, \dots, v_d\) the \textit{principal components} of the PCA transform matrix \(V\).
+

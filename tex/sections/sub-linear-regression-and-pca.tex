@@ -1,0 +1,30 @@
+\def\vb#1{\mathbf{#1}}
+\cite{shawe2004kernel}
+Let \(\vb{x}_1, \dots, \vb{x}_m \in \RR^n\) be observation vectors and \(\vb{y} \in \RR^n\) be a target vector.
+A linear regression model finds a vector of weights \(\vb{w} = (w_1, w_2, \dots, w_n)\) to determine the linear function
+\begin{equation}
+    f(\vb{x}) = \vb{w} \cdot \vb{x} = \sum_{i=1}^{n} w_i x_i,
+\end{equation}
+where \(\vb{x} = (x_1, x_2, \dots, x_n)\) is an input vector.
+The residual error of each observation is \(\vb{y} - f(\vb{x}_i)\), for \(i = 1,2, \dots, m\).
+Then the residual sum of squares is given to be
+\begin{equation}
+    \label{eqn:residual-sum-of-squares}
+    RSS
+    = \sum_{i=1}^{m} (\vb{y} - f(\vb{x}_i))^2
+    = \sum_{i=1}^{m} (\vb{y} - \vb{w} \cdot \vb{x}_i)^2
+    = (\vb{y} - X^\top \vb{w})^\top (\vb{y} - X^\top \vb{w}),
+\end{equation}
+where \(X = [\vb{x}_1, \dots, \vb{x}_m]\).
+By minimizing \(RSS\), the magnitude of the residuals will be as small as possible, producing the optimal linear model \(f(\vb{x})\).
+Therefore, this method is known as least squares regression.
+Differentiate \eqref{eqn:residual-sum-of-squares} with respect to \(\vb{w}\) and set equal to zero so that
+\begin{equation}
+    2 X^\top \vb{y} - 2 X^\top X \vb{w} = 0.
+\end{equation}
+This leads to the normal equation \(X^\top X \vb{w} = X^\top \vb{y}\).
+Thus,
+\begin{equation}
+    \vb{w} = (X^\top X)^{-1} X^\top \vb{y}
+\end{equation}
+gives the optimal linear model which minimizes residual error.

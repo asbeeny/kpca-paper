@@ -1,0 +1,18 @@
+% TODO: Decide on regression intro
+In linear regression, the equation of a line \(y = a_0 + a_1 x\) is used to model observations based on training data.
+Here, the input variable \(x\) is used to predict the response variable \(y\).
+The parameters \(a_0\) and \(a_1\) are chosen such that the residual error\footnote{The residual for a given observation \(\left(x^{(i)},y^{(i)}\right)\) is \(\left|y^{(i)} - \left(a_0 + a_1 x^{(i)}\right)\right|\).} is minimized.
+It seems natural to model data using polyomial equations in a similar way, that is, determine \(a_0, a_1, \dots, a_n\) such that
+\begin{equation}
+    \label{eqn:polynomial-regression}
+    y = a_0 + a_1 x + a_2 x^2 + \dots + a_n x^n
+\end{equation}
+minimizes the residual error.
+
+In multiple linear regression, the equation of a hyperplane
+\begin{equation}
+    \label{eqn:multiple-linear-regression}
+    y = a_0 + a_1 x_1 + a_2 x_2 + \dots + a_n x_n
+\end{equation}
+is used to predict \(y\) using inputs \(x_1, x_2, \dots x_n\).
+It follows that these observations are points in \(n + 1\) dimensions.

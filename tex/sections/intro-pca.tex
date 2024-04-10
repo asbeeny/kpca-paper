@@ -1,0 +1,13 @@
+When analyzing data, it can be convenient to transform the given input variables to produce new features.
+For a well-chosen transform, these features may be approximated using fewer dimensions than the original input space \cite{koutroumbas2008pattern}.
+This is an example of a data preprocessing technique known as \textit{dimension reduction} and can reveal low-dimensional structure.
+
+Principal component analysis (PCA) is an orthogonal coordinate transform that is suitable for dimension reduction if some of the inputs are linearly correlated.
+In this case, PCA transforms redundant variables in the input space producing uncorrelated variables in the feature space.
+
+There are a number of ways to derive the optimal PCA transform.
+One approach presented in \cite{koutroumbas2008pattern} is based on finding uncorrelated features.
+It is straightforward to show that uncorrelated features have a diagonal covariance matrix.
+This can be used to solve for the covariance matrix \(C\) of input variables.
+By asserting the orthogonality of the PCA transform, we obtain \(V\) from the diagonalization of the covariance matrix \(C = VDV^\top\).
+Given this PCA transform, we can show that \(V\) minimizes projection residuals as in \cite{shalizi2021advanced}.

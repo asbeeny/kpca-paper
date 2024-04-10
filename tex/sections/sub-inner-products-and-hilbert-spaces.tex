@@ -1,0 +1,80 @@
+
+\begin{definition}[Definite matrix]
+    \label{def:definite-matrix}
+    \cite{horn2013matrix}
+    \input{sections/def-thm/def-definite-matrix.tex}
+\end{definition}
+
+\begin{definition}[Inner product]
+    \label{def:inner-product}
+    \cite{small1994hilbert} % page 10
+    \input{sections/def-thm/def-inner-product.tex}
+\end{definition}
+
+\begin{example}
+    \label{eg:dot-product}
+    \input{sections/def-thm/eg-dot-product.tex}
+\end{example}
+
+\begin{definition}[Hilbert space]
+    \label{def:hilbert-space}
+    \cite{kreyszig1991introductory}
+    \input{sections/def-thm/def-hilbert-space.tex}
+\end{definition}
+
+\begin{theorem}[Properties of Hilbert spaces]
+    \label{thm:hilbert-space-properties}
+    \cite{kreyszig1991introductory}
+    \input{sections/def-thm/thm-hilbert-space-properties.tex}
+\end{theorem}
+
+The following example demonstrates a useful property of separable Hilbert spaces.
+
+\begin{example}
+    \label{eg-l2-hilbert-space}
+    \cite{rudin1987real}
+    \input{sections/def-thm/eg-l2-hilbert-space.tex}
+\end{example}
+
+% TODO: Define Hilbert space dual
+
+\begin{definition}[Gram matrix]
+    \label{def:gram-matrix}
+    \cite{horn2013matrix}
+    \input{sections/def-thm/def-gram-matrix.tex}
+\end{definition}
+
+\begin{example}
+    \label{eg:gram-matrix}
+    \input{sections/def-thm/eg-gram-matrix.tex}
+\end{example}
+
+\begin{theorem}
+    \label{thm:gram-psd}
+    \cite{horn2013matrix}
+    A matrix \(G\) is a Gram matrix if and only if \(G\) is positive semidefinite.
+\end{theorem}
+\begin{proof}
+    \input{sections/def-thm/pf-gram-psd.tex}
+\end{proof}
+
+\begin{theorem}
+    \label{thm:gram-pd-iff-lin-indep}
+    \cite{horn2013matrix}
+    A Gram matrix \(G\) of \(x_1, x_2, \dots, x_n\) is positive definite if and only if \(x_1, x_2, \dots, x_n\) are linearly independent.
+\end{theorem}
+\begin{proof}
+    \input{sections/def-thm/pf-gram-pd-iff-lin-indep.tex}
+\end{proof}
+
+\begin{definition}[Symmetric bilinear form]
+    \label{def:symmetric-bilinear-form}
+    \input{sections/def-thm/def-symmetric-bilinear-form.tex}
+\end{definition}
+
+This can be thought of as a generalization of an inner product which is symmetric and bilinear, but not necessarily positive definite.
+
+\begin{example}
+    \label{eg:symmetric-bilinear-form}
+    \input{sections/def-thm/eg-symmetric-bilinear-form.tex}
+\end{example}
