@@ -12,13 +12,11 @@ For existence, we summarize the construction provided in \Cref{sub:kernels}.
 % Uniqueness
 For uniqueness, suppose \(k\) is a reproducing kernel for Hilbert spaces \(\H\) and \(\L\).
 
-% TODO: Prove RKHS uniqueness
-
-Now let \(f \in \L\).
+Let \(f \in \L\).
 Then we can write \(\L = \H \oplus \Hp\) as the orthogonal decomposition of \(\L\).
 There exist \(g \in \H\) and \(g^\perp \in \Hp\) such that \(f = g + g^\perp\).
 Let \(x \in \X\).
-Then \(k(x,\cdot) \in \H\) implies \(\ipt{g^\perp,k(x,\cdot)}_{\L} = 0\)
+Then \(k(x,\cdot) \in \H\) implies \(\ipt{g^\perp,k(x,\cdot)}_{\L} = 0\).
 Thus
 \begin{equation}
     f(x)
@@ -28,3 +26,4 @@ Thus
     = g(x).
 \end{equation}
 Thus \(f = g \in \H\) implies \(\L \subseteq \H\).
+We can repeat this argument for \(f \in \H\) to show \(f \in \L\).

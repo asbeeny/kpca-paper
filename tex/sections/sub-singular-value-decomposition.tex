@@ -1,6 +1,5 @@
-% TODO: SVD
 The singular value decomposition (SVD) of a rectangular matrix generalizes the idea of diagonalization for square matrices.
-Moreover, this provides a connection between the matrices \(A^\top A\) and \(AA^\top\).
+Moreover, SVD illustrates a connection between the matrices \(A^\top A\) and \(AA^\top\).
 
 \begin{theorem}[Singular value decomposition]
     \label{thm:svd}
@@ -32,7 +31,7 @@ Notice that the SVD of \(A\) will give us the projection matrix \(V\) in \cref{e
 In this way, we see that PCA is really just a special case of the SVD.
 
 \begin{theorem}[Frobenius norm]
-    \label{def:frobenius}
+    \label{thm:frobenius}
     \cite{mohri2012foundations,horn2013matrix}
     The \textit{Frobenius norm} (or \textit{Hilbert-Schmidt norm}) of a matrix \(A = [a_{ij}] \in \RR^{n \times d}\) is given by
     \begin{equation}
@@ -63,6 +62,6 @@ In this way, we see that PCA is really just a special case of the SVD.
 Combining \cref{eqn:svd,eqn:frobenius}, we have
 \begin{equation}
     \label{eqn:frobenius-singular-values}
-    \|A\|_F = \sqrt{\sum_{i=1}^{r} \sigma_i^2} = \sqrt{\sum_{i=1}^{r} \lambda_i^2},
+    \|A\|_F = \sqrt{\sum_{i=1}^{r} \sigma_i^2} = \sqrt{\sum_{i=1}^{r} \lambda_i},
 \end{equation}
 where \(\{\sigma_i\}_{i=1}^r\) are the singular values of \(A\) and \(\{\lambda_i\}_{i=1}^r\) are the eigenvalues of \(A^\top A\) or \(AA^\top\).

@@ -1,1 +1,17 @@
-% TODO: Proof for Gaussian kernel
+Notice that
+\begin{align*}
+    k(x,y)
+    &= \exp\left(\frac{-\|x-y\|^2}{2\sigma^2}\right)\\
+    &= \exp\left(\frac{-(\|x\|^2 - 2\ipt{x,y} + \|y\|^2)}{2\sigma^2}\right)\\
+    &= \exp\left(\frac{-\|x\|^2}{2\sigma^2}\right)
+    \exp\left(\frac{-\|y\|^2}{2\sigma^2}\right)
+    \exp\left(\frac{\ipt{x,y}}{\sigma^2}\right).
+\end{align*}
+Let \(g(x) = \exp\left(-\|x\|^2/2\sigma^2\right)\), \(k_1(x,y) = g(x)g(y)\), and \(k_2(x,y) = \ipt{x,y}/\sigma^2\).
+By \cref{itm:constructing-kernels-5}, \(k_1\) is a kernel.
+Since \(\ipt{x,y}\) is a kernel and \(1/\sigma^2 >0\), \cref{itm:constructing-kernels-1} implies \(k_2\) is a kernel and \cref{itm:constructing-kernels-6} implies \(\exp(k_2(x,y))\) is a kernel.
+Therefore, by \cref{itm:constructing-kernels-2},
+\begin{equation}
+    k(x,y) = g(x)g(y) \exp(k_2(x,y)) = k_1(x,y) \exp(k_2(x,y))
+\end{equation}
+is a kernel.

@@ -1,38 +1,58 @@
-Let \(a_1, a_2, \dots, a_n\) be points in \(\RR^d\).
-Assume that these points have zero mean, that is, \(\frac{1}{n}\sum_{i=1}^{n} a_i\) is the zero vector in \(\RR^d\).
-Let \(A\) be the \(n \times d\) matrix whose rows are given by \(a_1, a_2, \dots, a_n\).
-Then the covariance matrix from \cref{eqn:covariance-matrix-pca} is given by \(C = \frac{1}{n-1} A^\top A\).
-% \begin{align}
-%     \notag
-%     \|a_i - b_i\|^2
-%     &= \left\langle a_i - b_i, a_i - b_i\right\rangle
-%     \notag \\
-%     &= \left\langle a_i, a_i \right\rangle
-%     - 2\left\langle a_i, b_i \right\rangle
-%     + \left\langle b_i, b_i \right\rangle
-%     \notag \\
-%     &= \left\| a_i \right\|^2
-%     - 2\left\langle a_i, b_i \right\rangle
-%     + \left\| b_i \right\|^2
-%     \notag \\
-%     &= \left\| a_i \right\|^2
-%     - 2\left\langle a_i, \sum_{j=1}^{p} \langle a_i, v_j \rangle v_j \right\rangle
-%     + \left\| \sum_{j=1}^{p} \langle a_i, v_j \rangle v_j \right\|^2
-%     \notag \\
-%     &= \left\| a_i \right\|^2
-%     - 2\sum_{j=1}^{p} \langle a_i, v_j \rangle \left\langle a_i,  v_j \right\rangle
-%     + \sum_{j=1}^{p} \langle a_i, v_j \rangle^2 \left\|  v_j \right\|^2 
-%     \notag \\
-%     &= \left\| a_i \right\|^2
-%     - 2\sum_{j=1}^{p} \langle a_i, v_j \rangle^2
-%     + \sum_{j=1}^{p} \langle a_i, v_j \rangle^2
-%     \notag \\
-%     \label{eqn:projection-residuals}
-%     &= \left\| a_i \right\|^2
-%     - \sum_{j=1}^{p} \langle a_i, v_j \rangle^2
-% \end{align}
+In this section, we want to show that the PCA projection minimizes the residual error.
 
-% TODO: Minimize projection residuals
-
-% derive the first principal component by minimizing the projection residual
-% derive the next principal component orthogonal to the first one that minimizes the projection residual
+Suppose \(a_1, a_2, \dots, a_n \in \RR^n\).
+Let \(v_1, v_2, \dots, v_d \in \RR^d\) be the principal component vectors given in \Cref{sub:finding-uncorrelated-features}.
+Define the projections onto the subspace spanned by \(v_1, v_2, \dots, v_p\), for \(p \leq d\), as
+\begin{equation}
+    \hat{a}_i = \sum_{j=1}^{p} \ipt{a_i, v_j} v_j,
+    \quad \text{for \(i = 1,2,\dots, n\)}.
+\end{equation}
+Then each residual from the projection is given by
+\begin{align}
+    \label{eqn:projection-residuals}
+    \|a_i - \hat{a}_i\|^2
+    &= \left\langle a_i - \hat{a}_i, a_i - \hat{a}_i\right\rangle
+    \\
+    % &= \left\langle a_i, a_i \right\rangle
+    % - 2\left\langle a_i, \hat{a}_i \right\rangle
+    % + \left\langle \hat{a}_i, \hat{a}_i \right\rangle
+    % \notag \\
+    &= \left\| a_i \right\|^2
+    - 2\left\langle a_i, \hat{a}_i \right\rangle
+    + \left\| \hat{a}_i \right\|^2
+    \notag \\
+    &= \left\| a_i \right\|^2
+    - 2\left\langle a_i, \sum_{j=1}^{p} \langle a_i, v_j \rangle v_j \right\rangle
+    + \left\| \sum_{j=1}^{p} \langle a_i, v_j \rangle v_j \right\|^2
+    \notag \\
+    &= \left\| a_i \right\|^2
+    - 2\sum_{j=1}^{p} \langle a_i, v_j \rangle \left\langle a_i,  v_j \right\rangle
+    + \sum_{j=1}^{p} \langle a_i, v_j \rangle^2 \left\|  v_j \right\|^2 
+    \notag \\
+    &= \left\| a_i \right\|^2
+    - 2\sum_{j=1}^{p} \langle a_i, v_j \rangle^2
+    + \sum_{j=1}^{p} \langle a_i, v_j \rangle^2
+    \notag \\
+    &= \left\| a_i \right\|^2
+    - \sum_{j=1}^{p} \langle a_i, v_j \rangle^2.
+    \notag
+\end{align}
+Then the mean squared error to be minimized is
+\begin{equation}
+    \MSE =
+    \frac{1}{n} \sum_{i=1}^{n} \|a_i\|^2 - \frac{1}{n} \sum_{i=1}^{n} \sum_{j=1}^{p} \langle a_i, v_j \rangle^2.
+\end{equation}
+Since the first term does not depend on \(v_j\), the \(\MSE\) is minimized whenever
+% \begin{equation}
+    \(\sum_{i=1}^{n} \sum_{j=1}^{p} \ipt{a_i, v_j}^2\)
+% \end{equation}
+is maximized.
+Let \(A\) be the matrix whose rows are \(a_1, a_2, \dots, a_n\) and \(V_p\) be the matrix whose columns are \(v_1, v_2, \dots, v_p\).
+By \Cref{thm:frobenius,eqn:frobenius-singular-values}, this becomes
+\begin{equation}
+    \sum_{i=1}^{n} \sum_{j=1}^{p} \ipt{a_i, v_j}^2
+    = \tr[(AV_p)^\top AV]
+    = \|AV_p\|_F
+    = \sum_{i=j}^{p} \lambda_j.
+\end{equation}
+It follows that the vectors \(v_1, v_2, \dots, v_p\) which minimize projection error correspond to the \(p\) largest eigenvalues given by \cref{eqn:eigenvalue-order}.

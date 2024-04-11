@@ -10,7 +10,13 @@ Rather, the focus is the decomposition of an integral operator.
     \cite{mercer1909xvi}
     \input{sections/def-thm/thm-mercers.tex}
 \end{theorem}
-\begin{proof}
-    \input{sections/def-thm/pf-mercers.tex}
-\end{proof}
 
+\input{sections/def-thm/pf-mercers.tex}
+    
+Using \cref{eqn:kernel-decomposition}, we can define a feature map \(\Phi : \X \to \H\) such that for all \(x \in \X\),
+\begin{equation}
+    \label{eqn:mercers-feature-map}
+    \Phi(x) = \sum_{i=1}^{\infty} \sqrt{\lambda_i} \psi_i(x).
+\end{equation}
+In the finite-dimensional case, we have \(\Phi(x) = \left[\sqrt{\lambda_j} \psi_j(x)\right]_{j=1}^d\).
+It follows that \(k(x,y) = \ipt{\Phi(x), \Phi(y)}\).

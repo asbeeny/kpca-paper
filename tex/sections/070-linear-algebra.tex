@@ -3,82 +3,80 @@ These can be found in \cite{horn2013matrix}.
 
 
 \begin{enumerate}
-    \item A square matrix \(A\) is \textit{normal} if \(AA^\top = A^\top A\).
-    \item Symmetric matrices are normal.
+    % \item A square matrix \(A\) is \textit{normal} if \(AA^\top = A^\top A\).
+    % \item Symmetric matrices are normal.
     \item Symmetric matrices have orthogonal eigenvectors and real eigenvectors.
     \item Positive semidefinite matrices have nonnegative eigenvalues.
-    \item \(A\) is positive semidefinite if and only if there exists a matrix \(B\) such that \(A = B^\top B\). We say \(B\) is the \textit{square root} of \(A\) and write \(A^{1/2} = B\).
     \item Positive definite matrices have positive eigenvalues.
+    \item \(A\) is positive semidefinite if and only if there exists a matrix \(B\) such that \(A = B^\top B\). We say \(B\) is the \textit{square root} of \(A\) and write \(A^{1/2} = B\).
     \item \(A^\top A\) and \(AA^\top\) are symmetric positive semi-definite.
 \end{enumerate}
 
-\begin{lemma}
-    \label{lem:spsd-factorization}
-    Let \(A\) be a positive semidefinite matrix.
-    Then \(A\) has the factorization \(A = B^\top B\).
-    We call \(\)
-\end{lemma}
-\begin{proof}
-    Since \(A\) is symmetric, it is diagonalizable and we can write \(A = V^\top D V\).
-    Since \(A\) is positive semidefinite, 
-\end{proof}
+% \begin{lemma}
+%     \label{lem:spsd-factorization}
+%     Let \(A\) be a positive semidefinite matrix.
+%     Then \(A\) has the factorization \(A = B^\top B\).
+% \end{lemma}
+% \begin{proof}
+%     Since \(A\) is symmetric, it is diagonalizable and we can write \(A = V D V^\top\).
+%     Since \(A\) is positive semidefinite, 
+% \end{proof}
 
 \subsection{Matrix operations and notation}
 \label{subsec:matrix-operations}
 
-Let \(A\) be an \(n \times d\) matrix.
-We write \([A]_{ij}\) to indicate the matrix entry in the \(i\)-th row and the \(j\)-th column.
+First, we explain some notation used in this paper similar to that used in Horn and Johnson \cite{horn2013matrix}.
+We write \((A)_{ij}\) to indicate the entry in the \(i\)-th row and the \(j\)-th column of \(A\).
+It can be convenient to declare a matrix using index notation, such as \(A = [a_{ij}] \in \RR^{n \times d}\) or \(A = [a_{ij}]^{n \times d}\) to mean \((A)_{ij} = a_{ij}\), for all \(i=1,2,\dots,n\); \(j = 1,2,\dots,d\).
+Similar to how sets and sequences are indexed, e.g., \((c_i)_{i=1}^n\), we may indicate a vector as \([c_i]_{i=1}^d\).
+We may also use the notation \([1]^{n \times d}\) to mean the \(n \times d\) matrix of ones.
 
 \begin{definition}
+    Let \(A = [a_{ij}] \in \RR^{n \times d}\).
     Define the \textit{entry-wise mean} of \(A\) as
     \begin{equation}
         \label{eqn:matrix-mean}
-        \mean(A) = \frac{1}{nd} \sum_{i=1}^{n} \sum_{j=1}^{d} [A]_{ij}.
+        \mean(A) = \frac{1}{nd} \sum_{i=1}^{n} \sum_{j=1}^{d} a_{ij}.
     \end{equation}
     Define the \textit{column-wise mean} of \(A\) as a \(1 \times d\) row vector whose \(j\)-th entry is the mean of column \(j\) given by the formula
-    \begin{equation}
+    \begin{align}
         \label{eqn:column-mean}
-        \begin{aligned}
-            \colmean(A)
-            &= \begin{bmatrix}
-                \rule[-.5em]{0em}{1em}
-                \frac{1}{n} \sum_{i=1}^{n} [A]_{i1}, &
-                \frac{1}{n} \sum_{i=1}^{n} [A]_{i2}, &
-                \dots, &
-                \frac{1}{n} \sum_{i=1}^{n} [A]_{id}
-            \end{bmatrix}\\
-            &= \frac{1}{n} \sum_{i=1}^{n} \begin{bmatrix}
-                \rule[-.5em]{0em}{1em}
-                [A]_{i1}, &
-                [A]_{i2}, &
-                \dots, &
-                [A]_{id}
-            \end{bmatrix}.
-        \end{aligned}
-    \end{equation}
+        \colmean(A)
+        = \begin{bmatrix}
+            \vphantom{\Big|}
+            \frac{1}{n} \sum_{i=1}^{n} a_{ij}
+        \end{bmatrix}_{j=1}^{d}
+        = \frac{1}{n} \sum_{i=1}^{n} \left[ a_{ij} \vphantom{\big|}\right]_{j=1}^d \in \RR^{1 \times d}.
+    \end{align}
     Define the \textit{row-wise mean} of \(A\) as an \(n \times 1\) column vector whose \(i\)-th entry is the mean of row \(i\) given by the formula
     \begin{equation}
         \label{eqn:row-mean}
-        \rowmean(A) = \begin{bmatrix}
-            \rule{0em}{1.5em}
-            \frac{1}{d} \sum_{j=1}^{d} [A]_{1j} \\
-            \rule{0em}{2em}
-            \frac{1}{d} \sum_{j=1}^{d} [A]_{2j} \\
-            \vdots \\
-            \rule[-.7em]{0em}{2em}
-            \frac{1}{d} \sum_{j=1}^{d} [A]_{nj}
-        \end{bmatrix}
-        = \frac{1}{d} \sum_{j=1}^{d} \begin{bmatrix}
-            [A]_{1j}\\
-            [A]_{2j}\\
-            \vdots \\
-            [A]_{nj}\\
-        \end{bmatrix}.
+        \rowmean(A)
+        = \begin{bmatrix}
+            \vphantom{\Big|}
+            \frac{1}{d} \sum_{j=1}^{n} a_{ij}
+        \end{bmatrix}_{i=1}^{n}
+        = \frac{1}{d} \sum_{j=1}^{d} \left[ a_{ij} \vphantom{\big|}\right]_{i=1}^n \in \RR^{n \times 1}.
+        % = \begin{bmatrix}
+        %     \rule{0em}{1.5em}
+        %     \frac{1}{d} \sum_{j=1}^{d} a_{1j} \\
+        %     \rule{0em}{2em}
+        %     \frac{1}{d} \sum_{j=1}^{d} a_{2j} \\
+        %     \vdots \\
+        %     \rule[-.7em]{0em}{2em}
+        %     \frac{1}{d} \sum_{j=1}^{d} a_{nj}
+        % \end{bmatrix}
+        % = \frac{1}{d} \sum_{j=1}^{d} \begin{bmatrix}
+        %     a_{1j}\\
+        %     a_{2j}\\
+        %     \vdots \\
+        %     a_{nj}\\
+        % \end{bmatrix}.
     \end{equation}
 \end{definition}
 
-\def\repmat#1#2{\textstyle\left[#1\right]_{#2}}
-Let \([a]_{p \times q}\) denote the \(p \times q\) repeated matrix whose entries are all \(a\).
+\def\repmat#1#2{\textstyle\left[#1\right]^{#2}}
+Let \([a]^{p \times q}\) denote the \(p \times q\) repeated matrix whose entries are all \(a\).
 Then \cref{eqn:matrix-mean,eqn:column-mean,eqn:row-mean} can be written as
 \begin{align}
     \mean(A) &= \repmat{\frac{1}{n}}{1 \times n} \cdot A \cdot \repmat{\frac{1}{d}}{d \times 1}\\
@@ -111,7 +109,7 @@ Then \cref{eqn:matrix-mean,eqn:column-mean,eqn:row-mean} can be written as
 \subsection{Broadcasting}
 \label{subsec:broadcasting}
 
-\def\b{\mathbf{b}}
+\def\b{b}
 Consider the sum of two real matrices \(A + B\).
 By definition, \(A\) and \(B\) must both have size \(n \times d\).
 This means we cannot add a \(2 \times 3\) matrix \(A\) and a \(2 \times 1\) vector \(\b\).
@@ -120,7 +118,7 @@ In this case, \(\b\) is converted to a \(2 \times 3\) matrix \(\begin{bmatrix} \
 Generally, broadcasting a vector \(\b \in \RR^n\) to an \(n \times d\) matrix can be represented as the matrix product
 \begin{equation}
     \label{eqn:vector-broadcasting}
-    \b \cdot [1]_{1 \times d}
+    \b \cdot [1]^{1 \times d}
     = \begin{bmatrix}
         b_1 \\ b_2 \\ \vdots \\ b_n
     \end{bmatrix}
@@ -133,25 +131,24 @@ Generally, broadcasting a vector \(\b \in \RR^n\) to an \(n \times d\) matrix ca
         b_2 & b_2 & \cdots & b_2 \\
         \vdots & \vdots & & \vdots \\
         b_n & b_n & \cdots & b_n
-    \end{bmatrix},
+    \end{bmatrix}.
 \end{equation}
-where the notation \([a]_{n \times d}\) represents an \(n \times d\) matrix whose entries are all \(a\).
 \begin{definition}
     \label{def:broadcast-addition}
-    For an \(n \times d\) matrix \(A\), we can define addition by an \(n \times 1\) column vector \(\mathbf{c}\) as
+    For an \(n \times d\) matrix \(A\), we can define addition by an \(n \times 1\) column vector \({c}\) as
     \begin{equation}
         \label{eqn:matrix-col-vector-addition}
-        A + \mathbf{c} := A + \mathbf{c} \cdot [1]_{1 \times d}.
+        A + {c} := A + {c} \cdot [1]^{1 \times d}.
     \end{equation}
-    Similarly, addition by a \(1 \times d\) row vector \(\mathbf{r}\) can be defined as
+    Similarly, addition by a \(1 \times d\) row vector \({r}\) can be defined as
     \begin{equation}
         \label{eqn:matrix-row-vector-addition}
-        A + \mathbf{r} := A + [1]_{n \times 1} \cdot \mathbf{r}
+        A + {r} := A + [1]^{n \times 1} \cdot {r}
     \end{equation}
     and addition by a scalar \(a\) can be defined as
     \begin{equation}
         \label{eqn:matrix-scalar-addition}
-        A + a := A + a \cdot [1]_{n \times d}.
+        A + a := A + a \cdot [1]^{n \times d}.
     \end{equation}
 \end{definition}
 

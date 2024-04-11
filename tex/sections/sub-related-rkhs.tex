@@ -22,7 +22,8 @@
 
 \subsubsection{Continuous linear functionals.}
 
-In the reverse direction, suppose we have a Hilbert space and we want to know if it is an RKHS.
+Suppose we have a Hilbert space and we want to know if it is an RKHS.
+To do this, we need to construct a kernel from the Hilbert space.
 
 \begin{example}
     \label{eg:r4-rkhs}
@@ -32,10 +33,34 @@ In the reverse direction, suppose we have a Hilbert space and we want to know if
 The Kroenecker delta and Dirac delta in the example reproduce functions in the Hilbert space with the inner product.
 
 \begin{definition}[Evaluation functional]
+    \label{def:eval-functional}
     Let \(\X\) be a nonempty set and \(\H\) be a Hilbert space of functions \(\X \to \RR\).
     Then for all \(x \in \X\), let \(\delta_x : \H \to \RR\) such that \(\delta_x(f) = f(x)\), for each \(f \in \H\).
+    We call \(\delta_x\) the \textit{evaluation functional} at \(x\).
 \end{definition}
 
-\subsubsection{Mercer's theorem}
-\label{sub:mercers-theorem}
+\begin{theorem}[Riesz representation theorem]
+    \cite{small1994hilbert} % page 22
+    Let \(\delta : H \to \RR\) be a continuous linear functional defined on a Hilbert space \(\H\).
+    Then there exists a unique element \(g \in \H\) such that \(\delta(g) = \langle f, g \rangle_H\) for all \(g \in \H\).
+\end{theorem}
+
+Suppose the evaluation functional \(\delta_x\) is continuous on \(\H\) for every \(x \in \X\).
+If \(x,y \in \X\), then, by the Riesz representation theorem, there exist \(k_x, k_y \in \H\) such that for all \(f \in \H\),
+\begin{align}
+    f(x) &= \delta_x(f) = \ipt{f, k_x},&
+    f(y) &= \delta_y(f) = \ipt{f, k_y}.
+\end{align}
+Let \(k : \X \times \X \to \RR\) be defined as \(k(x,y) = k_x(y)\).
+Then by symmetry of the inner product,
+\begin{align}
+    k(x,y) = k_x(y) = \ipt{k_x, k_y} = \ipt{k_y, k_x} = k_y(x) = k(y,x).
+\end{align}
+It follows that \(k\) is a kernel, \(\Phi(x) = k_x\) is a feature map, and \(\H\) is an RKHS.
+% \begin{proof}
+    
+% \end{proof}
+
+\subsubsection{Feature maps}
+\label{sub:feature-maps}
 \input{sections/par-mercers-theorem.tex}

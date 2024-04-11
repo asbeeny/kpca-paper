@@ -1,10 +1,16 @@
 Suppose \(k_1\) and \(k_2\) are kernels on \(\X \times \X\).
 The following functions kernels.
 \begin{enumerate}
-    \item \(k(x,y) = a_1 k_1(x,y) + a_2 k_2(x,y)\) for all \(a_1, a_2 \geq 0\).
-    \item \(k(x,y) = k_1(x,y) k_2(x,y)\).
-    \item \(k(x,y) = a_0 + a_1 k_1(x,y) + a_2 k_1(x,y)^2 + \cdots + a_n k_1(x,y)^n\) for all \(n \in \NN\) and \(a_0, \dots, a_n \geq 0\).
-    \item \(k(x,y) = k_1(h(x),h(y))\) for all \(h : \X \to \X\).
-    \item \(k(x,y) = g(x)g(y)\) for all \(g : \X \to \RR\).
-    \item \(k(x,y) = \exp(k_1(x,y))\).
+    \item \label{itm:constructing-kernels-1}
+    \(k(x,y) = a_1 k_1(x,y) + a_2 k_2(x,y)\) for all \(a_1, a_2 \geq 0\).
+    \item \label{itm:constructing-kernels-2}
+    \(k(x,y) = k_1(x,y) k_2(x,y)\).
+    \item \label{itm:constructing-kernels-3}
+    \(k(x,y) = a_0 + a_1 k_1(x,y) + a_2 k_1(x,y)^2 + \cdots + a_n k_1(x,y)^n\) for all \(n \in \NN\) and \(a_0, \dots, a_n \geq 0\).
+    \item \label{itm:constructing-kernels-4}
+    \(k(x,y) = k_1(h(x),h(y))\) for all \(h : \X \to \X\).
+    \item \label{itm:constructing-kernels-5}
+    \(k(x,y) = g(x)g(y)\) for all \(g : \X \to \RR\).
+    \item \label{itm:constructing-kernels-6}
+    \(k(x,y) = \exp(k_1(x,y))\).
 \end{enumerate}

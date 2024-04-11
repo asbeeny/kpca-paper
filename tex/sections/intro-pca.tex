@@ -11,3 +11,33 @@ It is straightforward to show that uncorrelated features have a diagonal covaria
 This can be used to solve for the covariance matrix \(C\) of input variables.
 By asserting the orthogonality of the PCA transform, we obtain \(V\) from the diagonalization of the covariance matrix \(C = VDV^\top\).
 Given this PCA transform, we can show that \(V\) minimizes projection residuals as in \cite{shalizi2021advanced}.
+
+\begin{remark}
+    \label{rmk:inner-outer-product-notation}
+    The following derivations make use of both inner products and outer products.
+    If \(x\) is a column vector, then \(x^\top x\) represents an inner product\footnote{
+        We will define inner product more precisely in \Cref{def:inner-product}.
+        Until then, \(\ipt{\cdot, \cdot}\) will only be used as a dot product of vectors.
+    } and the result is a scalar.
+    But, if \(x\) is a row vector, then \(x^\top x\) represents an outer product and the result is a matrix.
+    To avoid this ambiguity, we will use the notations \(\ipt{\cdot, \cdot}\) and \(\otimes\) to indicate inner product and outer product, respectively.
+
+    Let \(x = [x_i], y = [y_i] \in \RR^n\) and define
+    \begin{equation}
+        \label{eqn:inner-product-notation}
+        \ipt{x,y} = \sum_{i=1}^{n} x_i y_i \in \RR
+    \end{equation}
+    and
+    \begin{equation}
+        \def\medmat#1{\scalebox{.9}{\(\begin{bmatrix} #1 \end{bmatrix}\)}}
+        \label{eqn:outer-product-notation}
+        x \otimes y
+        = [x_i y_j]_{ij}^{n \times n}
+        = \medmat{
+            x_1 y_1 & x_1 y_2 & \cdots & x_1 y_n\\
+            x_2 y_1 & x_2 y_2 & \cdots & x_2 y_n\\
+            \vdots & \vdots & \ddots & \vdots \\
+            x_n y_1 & x_n y_2 & \cdots & x_n y_n
+        } \in \RR^{n \times n}.
+    \end{equation}
+\end{remark}

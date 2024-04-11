@@ -10,60 +10,74 @@ This happens if and only if
     \label{eqn:covariance-formula}
     E[(x-\mu_x)(y-\mu_y)] = \cov(x,y) = 0.
 \end{equation}
-The covariance matrix for a multivariate random variable \(x = [x_1, x_2, \dots, x_d]\) (as a row vector) has \(\cov(x_i, x_j)\) in the \(i\)-th row and \(j\)-th column.
-Then
+For a multivariate random variable \(x = [x_j] \in \RR^{1 \times d}\), the covariance matrix has the entry \(\cov(x_i, x_j)\) in the \(i\)-th row and \(j\)-th column.
+That is,
 \begin{equation}
     \label{eqn:covariance-matrix-formula}
-    E[(x-\mu_x)^\top (x-\mu_x)] =
-    \begin{bmatrix}
+    E[(x-\mu_x) \otimes (x-\mu_x)] =
+    \scalebox{.9}{\(\begin{bmatrix}
         \cov(x_1, x_1) & \cov(x_1, x_2) & \cdots & \cov(x_1, x_d) \\
         \cov(x_2, x_1) & \cov(x_2, x_2) & \cdots & \cov(x_2, x_d) \\
         \vdots         & \vdots         & \ddots & \vdots         \\
         \cov(x_d, x_1) & \cov(x_d, x_2) & \cdots & \cov(x_d, x_d) \\
-    \end{bmatrix}.
+    \end{bmatrix}\)}.
 \end{equation}
 % If each \(x_i\) is centered, then left hand side of \cref{eqn:covariance-matrix-formula} becomes \(E(x^\top x)\).
 If \(x_1, x_2, \dots, x_d\) are pairwise uncorrelated, then \(\cov(x_i, x_j) = 0\) for all \(i \neq j\).
-Hence, uncorrelated variables have a diagonal covariance matrix.
+Hence, the covariance matrix of uncorrelated variables is diagonal.
 
-Now, let \(a_1, a_2, \dots, a_n \in \RR^{1 \times d}\) represent \(n\) observations in \(d\) variables.
+Now let \(a_1, a_2, \dots, a_n \in \RR^{1 \times d}\) represent \(n\) observations in \(d\) variables with \(n \geq d\).
 These observations can be considered points in \(d\)-dimensional space whose centroid is \(\mu_a = \frac{1}{n} \sum_{i=1}^{n} a_i\).
-We want to determine a PCA transform which sends these points in the input space to points in the feature space.
-Moreover, the basis vectors of the feature space shall be uncorrelated.
+Our goal is to determine a coordinate transform whose image has uncorrelated variables.
 Accordingly, let \(V \in \RR^{d \times d}\) be the change of basis matrix and let
 \begin{equation}
     \label{eqn:transformed-points}
-    b_i = (a_i - \mu_a) V, \quad \text{for \(i = 1, 2, \dots, n\)}
+    b_i = (a_i - \mu_a) V, \quad \text{for \(i = 1,2,\dots,n\)}
 \end{equation}
 be observations with respect to the feature coordinates.
 Then
 \begin{equation}
     \mu_b
     = \frac{1}{n} \sum_{i=1}^{n} b_i
-    = \frac{1}{n} \sum_{i=1}^{n} (a_i - \mu_a) V
+    = \frac{1}{n} \left( \sum_{i=1}^{n} a_i - \mu_a \right) V
+    = \left[ \left( \frac{1}{n} \sum_{i=1}^{n} a_i \right) - \mu_a \right] V
     = 0.
 \end{equation}
-Using \cref{eqn:covariance-matrix-formula}, we can compute the sample covariance matrices as 
-\begin{equation}
+Using \cref{eqn:covariance-matrix-formula}, we can compute the sample covariance matrices\footnote{
+    Population variance is scaled by \(\frac{1}{n}\) while sample variance is scaled by \(\frac{1}{n-1}\).
+    This is known as Bessel's correction and is consistent with the NumPy \texttt{cov} function \cite{harris2020array}.
+} as 
+\begin{align}
     \label{eqn:covariance-matrix-pca}
-    C = \frac{1}{n-1} \sum_{i=1}^{n} (a_i - \mu_a)^\top (a_i - \mu_a),
-    \qquad
-    D = \frac{1}{n-1} \sum_{i=1}^{n} b_i^\top b_i.
-\end{equation}
-Since \(D\) is the covariance matrix of uncorrelated features, by the argument above, it is diagonal.
-If we restrict \(V\) to be orthogonal, then
+    C &= \sum_{i=1}^{n} \frac{(a_i - \mu_a) \otimes (a_i - \mu_a)}{n-1}, &
+    D &= \sum_{i=1}^{n} \frac{b_i \otimes b_i}{n-1}.
+\end{align}
+Combining these, we have
+\begin{align}
+    D &= \sum_{i=1}^{n} \frac{b_i \otimes b_i}{n-1}
+    = \sum_{i=1}^{n} \frac{V^\top (a_i - \mu_a) \otimes (a_i - \mu_a) V}{n-1}
+    = V^\top C V.
+\end{align}
+If we restrict \(V\) to be orthogonal, then we can solve for \(C\) to get
 \begin{equation}
     \label{eqn:diagonalize-covariance}
-    b_i^\top b_i = V^\top (a_i - \mu_a)^\top (a_i - \mu_a) V
-    \implies
-    D = V^\top C V
-    \implies
     C = V D V^\top.
 \end{equation}
-Hence, \(V\) must be a matrix of orthonormal eigenvectors \(v_1, v_2, \dots, v_d\) corresponding to eigenvalues \(\lambda_1, \lambda_2, \dots, \lambda_d\) on the diagonal of \(D\).
+Since \(D\) is the covariance matrix of uncorrelated features, by the argument above, it is diagonal and \cref{eqn:diagonalize-covariance} is the diagonalization of \(C\).
+Hence, the columns of \(V\) are an orthonormal basis \((v_j)_{j=1}^d\) corresponding to eigenvalues \((\lambda_j)_{j=1}^d\) on the diagonal of \(D\).
 When the eigenvalues and eigenvectors are ordered such that
 \begin{equation}
+    \label{eqn:eigenvalue-order}
     \lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d,
 \end{equation}
-we call \(v_1, v_2, \dots, v_d\) the \textit{principal components} of the PCA transform matrix \(V\).
+then \((v_j)_{j=1}^d\) are called the \textit{principal components}.
 
+Let \(A \in \RR^{n \times d}\) be the matrix whose rows are \(a_1, a_2, \dots, a_n\) and
+let \(B \in \RR^{n \times d}\) be the matrix whose rows are \(b_1, b_2, \dots, b_n\).
+Assume the matrix \(A\) has been centered, i.e., \(\mu_a\) is the zero vector.
+Then \cref{eqn:transformed-points} implies \(B = AV\) and \cref{eqn:covariance-matrix-pca} implies \(C = \frac{1}{n-1} A^\top A\).
+
+For \(p \leq d\), the rank-\(p\) projection matrix \(V_p = \begin{bmatrix}
+    v_1 & v_2 & \cdots & v_p
+\end{bmatrix} \in \RR^{d \times p}\).
+In the following sections, we will show that \(B_p = A V_p\) has the smallest possible projection error for all \(1 \leq p \leq d\).

@@ -7,5 +7,6 @@ The following algorithm demonstrates a simple method for computing the PCA of \(
     \item Order the eigenvalues and eigenvectors so that \(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d\).
     We call the ordered eigenvalues the \textit{principal components}.
     \item Choose the dimension of the subspace \(p \leq d\).
-    \item Construct the \(d \times p\) projection matrix \(V_p\) using the first \(p\) principal components \(v_1, v_2, \dots, v_p\).
+    \item Construct the rank-\(p\) transformation matrix \(V_p \in \RR^{d \times p}\) using the first \(p\) principal components \(v_1, v_2, \dots, v_p\).
+    \item The image of \(A\) under the PCA transform is \(B = A_0 V_p\).
 \end{enumerate}

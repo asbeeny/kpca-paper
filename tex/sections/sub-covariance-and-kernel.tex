@@ -1,10 +1,14 @@
-% TODO: Add covariance and kernel discussion
-Consider a centered data matrix \(A = [a_{ij}]^{n \times d}\) whose columns represent input variables.
-In the linear case, PCA decomposes the covariance matrix \(C = \frac{1}{n-1}A^\top A\) into a basis of eigenvectors \(\{v_i\}_{i=1}^d\) with descending eigenvalues \(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d\).
+Let \(A \in \RR^{n \times d}\) be a centered matrix and \((a_i)_{i=1}^n\) be the rows of \(A\).
+The PCA algorithm computes the covariance matrix \(C = [\cov(a_i,a_j)]_{ij}\) to find a basis transformation in the input space \(\RR^d\).
+If \(k\) is a kernel on \(\RR^n\), then it corresponds to a valid inner product in some feature space \(\H\).
+By replacing the covariance matrix \(C\) with a kernel matrix \(K\), we are implicitly performing PCA on features \(\Phi(a_1), \Phi(a_2), \dots, \Phi(a_n)\) under some feature map \(\Phi : \RR^d \to \H\).
+We call this method kernel PCA \cite{scholkopf1998nonlinear}.
 
-Using results from the previous section, a kernel function \(k : \X \times \X \to \RR\) defines a unique reproducing kernel Hilbert space \(\H\) and feature map \(\Phi : \X \to \H\) such that
-% \begin{equation}
-%     \label{eqn:kernel-inner-product}
-    \(k(x,y) = \ipt{\Phi(x), \Phi(y)},\)
-% \end{equation}
-for all \(x, y \in \H_k\).
+For now, assume that the features are centered, i.e., \(\frac{1}{n}\sum_{i=1}^{n} \Phi(a_i) = 0\).
+Then we compute the covariance matrix in the feature space as
+\begin{equation}
+    C = \frac{1}{n-1} \sum_{i=1}^{n} \Phi(a_i) \otimes \Phi(a_i).
+\end{equation}
+At this point, we need to find the eigenvalues \((\lambda_i)_{i=1}^n\) of \(C\).
+In \cref{sub:singular-value-decomposition}, we saw that \(AA^\top\) and \(A^\top A\) have the same eigenvalues.
+It follows that we can replace the outer product with an inner product and compute the same eigenvalues.

@@ -1,4 +1,3 @@
-% TODO: Clean up PCA example
 \def\Amat{\begin{bmatrix}
     5 &  3 &  6 &  7 &  6 \\
     4 &  5 &  7 &  1 &  3 \\
@@ -6,26 +5,31 @@
     6 & 10 & 12 & 12 & 11 \\
     9 & 10 & 12 & 13 &  9 \\
 \end{bmatrix}}
-Consider the following matrix \[A = \Amat.\]
+Consider the following matrix
+\begin{equation}
+    A = \Amat.
+\end{equation}
 The column means are \(\mu = [5.8,7,8.6,6.8,5.8]\).
 Then the mean-centered data becomes
 \def\-{\phantom{-}}
-\[X = A - \mu = \frac{1}{5}\begin{bmatrix}
+\begin{equation}
+    A_0 = A - \mu = \frac{1}{5}\begin{bmatrix}
         -4 &   -20 &   -13 &   \-1 &   \-1 \\
         -9 &   -10 &    -8 &   -29 &   -14 \\
         -4 &   \-0 &   -13 &   -29 &   -29 \\
         \-1 &  \-15 &  \-17 &  \-26 &  \-26 \\
     \-16 &  \-15 &  \-17 &  \-31 &  \-16 \\
-\end{bmatrix}.\]
+\end{bmatrix}.
+\end{equation}
 
 The covariance matrix is
-\[C = X^TX = \frac{1}{5}\begin{bmatrix}
+\begin{equation}C = A_0^\top A_0 = \frac{1}{5}\begin{bmatrix}
         74 &  85 &  93 & 179 & 104 \\
         85 & 190 & 170 & 225 & 150 \\
         93 & 170 & 196 & 313 & 238 \\
     179 & 225 & 313 & 664 & 484 \\
     104 & 150 & 238 & 484 & 394 \\
-\end{bmatrix}.\]
+\end{bmatrix}.\end{equation}
 
 Diagonalizing \(C\) gives
 \begin{align*}
@@ -45,28 +49,28 @@ Diagonalizing \(C\) gives
     \end{bmatrix}.
 \end{align*}
 
-If we keep all \(5\) principal component vectors, then \(V_5 = V\) and the projection of \(X\) along \(V\) is
-\[P = XV = \begin{bmatrix}
+If we keep all \(5\) principal component vectors, then \(V_5 = V\) and the projection of \(A_0\) along \(V\) is
+\begin{equation}B = A_0 V = \begin{bmatrix}
     -1.9469 &  4.3453 & -0.8756 & -0.2039 & 0 \\
     -6.9742 & -0.0660 &  1.4352 &  0.7590 & 0 \\
     -8.1577 & -2.6752 & -0.8063 & -0.5704 & 0 \\
         8.4282 & -0.2330 &  1.8282 & -0.4996 & 0 \\
         8.6507 & -1.3711 & -1.5815 &  0.5149 & 0 \\
-\end{bmatrix}.\]
-Here, the last column of \(P\) is the zero vector because the last eigenvalue of \(C\) is zero\footnote{Since we subtracted the column means from a square matrix \(A\), the dimension of the row space was reduced to 4.}.
+\end{bmatrix}.\end{equation}
+Here, the last column of \(B\) is the zero vector because the last eigenvalue of \(C\) is zero\footnote{Since we subtracted the column means from a square matrix \(A\), the dimension of the row space was reduced to 4.}.
 To perfectly reconstruct \(A\), we need \(k = 4\) principal components and the row vector \(\mu\)
-\[A = PV^T + \mu = PV_4^T + \mu.\]
+\begin{equation}A = B V^\top + \mu = B V_4^\top + \mu.\end{equation}
 
-If we use \(k = 3\) principal components, then the projection of \(X\) onto \(V_3\) is
-\[P = XV_3 = \begin{bmatrix}
+If we use \(k = 3\) principal components, then the projection of \(A_0\) onto \(V_3\) is
+\begin{equation}B = A_0 V_3 = \begin{bmatrix}
     -1.9469 &  4.3453 & -0.8756 \\
     -6.9742 & -0.0660 &  1.4352 \\
     -8.1577 & -2.6752 & -0.8063 \\
         8.4282 & -0.2330 &  1.8282 \\
         8.6507 & -1.3711 & -1.5815 \\
-\end{bmatrix}\]
+\end{bmatrix}\end{equation}
 and \(A\) is approximately reconstructed by
-\[A \approx P V_3^T + \mu = \begin{bmatrix}
+\begin{equation}A \approx B V_3^\top + \mu = \begin{bmatrix}
     % 5.1121 &  2.9082 &  6.1190 &  6.9244 &  6.0268 \\
     % 3.5829 &  5.3417 &  6.5570 &  1.2814 &  2.9001 \\
     % 5.3134 &  6.7432 &  6.3329 &  0.7886 &  0.0751 \\
@@ -77,23 +81,22 @@ and \(A\) is approximately reconstructed by
     5.3 &  6.7 &  6.3 &  0.8 &  0.1 \\
     6.3 &  9.8 & 12.3 & 11.8 & 11.1 \\
     8.7 & 10.2 & 11.7 & 13.2 &  8.9 \\
-\end{bmatrix}.\]
-We can compute the reconstruction error using
+\end{bmatrix}.\end{equation}
+We can compute the reconstruction error using the Frobenius norm
 \begin{equation*}%\label{eqn:reconstruction_error}
-    E_k = \|A - (PV_k^T + \mu)\|_F,
+    E_k = \|A - (V_k^\top + \mu)\|_F.
 \end{equation*}
-where \(\|\cdot\|_F\) is the Frobenius norm.
-By the SVD, we have \(X = USV^T\), where \(S = \sqrt{D}\).
-So, the projection of \(X\) onto \(V_k\) is \[P = XV_k = US_k,\] where \(S_k\) is the diagonal matrix of the first \(k\) singular values.
+By the SVD, we have \(A_0 = USV^\top\), where \(S = \sqrt{D}\).
+So, the projection of \(A_0\) onto \(V_p\) is \begin{equation}B = A_0 V_p = U S_p,\end{equation} where \(S_p\) is the diagonal matrix of the first \(p\) singular values.
 Then the reconstruction error becomes
 \begin{align*}
-    \|A - (PV_k^T + \mu)\|_F
-    &= \|(A - \mu) - PV_k^T\|_F \\
-    &= \|X - PV_k^T\|_F \\
-    &= \|USV^T - US_kV^T\|_F \\
-    &= \|U(S - S_k)V^T\|_F \\
-    &= \|S-S_k\|_F \\
-    &= \sigma_k + \sigma_{k+1} + \dots + \sigma_{p}.
+    \|A - (BV_p^\top + \mu)\|_F
+    &= \|(A - \mu) - BV_p^\top\|_F \\
+    &= \|A_0 - BV_p^\top\|_F \\
+    &= \|USV^\top - US_pV^\top\|_F \\
+    &= \|U(S - S_p)V^\top\|_F \\
+    &= \|S-S_p\|_F \\
+    &= \sqrt{\sigma_{p+1}^2 + \dots + \sigma_{d}^2}.
 \end{align*}
 Hence,
-\[E_3 = \sigma_3 + \sigma_4 = \sqrt{1.4579} + 0 = 1.2074.\]
+\begin{equation}E_3 = \sigma_3 + \sigma_4 = \sqrt{1.4579^2 + 0^2} = 1.2074.\end{equation}
