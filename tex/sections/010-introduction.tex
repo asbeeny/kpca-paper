@@ -1,4 +1,19 @@
-\input{sections/par-organization.tex}
+% \input{sections/par-organization.tex}
+
+Pattern recognition is an applied science that draws from a variety of mathematical fields.
+Principal component analysis (PCA) is an unsupervised learning technique that can be used to reveal patterns in high-dimensional data.
+The transformation used in the PCA algorithm resembles the singular value decomposition (SVD) in linear algebra and the Karhunen-Loève transform (KLT) in stochastic processes.
+Borrowing results from these different approaches, we can start to generalize the PCA algorithm.
+The kernel trick from machine learning can be used to create a nonlinear algorithm from a linear one.
+In particular, the kernel trick can be applied to PCA.
+Kernel PCA is a nonlinear version of PCA that maps data to a suitable Hilbert space and attempts to find patterns in this new context.
+
+We will begin this paper by deriving the PCA transform in \Cref{sec:principal-component-analysis}.
+Part of this work depends on results from the SVD and is discussed in \Cref{sub:singular-value-decomposition}.
+The PCA section is concluded with examples.
+In \Cref{sec:reproducing-kernel-hilbert-space}, we justify the kernel trick.
+This prompts the discussion of reproducing kernel Hilbert spaces, Mercer's theorem, the Moore-Aronszajn theorem, and the Riesz representation theorem.
+Last, the kernel PCA algorithm is derived in \Cref{sec:kernel-pca}.
 
 % \input{sections/par-linear-regression.tex}
 

@@ -10,9 +10,11 @@ The kernel PCA algorithm outputs the transformed input vectors \(\tilde{x}_1, \t
 \begin{enumerate}
     \item Compute the kernel matrix \(K = [k(x_i, x_j)]_{ij}^{n \times n}\).
     \item Center kernel matrix \(K_0 = K - \colmean(K) - \rowmean(K) + \mean(K)\).
-    \item Compute eigenvalues \((\lambda_i)_{i=1}^n\) and eigenvectors \((\alpha_i)_{i=1}^n\) of \(K_0\) so that \(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n\).
+    \item Compute eigenvalues \((\lambda_j)_{j=1}^n\) and eigenvectors \((u_j)_{j=1}^n\) of \(K_0\) so that \(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n\).
+    \item Scale the eigenvectors to obtain the principal components in the RKHS: \(v_j = u_j / \sqrt{\lambda_j}\) for all \(j = 1,2,\dots,n\).
+    \item Transformed points can be computed using
+    \(y = \left[\vphantom{\Big|}\ipt{\vphantom{\big|}v_j, [k(x_i,x)]_{i=1}^n}\right]_{j=1}^n\).
 \end{enumerate}
-
 
 \begin{example}
     \label{eg:gaussian-kpca}

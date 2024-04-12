@@ -12,3 +12,4 @@ Then we compute the covariance matrix in the feature space as
 At this point, we need to find the eigenvalues \((\lambda_i)_{i=1}^n\) of \(C\).
 In \cref{sub:singular-value-decomposition}, we saw that \(AA^\top\) and \(A^\top A\) have the same eigenvalues.
 It follows that we can replace the outer product with an inner product and compute the same eigenvalues.
+To compute the eigenvectors, notice that the SVD equation \(C = USV^\top\) implies \(V = S^{-1} U^\top C\).
